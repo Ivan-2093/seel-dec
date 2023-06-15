@@ -14,7 +14,7 @@
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
-	<title>Login | Seel-Dec</title>
+	<title>Login | Seguridad electronica y Decoración</title>
 
 	<link href="<?php base_url() ?>plantilla/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
