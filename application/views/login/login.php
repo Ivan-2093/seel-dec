@@ -76,6 +76,7 @@
 	</main>
 
 	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
+	<script src="<?php base_url() ?>js/login/funciones.js"></script>
 
 </body>
 
