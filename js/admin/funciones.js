@@ -1,5 +1,7 @@
 /* variables */
 const comboPais = document.getElementById('comboPais');
+const comboDepto = document.getElementById('comboDepto');
+const comboMunicipio = document.getElementById('comboMunicipio');
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -26,7 +28,34 @@ comboPais.addEventListener("change", () => {
                 return response.json();
             })
             .then(function (json) {
-                console.table(json);
+                comboDepto.innerHTML = json['data_deptos'];
+            })
+            .catch(function (error) {
+               
+            });
+    }
+
+});
+
+comboDepto.addEventListener("change", () => {
+
+    if (comboDepto.value !== "") {
+        const data_dpto = new FormData();
+        data_dpto.append('id_depto', comboDepto.value);
+        fetch(`${base_url}UsuariosController/municipiosByIdDepto`, {
+            headers: {
+                "Content-type": "application/json",
+            },
+            mode: 'no-cors',
+            method: "POST",
+            body: data_dpto,
+        })
+            .then(function (response) {
+                // Transforma la respuesta. En este caso lo convierte a JSON
+                return response.json();
+            })
+            .then(function (json) {
+                comboMunicipio.innerHTML = json['data_municipios'];
             })
             .catch(function (error) {
                

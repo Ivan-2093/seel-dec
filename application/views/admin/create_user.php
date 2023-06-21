@@ -84,7 +84,7 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">DEPARTAMENTO</span>
-          <select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <select id="comboDepto" name="comboDepto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             <option value="">SELECCIONE UN DEPARTAMENTO</option>
           </select>
         </div>
@@ -92,7 +92,7 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">MUNICIPIO</span>
-          <select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <select id="comboMunicipio" name="comboMunicipio" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             <option value="">SELECCIONE UN MUNICIPIO</option>
           </select>
         </div>
