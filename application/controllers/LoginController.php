@@ -20,7 +20,7 @@ class LoginController extends CI_Controller
         //enviamos los datos de session al navegador
         $this->session->set_userdata($data);
 
-        print_r($this->session->userdata());
+        /* print_r($this->session->userdata()); */
         $this->load->view('login/login');
     }
 }
