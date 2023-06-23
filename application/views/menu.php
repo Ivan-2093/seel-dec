@@ -1,27 +1,27 @@
 <nav id="sidebar" class="sidebar js-sidebar">
-			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="<?=base_url()?>">
-					<span class="align-middle">SEEL-DEC</span>
-				</a>
+	<div class="sidebar-content js-simplebar">
+		<a class="sidebar-brand" href="<?= base_url() ?>">
+			<span class="align-middle">SEEL-DEC</span>
+		</a>
 
-				<ul class="sidebar-nav">
-					<!-- <li class="sidebar-header">
-						Pages
+		<ul class="sidebar-nav">
+			<!-- <li class="sidebar-header">
+						Pagess
 					</li> -->
 
-					<!-- <li class="sidebar-item">
+			<!-- <li class="sidebar-item">
 						<a class="sidebar-link" href="<?php base_url() ?>Usuarios">
 							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuarios</span>
 						</a>
 					</li> -->
 
-					<!-- <li class="sidebar-item">
+			<!-- <li class="sidebar-item">
 						<a class="sidebar-link" href="<?php base_url() ?>Cotizador">
 							<i class="align-middle" data-feather="truck"></i> <span class="align-middle">Cotizador</span>
 						</a>
 					</li> -->
 
-					<!-- <li class="sidebar-item">
+			<!-- <li class="sidebar-item">
 						<a class="sidebar-link" href="pages-sign-in.html">
 							<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
 						</a>
@@ -88,6 +88,6 @@
 							<i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
 						</a>
 					</li> -->
-				</ul>
-			</div>
-		</nav>
+		</ul>
+	</div>
+</nav>
