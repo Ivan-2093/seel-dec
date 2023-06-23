@@ -22,4 +22,8 @@ class UsuarioModel extends CI_Model
         $this->db->where('id_dpto',$id_dpto);
         return $this->db->get('municipios');
     }
+
+    public function getGeneros(){
+        return $this->db->get('generos');
+    }
 }
