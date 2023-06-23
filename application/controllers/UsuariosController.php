@@ -10,10 +10,12 @@ class UsuariosController extends CI_Controller
 
         $data_tipo_doc = $this->UsuarioModel->getTipoDocumentos()->result();
         $data_paises = $this->UsuarioModel->getPaises()->result();
+        $data_generos = $this->UsuarioModel->getGeneros()->result();
 
         $data = array(
             'data_tipo_doc' => $data_tipo_doc,
-            'data_paises' => $data_paises
+            'data_paises' => $data_paises,
+            'data_generos' => $data_generos
         );
 
         
