@@ -17,7 +17,8 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">NÚMERO DE DOCUMENTO</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
     </div>
@@ -25,25 +26,29 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">PRIMER NOMBRE</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">SEGUNDO NOMBRE</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">PRIMER APELLIDO</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">SEGUNDO APELLIDO</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
     </div>
@@ -51,19 +56,22 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">CORREO</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">TELEFONO</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">DIRECCIÓN</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
         </div>
       </div>
     </div>
@@ -71,7 +79,8 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">PAIS</span>
-          <select id="comboPais" name="comboPais" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <select id="comboPais" name="comboPais" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
             <option value="">SELECCIONE UN PAIS</option>
             <?php
             foreach ($data_paises as $pais) {
@@ -84,7 +93,8 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">DEPARTAMENTO</span>
-          <select id="comboDepto" name="comboDepto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <select id="comboDepto" name="comboDepto" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
             <option value="">SELECCIONE UN DEPARTAMENTO</option>
           </select>
         </div>
@@ -92,12 +102,26 @@
       <div class="col-auto">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">MUNICIPIO</span>
-          <select id="comboMunicipio" name="comboMunicipio" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <select id="comboMunicipio" name="comboMunicipio" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
             <option value="">SELECCIONE UN MUNICIPIO</option>
           </select>
         </div>
       </div>
-
+      <div class="col-auto">
+        <div class="input-group input-group-sm mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-sm">GENERO</span>
+          <select id="comboPais" name="comboPais" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
+            <option value="">SELECCIONE UN GENERO</option>
+            <?php
+            foreach ($data_generos as $genero) {
+              echo '<option value="' . $genero->id . '">' . $genero->genero . '</option>';
+            }
+            ?>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </div>
