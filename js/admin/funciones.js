@@ -15,7 +15,7 @@ comboPais.addEventListener("change", () => {
     if (comboPais.value !== "") {
         const data_pais = new FormData();
         data_pais.append('id_pais', comboPais.value);
-        fetch(`${base_url}UsuariosController/deptosByIdPais`, {
+        fetch(`${base_url}TercerosController/deptosByIdPais`, {
             headers: {
                 "Content-type": "application/json",
             },
@@ -42,7 +42,7 @@ comboDepto.addEventListener("change", () => {
     if (comboDepto.value !== "") {
         const data_dpto = new FormData();
         data_dpto.append('id_depto', comboDepto.value);
-        fetch(`${base_url}UsuariosController/municipiosByIdDepto`, {
+        fetch(`${base_url}TercerosController/municipiosByIdDepto`, {
             headers: {
                 "Content-type": "application/json",
             },
