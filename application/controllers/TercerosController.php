@@ -56,5 +56,26 @@ class TercerosController extends CI_Controller
         echo json_encode( $data_response );
     }
 
+    public function createTercero(){
+        $tipoDoc = $this->input->POST('tipoDoc');
+        $numeroDoc = $this->input->POST('numeroDoc');
+        $firtsName = $this->input->POST('firtsName');
+        $secondName = $this->input->POST('secondName');
+        $firstSurName = $this->input->POST('firstSurName');
+        $secondSurName = $this->input->POST('secondSurName');
+        $idGenero = $this->input->POST('idGenero');
+        $mail = $this->input->POST('mail');
+        $telefone_1 = $this->input->POST('telefone_1');
+        $telefone_2 = $this->input->POST('telefone_2');
+        $idPais = $this->input->POST('idPais');
+        $idDepto = $this->input->POST('idDepto');
+        $idMunicipio = $this->input->POST('idMunicipio');
+        $direccion = $this->input->POST('direccion');
+
+
+        print_r($this->input->POST());die;
+
+    }
+
 
 }
