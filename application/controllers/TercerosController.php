@@ -8,6 +8,11 @@ class TercerosController extends CI_Controller
     }
 
     public function index(){
+        $this->load->view('header');
+        $this->load->view('admin/index_user');
+    }
+
+    public function create(){
 
         $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
         $data_paises = $this->PaisesModel->getPaises()->result();
@@ -18,8 +23,6 @@ class TercerosController extends CI_Controller
             'data_paises' => $data_paises,
             'data_generos' => $data_generos
         );
-
-        
 
         $this->load->view('header');
         $this->load->view('admin/create_user',$data);
@@ -48,8 +51,6 @@ class TercerosController extends CI_Controller
         foreach ($data_municipios as $muinicipio){
             $select .= '<option value="'.$muinicipio->id.'">'.$muinicipio->municipio.'</option>';
         }
-
-
         $data_response = array(
             'data_municipios' => $select
         );
@@ -57,23 +58,66 @@ class TercerosController extends CI_Controller
     }
 
     public function createTercero(){
-        $tipoDoc = $this->input->POST('tipoDoc');
-        $numeroDoc = $this->input->POST('numeroDoc');
-        $firtsName = $this->input->POST('firtsName');
-        $secondName = $this->input->POST('secondName');
-        $firstSurName = $this->input->POST('firstSurName');
-        $secondSurName = $this->input->POST('secondSurName');
-        $idGenero = $this->input->POST('idGenero');
-        $mail = $this->input->POST('mail');
-        $telefone_1 = $this->input->POST('telefone_1');
-        $telefone_2 = $this->input->POST('telefone_2');
-        $idPais = $this->input->POST('idPais');
-        $idDepto = $this->input->POST('idDepto');
-        $idMunicipio = $this->input->POST('idMunicipio');
-        $direccion = $this->input->POST('direccion');
 
+        $array_inputs = array(
+            'id_tipo_doc' => $this->input->POST('inputTipoDoc'),
+            'nit' => $this->input->POST('inputNumeroDoc'),
+            'primer_nombre' => $this->input->POST('inputFirstName'),
+            'segundo_nombre' => $this->input->POST('inputSecondName'),
+            'primer_apellido' => $this->input->POST('inputFirstSurName'),
+            'segundo_apellido' => $this->input->POST('inputSecondSurName'),
+            'id_genero' => $this->input->POST('inputIdGenero'),
+            'email' => $this->input->POST('inputEmail'),
+            'telefono_1' => $this->input->POST('inputTelefono_1'),
+            'telefono_2' => $this->input->POST('inputTelefono_2'),
+            'id_municipio' => $this->input->POST('comboMunicipio'),
+            'direccion' => $this->input->POST('inputDireccion'),
+        );
+        if($this->TercerosModel->getTerceroByNumeroDoc($array_inputs['nit'])->num_rows() == 0){
+            if($this->TercerosModel->createTercero($array_inputs)){
+                $array_response = array(
+                    'response' => 'success'
+                );
+            }else {
+                $array_response = array(
+                    'response' => 'error'
+                );
+            }
+        }else {
+            $array_response = array(
+                'response' => 'warning'
+            );
+        }
+        
 
-        print_r($this->input->POST());die;
+        echo json_encode($array_response);
+
+    }
+
+    public function loadTerceros(){
+        $data_terceros = $this->TercerosModel->getTerceros();
+        /* print_r($data_terceros->result()); */
+        $tbody = '';
+        foreach($data_terceros->result() as $key){
+            $tbody.= '<tr>
+                <td>'.$key->descripcion.'</td>
+                <td>'.$key->nit.'</td>
+                <td>'.$key->primer_nombre .' '. $key->segundo_nombre .' '. $key->primer_apellido .' '. $key->segundo_apellido .'</td>
+                <td>'.$key->email.'</td>
+                <td>'.$key->telefono_1.'</td>
+                <td>'.$key->telefono_2.'</td>
+                <td>'.$key->genero.'</td>
+                <td>'.$key->municipio.'</td>
+                <td>'.$key->barrio.'</td>
+                <td>'.$key->direccion.'</td>
+            </tr>';
+        }
+
+        $array_response = array(
+            'tbody' => $tbody
+        );
+
+        echo json_encode($array_response);
 
     }
 
