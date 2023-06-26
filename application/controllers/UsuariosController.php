@@ -1,31 +1,19 @@
 <?php
-class TercerosController extends CI_Controller
+class UsuariosController extends CI_Controller
 {
     public function __construct() {      
         parent::__construct();
-        $this->load->model('TercerosModel');
-        $this->load->model('PaisesModel');     
+        $this->load->model('UsuariosModel');    
     }
 
     public function index(){
         $this->load->view('header');
-        $this->load->view('admin/index_user');
+        $this->load->view('usuarios/index');
     }
 
     public function create(){
-
-        $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
-        $data_paises = $this->PaisesModel->getPaises()->result();
-        $data_generos = $this->TercerosModel->getGeneros()->result();
-
-        $data = array(
-            'data_tipo_doc' => $data_tipo_doc,
-            'data_paises' => $data_paises,
-            'data_generos' => $data_generos
-        );
-
         $this->load->view('header');
-        $this->load->view('admin/create_user',$data);
+        $this->load->view('usuarios/create',$data);
     }
 
     public function deptosByIdPais(){
