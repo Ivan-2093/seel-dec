@@ -26,6 +26,11 @@ class TercerosModel extends CI_Model
         return $this->db->get('terceros');
     }
 
+    public function getTerceroById($id_tercero){
+        $this->db->where('id',$id_tercero);
+        return $this->db->get('terceros');
+    }
+
     public function createTercero($data_insert){
         return $this->db->insert('terceros',$data_insert);
     }

@@ -1,3 +1,5 @@
+const newspaperSpinning = [{ background: "yellow" }, { background: "none" }];
+const newspaperTiming = { duration: 500, iterations: 5 };
 /* SCRIPT PARA EVITAR QUE SE AGREGUEN CARACTERES ESPECIALES */
 function isOnlyText() {
 	var e = event || window.event;
@@ -54,3 +56,22 @@ function alertFieldsVoids(arrayInputs) {
 		}
 	});
 }
+
+
+function alertFieldsVoidsSelect(arrayInputs) {
+	arrayInputs.map(function (input) {
+		if ((input.value == "")) {
+			if (input.type == 'select-one') {
+				let idSelect = `select2-${input.id}-container`;
+				let selectSpan = document.getElementById(idSelect);
+				selectSpan.animate(newspaperSpinning, newspaperTiming);
+				selectSpan.focus();
+			} else {
+				input.animate(newspaperSpinning, newspaperTiming);
+				input.focus();
+				input.value = "";
+			}
+		}
+	});
+}
+
