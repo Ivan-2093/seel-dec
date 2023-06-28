@@ -7,7 +7,7 @@
                         <a class="nav-link active" aria-current="page" href="#">TERCEROS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url()?>TercerosController/create">CREAR TERCERO</a>
+                        <a class="nav-link" href="<?= base_url() ?>TercerosController/create">CREAR TERCERO</a>
                     </li>
                 </ul>
             </div>
@@ -37,13 +37,10 @@
         </table>
     </div>
 </div>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
 
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<script src="<?php base_url() ?>js/admin/list_terceros.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/admin/list_terceros.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/funciones_generales.js"></script>
 <?php $this->load->view('footer');

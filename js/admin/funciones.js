@@ -1,6 +1,4 @@
 const sidebar = document.getElementById("sidebar");
-const newspaperSpinning = [{ background: "yellow" }, { background: "none" }];
-const newspaperTiming = { duration: 500, iterations: 5 };
 const cargando = document.getElementById("cargando");
 
 /* FORMULARIO */
