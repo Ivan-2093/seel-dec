@@ -7,7 +7,7 @@ class SedesController extends CI_Controller {
 
     public function index() {
         $this->load->view('header');
-        $this->load->view('admin/index_user');
+        $this->load->view('footer');
     }
 
 }
