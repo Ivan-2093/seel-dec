@@ -14,6 +14,29 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <h5 class="card-header">LISTA DE USUARIOS</h5>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>USUARIO</th>
+                  <th>DOCUMENTO</th>
+                  <th>NOMBRE</th>
+                  <th>ESTADO</th>
+                  <th>OPCIONES</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";

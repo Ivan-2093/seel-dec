@@ -1,16 +1,27 @@
+const sidebar = document.getElementById('sidebar');
 document.addEventListener("DOMContentLoaded", () => {
     // codigo para ejecutar
-    sidebar.classList.add("collapsed"); //Ocultar el nav para cuando terminde de cargar
-
+    //Ocultar el nav para cuando terminde de cargar
+    if (screen.width < 1024) {
+        sidebar.classList.remove("collapsed");
+    }
     $('.js-select2-tercero').select2({
         placeholder: 'Seleccione un tercero',
-        width: 'resolve'
+        width: '100%',
+        clear: true
     });
     $('.js-select2-perfil').select2({
         placeholder: 'Seleccione un perfil',
-        width: 'resolve'
+        width: '100%',
+        clear: true
     });
 });
+
+/* window.addEventListener('resize', start);
+
+function start() {
+    location.reload();
+} */
 
 /* VARIABLES */
 
@@ -46,7 +57,7 @@ btnSubmitCreateUsuario.addEventListener('click', function () {
 
         Swal.fire({
             title: "Advertencia",
-            html: `Para cargar la información del mantenimiento, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
+            html: `Complete los siguientes campos vacios: <strong>${nameInput}</strong>`,
             icon: "warning",
             confirmButtonText: "Ok",
             willClose: () => {

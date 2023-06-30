@@ -164,7 +164,7 @@
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";
 </script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/terceros/funciones.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/terceros/create.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/check_inputs.js"></script>
 
 <?php $this->load->view('footer');
