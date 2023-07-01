@@ -21,7 +21,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 table-responsive">
-            <table class="table table-bordered">
+            <table id="tableUsuarios" class="table table-bordered">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -32,6 +32,7 @@
                   <th>OPCIONES</th>
                 </tr>
               </thead>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -41,5 +42,6 @@
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";
 </script>
-
+<script type="text/javascript" src="<?php echo base_url()?>js/usuarios/list.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>js/funciones_generales.js"></script>
 <?php $this->load->view('footer');

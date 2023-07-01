@@ -61,6 +61,7 @@ class UsuariosController extends CI_Controller
                     'contrasena' => $hash,
                     'estado_id' => 1,
                     'fecha_create' => date('Y-m-d H:i:s'),
+                    'perfil_id' => $inputIdPerfil
                 );
 
                 if ($this->UsuariosModel->insertUsuario($data_insert)) {
@@ -86,6 +87,31 @@ class UsuariosController extends CI_Controller
                 'message' => 'El Usuario que esta tratando de registrar no se encuentra en la base de datos como empleado',
             );
         }
+
+        echo json_encode($array_response);
+    }
+
+    public function loadUsuarios()
+    {
+        $data_usuarios = $this->UsuariosModel->getUsuarios();
+
+        $tbody = '';
+        if ($data_usuarios->num_rows() > 0) {
+            foreach ($data_usuarios->result() as $usuario) {
+                $tbody .= '<tr>
+                <td>' . $usuario->id_user . '</td>
+                <td>' . $usuario->usuario . '</td>
+                <td>' . $usuario->nit . '</td>
+                <td>' . $usuario->primer_nombre . ' ' . $usuario->segundo_nombre . ' ' . $usuario->primer_apellido . ' ' . $usuario->segundo_apellido . '</td>
+                <td>' . $usuario->estado . '</td>
+                <td></td>
+                </tr>';
+            }
+        }
+
+        $array_response = array(
+            'tbody' => $tbody
+        );
 
         echo json_encode($array_response);
     }

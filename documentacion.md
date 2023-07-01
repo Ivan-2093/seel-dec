@@ -17,6 +17,13 @@ CREATE TABLE perfiles (
     perfil varchar(50) not null UNIQUE
 );
 
+ALTER TABLE usuarios
+ADD perfil_id tinyint;
+
+
+ALTER TABLE usuarios
+ADD FOREIGN KEY (perfil_id) REFERENCES perfiles(id_perfil);
+
 
 select * from dbo.postv_menus
 
