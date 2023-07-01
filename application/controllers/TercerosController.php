@@ -9,7 +9,7 @@ class TercerosController extends CI_Controller
 
     public function index(){
         $this->load->view('header');
-        $this->load->view('admin/index_user');
+        $this->load->view('terceros/index');
     }
 
     public function create(){
@@ -25,7 +25,7 @@ class TercerosController extends CI_Controller
         );
 
         $this->load->view('header');
-        $this->load->view('admin/create_user',$data);
+        $this->load->view('terceros/create',$data);
     }
 
     public function deptosByIdPais(){

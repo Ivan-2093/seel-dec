@@ -1,105 +1,112 @@
 <?php
 class UsuariosController extends CI_Controller
 {
-    public function __construct() {      
+    public function __construct()
+    {
         parent::__construct();
-        $this->load->model('UsuariosModel');    
+        $this->load->model('UsuariosModel');
+        $this->load->model('EmpleadosModel');
     }
 
-    public function index(){
+    public function index()
+    {
         $this->load->view('header');
         $this->load->view('usuarios/index');
     }
 
-    public function create(){
+    public function create()
+    {
+        $data_perfiles = $this->UsuariosModel->getPerfiles()->result();
+        $data_empleados = $this->EmpleadosModel->getEmpleados()->result();
+
+        $data = array(
+            'data_empleados' => $data_empleados,
+            'data_perfiles' => $data_perfiles
+        );
+
         $this->load->view('header');
-        $this->load->view('usuarios/create',$data);
+        $this->load->view('usuarios/create', $data);
     }
 
-    public function deptosByIdPais(){
-        $id_pais = $this->input->POST('id_pais');
-        $data_deptos = $this->PaisesModel->getDeptoByIdPais($id_pais)->result();
-        $select = '<option value="">SELECCIONE UN DEPARTAMENTO</option>';
-        foreach ($data_deptos as $depto){
-            $select .= '<option value="'.$depto->id.'">'.$depto->departamento.'</option>';
-        }
+    public function createUsuario()
+    {
+        //Obtenemos los datos enviados a traves de POST
+        $inputIdEmpleado = $this->input->POST('inputIdEmpleado');
+        $inputIdPerfil = $this->input->POST('inputIdPerfil');
 
-
-        $data_response = array(
-            'data_deptos' => $select
+        //Creamos arrays para el where de las Query de CodeIgneier
+        $data_where_empleado = array(
+            'e.id' => $inputIdEmpleado
         );
-        echo json_encode( $data_response );
-    }
-
-
-    public function municipiosByIdDepto(){
-        $id_depto = $this->input->POST('id_depto');
-        $data_municipios = $this->PaisesModel->getMunicipioByIdDepto($id_depto)->result();
-        $select = '<option value="">SELECCIONE UN MUNICIPIO</option>';
-        foreach ($data_municipios as $muinicipio){
-            $select .= '<option value="'.$muinicipio->id.'">'.$muinicipio->municipio.'</option>';
-        }
-        $data_response = array(
-            'data_municipios' => $select
+        $data_where_usuario = array(
+            'empleado_id' => $inputIdEmpleado
         );
-        echo json_encode( $data_response );
-    }
 
-    public function createTercero(){
+        //Obtenemos información con el ID del empleado seleccionado para crear el usuario
+        $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_where_empleado);
+        //Validamos si el ID del empleado existe
+        if ($data_empleado->num_rows() > 0) {
+            //Obtenemos información de la tabla Usuarios con el ID del empleado
+            $data_usuario = $this->UsuariosModel->getUsuariosByIdEmpleado($data_where_usuario);
+            //Validamos si el ID del empleado no existe como Usuario
+            if ($data_usuario->num_rows() == 0) {
+                $empleado = $data_empleado->row(0);
+                $username = $empleado->primer_nombre[0] . $empleado->segundo_nombre[0] . $empleado->primer_apellido . $empleado->segundo_apellido[0];
+                $password = $empleado->nit;
+                $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $array_inputs = array(
-            'id_tipo_doc' => $this->input->POST('inputTipoDoc'),
-            'nit' => $this->input->POST('inputNumeroDoc'),
-            'primer_nombre' => $this->input->POST('inputFirstName'),
-            'segundo_nombre' => $this->input->POST('inputSecondName'),
-            'primer_apellido' => $this->input->POST('inputFirstSurName'),
-            'segundo_apellido' => $this->input->POST('inputSecondSurName'),
-            'id_genero' => $this->input->POST('inputIdGenero'),
-            'email' => $this->input->POST('inputEmail'),
-            'telefono_1' => $this->input->POST('inputTelefono_1'),
-            'telefono_2' => $this->input->POST('inputTelefono_2'),
-            'id_municipio' => $this->input->POST('comboMunicipio'),
-            'barrio' => $this->input->POST('inputBarrio'),
-            'direccion' => $this->input->POST('inputDireccion'),
-        );
-        if($this->TercerosModel->getTerceroByNumeroDoc($array_inputs['nit'])->num_rows() == 0){
-            if($this->TercerosModel->createTercero($array_inputs)){
-                $array_response = array(
-                    'response' => 'success'
+                $data_insert = array(
+                    'empleado_id' => $empleado->id_empleado,
+                    'usuario' => $username,
+                    'contrasena' => $hash,
+                    'estado_id' => 1,
+                    'fecha_create' => date('Y-m-d H:i:s'),
+                    'perfil_id' => $inputIdPerfil
                 );
-            }else {
+
+                if ($this->UsuariosModel->insertUsuario($data_insert)) {
+                    $array_response = array(
+                        'response' => 'success',
+                        'message' => 'Usuario registrado con exito',
+                    );
+                } else {
+                    $array_response = array(
+                        'response' => 'warning',
+                        'message' => 'Ha ocurrido un error, intente nuevamente',
+                    );
+                }
+            } else {
                 $array_response = array(
-                    'response' => 'error'
+                    'response' => 'warning',
+                    'message' => 'El Usuario que esta tratando de registrar ya se encuentra registrado',
                 );
             }
-        }else {
+        } else {
             $array_response = array(
-                'response' => 'warning'
+                'response' => 'error',
+                'message' => 'El Usuario que esta tratando de registrar no se encuentra en la base de datos como empleado',
             );
         }
-        
 
         echo json_encode($array_response);
-
     }
 
-    public function loadTerceros(){
-        $data_terceros = $this->TercerosModel->getTerceros();
-        /* print_r($data_terceros->result()); */
+    public function loadUsuarios()
+    {
+        $data_usuarios = $this->UsuariosModel->getUsuarios();
+
         $tbody = '';
-        foreach($data_terceros->result() as $key){
-            $tbody.= '<tr>
-                <td>'.$key->descripcion.'</td>
-                <td>'.$key->nit.'</td>
-                <td>'.$key->primer_nombre .' '. $key->segundo_nombre .' '. $key->primer_apellido .' '. $key->segundo_apellido .'</td>
-                <td>'.$key->email.'</td>
-                <td>'.$key->telefono_1.'</td>
-                <td>'.$key->telefono_2.'</td>
-                <td>'.$key->genero.'</td>
-                <td>'.$key->municipio.'</td>
-                <td>'.$key->barrio.'</td>
-                <td>'.$key->direccion.'</td>
-            </tr>';
+        if ($data_usuarios->num_rows() > 0) {
+            foreach ($data_usuarios->result() as $usuario) {
+                $tbody .= '<tr>
+                <td>' . $usuario->id_user . '</td>
+                <td>' . $usuario->usuario . '</td>
+                <td>' . $usuario->nit . '</td>
+                <td>' . $usuario->primer_nombre . ' ' . $usuario->segundo_nombre . ' ' . $usuario->primer_apellido . ' ' . $usuario->segundo_apellido . '</td>
+                <td>' . $usuario->estado . '</td>
+                <td></td>
+                </tr>';
+            }
         }
 
         $array_response = array(
@@ -107,8 +114,5 @@ class UsuariosController extends CI_Controller
         );
 
         echo json_encode($array_response);
-
     }
-
-
 }

@@ -23,7 +23,7 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
 <script src="<?= base_url() ?>plantilla/js/app.js"></script>
 <script>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		const menus = $(".sidebar-item");
 		let bandera = 0;
 		const menuActivo = $(".sidebar-item .sidebar-link").map(function() {
@@ -33,7 +33,7 @@
 			bandera++;
 		}).get();
 		menus[menuActivo].classList.add('active');
-	});
+	}); */
 </script>
 
 </body>
