@@ -25,4 +25,9 @@ class UsuariosModel extends CI_Model
     {
         return $this->db->insert('usuarios', $data_insert);
     }
+
+    public function getUserByNameUser($data_where)
+    {
+        return $this->db->get_where('usuarios', $data_where);
+    }
 }
