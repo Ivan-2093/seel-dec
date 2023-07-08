@@ -15,7 +15,6 @@ class HomeController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            print_r($this->session->userdata());
             $this->load->view('header');
             $this->load->view('dashboard');
         }

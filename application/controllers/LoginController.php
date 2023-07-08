@@ -6,6 +6,7 @@ class LoginController extends CI_Controller
     {
         parent::__construct(); //invoca al constructor de la clase superior
         $this->load->model('UsuariosModel'); //carga un modelo con el nombre de Usuarios“  
+        $this->load->model('EmpleadosModel');
     }
     public function index()
     {        /* print_r($this->session->userdata()); */
@@ -37,10 +38,15 @@ class LoginController extends CI_Controller
 
                 if (password_verify($password, $data_user->row(0)->contrasena)) {
                     /* print_r($data_user->result()); */
+                    $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);
+                    $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_whereEmp);
+
+
                     $data = array(
                         'user' => $data_user->row(0)->usuario,
                         'perfil' => $data_user->row(0)->perfil_id,
                         'id_user' => $data_user->row(0)->id_user,
+                        'img_user' => $data_empleado->row(0)->foto_perfil,
                         'login' => true
                     );
                     //enviamos los datos de session al navegador
@@ -72,5 +78,9 @@ class LoginController extends CI_Controller
                 echo json_encode($array_response);
             }
         }
+    }
+
+    public function logOut()
+    {
     }
 }

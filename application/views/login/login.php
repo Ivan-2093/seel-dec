@@ -23,6 +23,13 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-expand navbar-light navbar-bg" style="background-color: #7fb417 ;">
+		<div class="navbar-collapse collapse">
+			<ul class="navbar-nav navbar-align">
+
+			</ul>
+		</div>
+	</nav>
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
@@ -54,29 +61,37 @@
 												<a href="">Olvido su contraseña</a>
 											</small>
 										</div>
-										<div>
-											<label class="form-check">
-												<!-- <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-												<span class="form-check-label">
-													Remember me next time
-												</span> -->
-											</label>
-										</div>
 										<div class="text-center mt-3">
 											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" class="btn btn-lg btn-primary">Iniciar sesión</button>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-	<script> const base_url = '<?php echo base_url() ?>'; </script>
+	<footer class="footer" style="background-color: #cc006f;">
+		<div class="container-fluid">
+			<div class="row text-muted">
+				<div class="col-6 text-start">
+					<p class="mb-0">
+						<strong style="color:white;">Powered by: Sergio Ivan Galvis Esteban & Jhon Jairo Silva Fuentes Copyright © 2023</strong>
+					</p>
+				</div>
+				<div class="col-6 text-end">
+					<ul class="list-inline">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script>
+		const base_url = '<?php echo base_url() ?>';
+	</script>
 	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
 	<script src="<?php base_url() ?>js/login/funciones.js"></script>
 	<script src="<?php base_url() ?>js/check_inputs.js"></script>
