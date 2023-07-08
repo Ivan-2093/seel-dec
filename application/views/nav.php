@@ -5,7 +5,7 @@
 
 	<div class="navbar-collapse collapse">
 		<ul class="navbar-nav navbar-align">
-			<li class="nav-item dropdown">
+			<!-- <li class="nav-item dropdown">
 				<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
 					<div class="position-relative">
 						<i class="align-middle" data-feather="bell"></i>
@@ -136,7 +136,7 @@
 						<a href="#" class="text-muted">Show all messages</a>
 					</div>
 				</div>
-			</li>
+			</li> -->
 			<li class="nav-item dropdown">
 				<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
 					<i class="align-middle" data-feather="settings"></i>
@@ -145,9 +145,9 @@
 				<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
 					<?php
 					if ($this->session->userdata('img_user')) {
-						echo '<img src="'.base_url().'public/empleados/'.$this->session->userdata('img_user').'" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>';
+						echo '<img src="'.base_url().'public/empleados/'.$this->session->userdata('img_user').'" class="avatar img-fluid rounded me-1" alt="" /> <span class="text-dark">'.$this->session->userdata('nombres').'</span>';
 					} else {
-						echo '<img src="'.base_url().'plantilla/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>';
+						echo '<img src="'.base_url().'plantilla/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="" /> <span class="text-dark">'.$this->session->userdata('nombres').'</span>';
 					}
 					?>
 					

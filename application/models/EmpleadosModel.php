@@ -21,7 +21,7 @@ class EmpleadosModel extends CI_Model
 
     public function getEmpleadosByIdEmpleado($data_where)
     {
-        $this->db->select('*, e.id as id_empleado, e.email as correo');
+        $this->db->select('*, e.id as id_empleado, e.email as correo, CONCAT(t.primer_nombre, " ",t.segundo_nombre, " ", t.primer_apellido," ", t.segundo_apellido) As nombres');
         $this->db->from('empleados as e');
         $this->db->join('terceros as t', 'e.id_tercero = t.id', 'left');
         $this->db->join('cargo_empleados as c', 'e.id_cargo = c.id');
