@@ -48,6 +48,7 @@ class LoginController extends CI_Controller
                         'perfil' => $data_user->row(0)->perfil_id,
                         'id_user' => $data_user->row(0)->id_user,
                         'img_user' => $data_empleado->row(0)->foto_perfil,
+                        'change_password' => $password == $data_empleado->row(0)->nit ? 1 : 0,
                         'login' => true
                     );
                     //enviamos los datos de session al navegador

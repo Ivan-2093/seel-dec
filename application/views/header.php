@@ -32,7 +32,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- Datatable.net -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
+	<?php $this->load->helper('estilos_helper'); ?>
 
 </head>
 
@@ -46,3 +46,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 			<main class="content">
 				<div class="container-fluid p-0">
+					<div class="loader" id="cargando"></div>

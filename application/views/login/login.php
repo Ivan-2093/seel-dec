@@ -32,6 +32,7 @@
 	</nav>
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
+		<div class="loader" id="cargando"></div>
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
 					<div class="d-table-cell align-middle">
@@ -95,7 +96,6 @@
 	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
 	<script src="<?php base_url() ?>js/login/funciones.js"></script>
 	<script src="<?php base_url() ?>js/check_inputs.js"></script>
-
 </body>
 
 </html>

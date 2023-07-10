@@ -56,10 +56,13 @@
 </div>
 
 <script type="text/javascript">
-  const base_url = "<?php echo base_url() ?>";
+    const base_url = "<?php echo base_url() ?>";
+    const sidebar = document.getElementById("sidebar");
+    const cargando = document.getElementById("cargando");
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/usuarios/create.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/check_inputs.js"></script>
+<script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 
 
 <?php $this->load->view('footer');

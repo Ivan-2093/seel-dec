@@ -10,18 +10,18 @@
 					</li> -->
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="<?php base_url() ?>UsuariosController">
+				<a class="sidebar-link" href="<?php echo base_url() ?>UsuariosController">
 					<i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuarios</span>
 				</a>
 			</li>
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="<?php base_url() ?>TercerosController">
+				<a class="sidebar-link" href="<?php echo base_url() ?>TercerosController">
 					<i class="align-middle" data-feather="users"></i> <span class="align-middle">Terceros</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="<?php base_url() ?>EmpleadosController">
+				<a class="sidebar-link" href="<?php echo base_url() ?>EmpleadosController">
 					<i class="align-middle" data-feather="users"></i> <span class="align-middle">Empleados</span>
 				</a>
 			</li>

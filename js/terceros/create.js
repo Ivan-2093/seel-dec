@@ -1,6 +1,3 @@
-const sidebar = document.getElementById("sidebar");
-const cargando = document.getElementById("cargando");
-
 /* FORMULARIO */
 const btnSubmitCreateTercero = document.getElementById("btnSubmitCreateTercero");
 const formTercero = document.getElementById("formCreateTercero");
@@ -121,6 +118,7 @@ btnSubmitCreateTercero.addEventListener("click", function () {
 });
 
 function createTercero(data_insert) {
+	showLoading(cargando);
 	fetch(`${base_url}TercerosController/createTercero`, {
 		headers: {
 			"Content-type": "application/json",
@@ -171,9 +169,21 @@ function createTercero(data_insert) {
 					},
 				});
 			}
+			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-
+			Swal.fire({
+                title: "ERROR",
+                html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+                icon: "error",
+                confirmButtonText: "Ok",
+                allowOutsideClick: false,
+                showCloseButton: true,
+                willClose: () => {
+                    location.reload();
+                },
+            });
+			hiddenLoading(cargando);
 		});
 }
 

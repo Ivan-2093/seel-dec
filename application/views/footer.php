@@ -17,11 +17,12 @@
 		</div>
 	</div>
 </footer>
+
 </div>
 <script src="<?= base_url() ?>plantilla/js/app.js"></script>
 <script>
 	$(document).ready(function() {
-		const menus = $(".sidebar-item");
+		/* const menus = $(".sidebar-item");
 		let bandera = 0;
 		const menuActivo = $(".sidebar-item .sidebar-link").map(function() {
 			if (this.href === window.location.href) {
@@ -29,7 +30,7 @@
 			}
 			bandera++;
 		}).get();
-		menus[menuActivo].classList.add('active');
+		menus[menuActivo].classList.add('active'); */
 
 
 		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
@@ -39,7 +40,6 @@
 
 	});
 </script>
-
 </body>
 
 </html>

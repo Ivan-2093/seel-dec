@@ -2,6 +2,7 @@ const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 const formUser = document.getElementById("formUser");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+const cargando = document.getElementById("cargando");
 
 const arrayInputs = [username, password];
 
@@ -47,17 +48,32 @@ function login(data_formUser) {
 			return response.json();
 		})
 		.then(function (json) {
-            
-			if (json['response'] === 'warning') {
+			if (json["response"] === "warning") {
 				Swal.fire({
 					title: "Advertencia",
-					html: `<strong>${json['sms']}</strong>`,
+					html: `<strong>${json["sms"]}</strong>`,
 					icon: "warning",
 					confirmButtonText: "Ok",
 				});
-			}else if (json['response'] === 'success'){
-                location.href = `${base_url}${json['url']}`;
-            }
+			} else if (json["response"] === "success") {
+				location.href = `${base_url}${json["url"]}`;
+			}
 		})
-		.catch(function (error) {});
+		.catch(function (error) {
+			Swal.fire({
+				title: "ERROR",
+				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+				icon: "error",
+				confirmButtonText: "Ok",
+				allowOutsideClick: false,
+				showCloseButton: true,
+				willClose: () => {
+					location.reload();
+				},
+			});
+		});
 }
+
+username.addEventListener("input", function (event) {
+	username.value = username.value.toUpperCase();
+});
