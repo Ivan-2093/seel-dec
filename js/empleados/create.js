@@ -1,43 +1,46 @@
-const formEmpleado = document.getElementById('formCreateEmpleado');
-const inputIdTercero = document.getElementById('inputIdTercero');
-const inputIdCargoEmp = document.getElementById('inputIdCargoEmp');
-const inputIdSedeEmp = document.getElementById('inputIdSedeEmp');
-const inputFileImgEmp = document.getElementById('inputFileImgEmp');
-const inputEmailEmp = document.getElementById('inputEmailEmp');
+const formEmpleado = document.getElementById("formCreateEmpleado");
+const inputIdTercero = document.getElementById("inputIdTercero");
+const inputIdCargoEmp = document.getElementById("inputIdCargoEmp");
+const inputIdSedeEmp = document.getElementById("inputIdSedeEmp");
+const inputFileImgEmp = document.getElementById("inputFileImgEmp");
+const inputEmailEmp = document.getElementById("inputEmailEmp");
 
 /* ARRAY DE INPUTS */
 const arrayInputs = [
 	inputIdTercero,
 	inputIdCargoEmp,
 	inputIdSedeEmp,
-	inputFileImgEmp
+	inputFileImgEmp,
 ];
 
-const btnSubmitCreateEmpleado = document.getElementById('btnSubmitCreateEmpleado');
+const btnSubmitCreateEmpleado = document.getElementById(
+	"btnSubmitCreateEmpleado"
+);
 
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
 	sidebar.classList.add("collapsed"); //Ocultar el nav para cuando terminde de cargar
 
-	$('.js-select2-tercero').select2({
-		placeholder: 'Seleccione un tercero',
-		width: 'resolve'
+	$(".js-select2-tercero").select2({
+		placeholder: "Seleccione un tercero",
+		width: "resolve",
 	});
-	$('.js-select2-cargo').select2({
-		placeholder: 'Seleccione un cargo',
-		width: 'resolve'
+	$(".js-select2-cargo").select2({
+		placeholder: "Seleccione un cargo",
+		width: "resolve",
 	});
-	$('.js-select2-sede').select2({
-		placeholder: 'Seleccione una sede',
-		width: 'resolve'
+	$(".js-select2-sede").select2({
+		placeholder: "Seleccione una sede",
+		width: "resolve",
 	});
 });
-
 
 // Obtener referencia al input y a la imagen
 
 const seleccionArchivos = document.getElementById("inputFileImgEmp");
-const imagenPrevisualizacion = document.getElementById("imagenPrevisualizacion");
+const imagenPrevisualizacion = document.getElementById(
+	"imagenPrevisualizacion"
+);
 
 // Escuchar cuando cambie
 seleccionArchivos.addEventListener("change", () => {
@@ -56,9 +59,7 @@ seleccionArchivos.addEventListener("change", () => {
 	imagenPrevisualizacion.src = objectURL;
 });
 
-
 btnSubmitCreateEmpleado.addEventListener("click", function () {
-
 	const inputsVoid = arrayInputs.filter(function (input) {
 		if (input.tagName != "TEXTAREA") {
 			return input.value == "";
@@ -84,12 +85,10 @@ btnSubmitCreateEmpleado.addEventListener("click", function () {
 			},
 		});
 	}
-
-
 });
 
 function createEmpleado(data_formEmpleado) {
-
+	showLoading(cargando);
 	fetch(`${base_url}EmpleadosController/createEmpleado`, {
 		headers: {
 			"Content-type": "application/json",
@@ -103,8 +102,7 @@ function createEmpleado(data_formEmpleado) {
 			return response.json();
 		})
 		.then(function (json) {
-
-			if (json['response'] === "success") {
+			if (json["response"] === "success") {
 				Swal.fire({
 					title: "Exito",
 					html: `Se ha registrado el empleado exitosamente!`,
@@ -116,29 +114,39 @@ function createEmpleado(data_formEmpleado) {
 						location.reload();
 					},
 				});
-			} else if (json['response'] === "warning") {
+			} else if (json["response"] === "warning") {
 				Swal.fire({
 					title: "Advertencia",
-					html: `${json['sms']}`,
+					html: `${json["sms"]}`,
 					icon: "warning",
 					confirmButtonText: "Ok",
 					allowOutsideClick: false,
 					showCloseButton: true,
 				});
-			} else if (json['response'] === "error") {
+			} else if (json["response"] === "error") {
 				Swal.fire({
 					title: "Error",
-					html: `${json['sms']}`,
+					html: `${json["sms"]}`,
 					icon: "error",
 					confirmButtonText: "Ok",
 					allowOutsideClick: false,
 					showCloseButton: true,
 				});
 			}
+			hiddenLoading(cargando);
 		})
-		.catch(function (error) { });
+		.catch(function (error) {
+			Swal.fire({
+				title: "Error",
+				html: `${error}`,
+				icon: "error",
+				confirmButtonText: "Ok",
+				allowOutsideClick: false,
+				showCloseButton: true,
+			});
+			hiddenLoading(cargando);
+		});
 }
-
 
 inputEmailEmp.addEventListener("blur", function () {
 	validarEmail(inputEmailEmp);

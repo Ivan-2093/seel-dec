@@ -1,4 +1,3 @@
-const sidebar = document.getElementById('sidebar');
 document.addEventListener("DOMContentLoaded", () => {
     // codigo para ejecutar
     //Ocultar el nav para cuando terminde de cargar
@@ -68,6 +67,7 @@ btnSubmitCreateUsuario.addEventListener('click', function () {
 });
 
 function createUsuario(data_insert) {
+    showLoading(cargando);
     fetch(`${base_url}UsuariosController/createUsuario`, {
         headers: {
             "Content-type": "application/json",
@@ -118,6 +118,7 @@ function createUsuario(data_insert) {
                     },
                 });
             }
+            hiddenLoading(cargando);
         })
         .catch(function (error) {
             Swal.fire({
@@ -131,6 +132,7 @@ function createUsuario(data_insert) {
                     location.reload();
                 },
             });
+            hiddenLoading(cargando);
         });
 }
 
