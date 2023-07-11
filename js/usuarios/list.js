@@ -1,4 +1,4 @@
-const sidebar = document.getElementById('sidebar');
+
 document.addEventListener("DOMContentLoaded", () => {
     //Ocultar el nav para cuando terminde de cargar
     if (screen.width < 1024) {
@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const tableUsuarios = document.getElementById('tableUsuarios');
 
 function loadUsuarios() {
+    showLoading(cargando);
     fetch(`${base_url}UsuariosController/loadUsuarios`, {
         headers: {
             "Content-type": "application/json",
@@ -28,6 +29,7 @@ function loadUsuarios() {
         .then(function (json) {
             tableUsuarios.tBodies[0].innerHTML = json['tbody'];
             loadDatatable(tableUsuarios.id);
+            hiddenLoading(cargando);
         })
         .catch(function (error) {
             Swal.fire({
@@ -41,5 +43,6 @@ function loadUsuarios() {
                     location.reload();
                 },
             });
+            hiddenLoading(cargando);
         });
 }

@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputEmailEmp">Correo Corporativo:</label>
-                            <input id="inputEmailEmp" name="inputEmailEmp" type="mail" class="form-control" >
+                            <input id="inputEmailEmp" name="inputEmailEmp" type="mail" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                             <label for="inputFileImgEmp">PREVIA:</label>
-                            <img src="<?=base_url()?>plantilla/img/icons/logo-seeldec.jpeg" alt="User Avatar" class="img_prev" id="imagenPrevisualizacion" width="200px">
+                            <img src="<?= base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" alt="User Avatar" class="img_prev" id="imagenPrevisualizacion" width="200px">
 
 
                         </div>
@@ -89,7 +89,10 @@
 
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
+    const sidebar = document.getElementById("sidebar");
+    const cargando = document.getElementById("cargando");
 </script>
 <script src="<?php echo base_url() ?>js/empleados/create.js"></script>
 <script src="<?php echo base_url() ?>js/check_inputs.js"></script>
+<script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 <?php $this->load->view('footer');

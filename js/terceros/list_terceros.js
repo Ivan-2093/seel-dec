@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerceros() {
+	showLoading(cargando);
 	fetch(`${base_url}TercerosController/loadTerceros`, {
 		headers: {
 			"Content-type": "application/json",
@@ -21,8 +22,22 @@ function loadTerceros() {
 		.then(function (json) {
 			tableTerceros.tBodies[0].innerHTML = json['tbody'];
             loadDatatable(tableTerceros.id);
+			hiddenLoading(cargando);
 		})
-		.catch(function (error) {});
+		.catch(function (error) {
+			Swal.fire({
+                title: "ERROR",
+                html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+                icon: "error",
+                confirmButtonText: "Ok",
+                allowOutsideClick: false,
+                showCloseButton: true,
+                willClose: () => {
+                    location.reload();
+                },
+            });
+			hiddenLoading(cargando);
+		});
 }
 
 

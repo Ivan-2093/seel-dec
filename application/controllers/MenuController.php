@@ -9,9 +9,12 @@ class MenuController extends CI_Controller
 
     public function index()
     {
-
-        $this->load->view('header');
-        $this->load->view('menu/menu');
-        
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+            $this->load->view('header');
+            $this->load->view('menu/menu');
+        }
     }
 }
