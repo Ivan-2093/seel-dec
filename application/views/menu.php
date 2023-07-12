@@ -1,4 +1,4 @@
-<div class="app-sidebar colored">
+<!-- <div class="app-sidebar colored">
     <div class="sidebar-header">
         <a class="header-brand" href="../index.html">
             <div class="logo-img">
@@ -145,6 +145,26 @@
                 <div class="nav-item">
                     <a href="javascript:void(0)"><i class="ik ik-help-circle"></i><span>Submit Issue</span></a>
                 </div>
+            </nav>
+        </div>
+    </div>
+</div> -->
+<div class="app-sidebar colored">
+    <div class="sidebar-header">
+        <a class="header-brand" href="">
+            <div class="logo-img">
+                <img width="30px" src="<?php echo base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" class="header-brand-img" alt="lavalite">
+            </div>
+            <span class="text">SEELDEC</span>
+        </a>
+        <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
+        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+    </div>
+
+    <div class="sidebar-content">
+        <div class="nav-container">
+            <nav id="main-menu-navigation" class="navigation-main">
+                <?php echo $data_menus ?>
             </nav>
         </div>
     </div>
