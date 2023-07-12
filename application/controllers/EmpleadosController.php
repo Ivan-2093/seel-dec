@@ -135,8 +135,6 @@ class EmpleadosController extends CI_Controller
                             'email' => $inputEmailEmp
                         );
 
-                        /* var_dump($this->EmpleadosModel->createEmpleado($data_insert));  die; */
-
                         if ($this->EmpleadosModel->createEmpleado($data_insert)) {
                             $array_response = array(
                                 'response' => 'success',

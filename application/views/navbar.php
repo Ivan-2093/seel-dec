@@ -55,7 +55,7 @@
 	</div>
 	<button type="button" class="nav-link ml-10" id="apps_modal_btn" data-toggle="modal" data-target="#appsModal"><i class="ik ik-grid"></i></button>
 	<div class="dropdown">
-		<a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?php echo base_url() ?>plantilla/img/<?php echo $this->session->userdata('img_user') ?>" alt=""></a>
+		<a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?php echo base_url() ?>media/imagenes/empleados/<?php echo $this->session->userdata('img_user') ?>" alt=""></a>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 			<!-- <a class="dropdown-item" href="profile.html"><i class="ik ik-user dropdown-icon"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="ik ik-settings dropdown-icon"></i> Settings</a>
