@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'seeldec',
+	'hostname' => '148.113.168.24',
+	'username' => 'aftersal_root',
+	'password' => '^+bu8g4Vs;GN',
+	'database' => 'aftersal_seeldec',
 	'dbdriver' => 'mysqli',
 	'port' => 3306,
 	'dbprefix' => '',
