@@ -89,8 +89,6 @@
 
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
-    const sidebar = document.getElementById("sidebar");
-    const cargando = document.getElementById("cargando");
 </script>
 <script src="<?php echo base_url() ?>js/empleados/create.js"></script>
 <script src="<?php echo base_url() ?>js/check_inputs.js"></script>

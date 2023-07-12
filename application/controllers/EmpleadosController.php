@@ -9,6 +9,8 @@ class EmpleadosController extends CI_Controller
         $this->load->model('EmpleadosModel');
         $this->load->model('SedesModel');
         $this->load->helper('deleteFile_helper');
+        $this->load->model('MenusModel');
+        $this->load->helper('menu_helper');
     }
 
     public function index()
@@ -17,7 +19,23 @@ class EmpleadosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            $this->load->view('header');
+            $perfil = $this->session->userdata('perfil');
+
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+
+            $html_menus = createMenuByPerfil($data_menus);
+
+
+            $data_vista = array(
+                'data_menus' => $html_menus
+            );
+
+
+            $this->load->view('header', $data_vista);
             $this->load->view('empleados/index');
         }
     }
@@ -40,7 +58,7 @@ class EmpleadosController extends CI_Controller
                 <td class="text-center">' . $row->sede . '</td>
                 <td class="text-center">' . $row->cargo . '</td>             
                 <td class="text-center">' . $row->correo . '</td>
-                <td class="text-center"><img width="200px" src="' . base_url() . 'public/empleados/' . $row->foto_perfil . '"></td>
+                <td class="text-center"><img width="200px" src="' . base_url() . 'media/imagenes/empleados/' . $row->foto_perfil . '"></td>
                 </tr>';
                 }
             }
@@ -59,18 +77,31 @@ class EmpleadosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
+
+            $perfil = $this->session->userdata('perfil');
+
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+
+            $html_menus = createMenuByPerfil($data_menus);
+
             $data_terceros = $this->TercerosModel->getTerceros()->result();
             $data_cargos = $this->EmpleadosModel->getCargoEmpleados()->result();
             $data_sedes = $this->SedesModel->getSedes()->result();
 
-            $data = array(
+            $data_vista = array(
+                'data_menus' => $html_menus,
                 'data_terceros' => $data_terceros,
                 'data_cargos' => $data_cargos,
                 'data_sedes' => $data_sedes,
             );
 
-            $this->load->view('header');
-            $this->load->view('empleados/create', $data);
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('empleados/create');
         }
     }
 

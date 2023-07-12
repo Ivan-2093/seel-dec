@@ -40,8 +40,6 @@
 
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
-    const sidebar = document.getElementById("sidebar");
-    const cargando = document.getElementById("cargando");
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/terceros/list_terceros.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/funciones_generales.js"></script>

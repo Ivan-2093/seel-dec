@@ -1,3 +1,20 @@
+const wrapper = document.getElementsByClassName("wrapper");
+const sidebar_header = document.getElementsByClassName("sidebar-header");
+const cargando = document.getElementById("cargando");
+
+
+document.addEventListener("DOMContentLoaded", () => {
+	//Ocultar el menu para cuando terminde de cargar
+	
+	/* 	wrapper[0].classList.add("nav-collapsed");
+		wrapper[0].classList.add("menu-collapsed"); 
+		sidebar_header[0].children[1].children[0].classList.remove('ik-toggle-right');
+		sidebar_header[0].children[1].children[0].classList.add('ik-toggle-left');
+		sidebar_header[0].children[1].children[0].setAttribute('data-toggle','collapsed')  */
+    
+
+});
+
 function loadDatatable(id) {
 	$(`#${id}`).DataTable({
 		paging: true,
