@@ -16,7 +16,8 @@ class HomeController extends CI_Controller
             header("Location: " . base_url());
         } else {
             $this->load->view('header');
-            $this->load->view('dashboard');
+            /* $this->load->view('dashboard'); */
+            $this->load->view('pages/ui/icons');
         }
     }
 }
