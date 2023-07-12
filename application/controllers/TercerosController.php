@@ -1,18 +1,21 @@
 <?php
 class TercerosController extends CI_Controller
 {
-    public function __construct() {      
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('TercerosModel');
-        $this->load->model('PaisesModel');     
+        $this->load->model('PaisesModel');
     }
 
-    public function index(){
+    public function index()
+    {
         $this->load->view('header');
         $this->load->view('admin/index_user');
     }
 
-    public function create(){
+    public function create()
+    {
 
         $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
         $data_paises = $this->PaisesModel->getPaises()->result();
@@ -25,39 +28,42 @@ class TercerosController extends CI_Controller
         );
 
         $this->load->view('header');
-        $this->load->view('admin/create_user',$data);
+        $this->load->view('admin/create_user', $data);
     }
 
-    public function deptosByIdPais(){
+    public function deptosByIdPais()
+    {
         $id_pais = $this->input->POST('id_pais');
         $data_deptos = $this->PaisesModel->getDeptoByIdPais($id_pais)->result();
         $select = '<option value="">SELECCIONE UN DEPARTAMENTO</option>';
-        foreach ($data_deptos as $depto){
-            $select .= '<option value="'.$depto->id.'">'.$depto->departamento.'</option>';
+        foreach ($data_deptos as $depto) {
+            $select .= '<option value="' . $depto->id . '">' . $depto->departamento . '</option>';
         }
 
 
         $data_response = array(
             'data_deptos' => $select
         );
-        echo json_encode( $data_response );
+        echo json_encode($data_response);
     }
 
 
-    public function municipiosByIdDepto(){
+    public function municipiosByIdDepto()
+    {
         $id_depto = $this->input->POST('id_depto');
         $data_municipios = $this->PaisesModel->getMunicipioByIdDepto($id_depto)->result();
         $select = '<option value="">SELECCIONE UN MUNICIPIO</option>';
-        foreach ($data_municipios as $muinicipio){
-            $select .= '<option value="'.$muinicipio->id.'">'.$muinicipio->municipio.'</option>';
+        foreach ($data_municipios as $muinicipio) {
+            $select .= '<option value="' . $muinicipio->id . '">' . $muinicipio->municipio . '</option>';
         }
         $data_response = array(
             'data_municipios' => $select
         );
-        echo json_encode( $data_response );
+        echo json_encode($data_response);
     }
 
-    public function createTercero(){
+    public function createTercero()
+    {
 
         $array_inputs = array(
             'id_tipo_doc' => $this->input->POST('inputTipoDoc'),
@@ -74,43 +80,46 @@ class TercerosController extends CI_Controller
             'barrio' => $this->input->POST('inputBarrio'),
             'direccion' => $this->input->POST('inputDireccion'),
         );
-        if($this->TercerosModel->getTerceroByNumeroDoc($array_inputs['nit'])->num_rows() == 0){
-            if($this->TercerosModel->createTercero($array_inputs)){
+        if ($this->TercerosModel->getTerceroByNumeroDoc($array_inputs['nit'])->num_rows() == 0) {
+            if ($this->TercerosModel->createTercero($array_inputs)) {
                 $array_response = array(
                     'response' => 'success'
                 );
-            }else {
+            } else {
                 $array_response = array(
                     'response' => 'error'
                 );
             }
-        }else {
+        } else {
             $array_response = array(
                 'response' => 'warning'
             );
         }
-        
+
 
         echo json_encode($array_response);
-
     }
 
-    public function loadTerceros(){
+    public function loadTerceros()
+    {
         $data_terceros = $this->TercerosModel->getTerceros();
         /* print_r($data_terceros->result()); */
         $tbody = '';
-        foreach($data_terceros->result() as $key){
-            $tbody.= '<tr>
-                <td>'.$key->descripcion.'</td>
-                <td>'.$key->nit.'</td>
-                <td>'.$key->primer_nombre .' '. $key->segundo_nombre .' '. $key->primer_apellido .' '. $key->segundo_apellido .'</td>
-                <td>'.$key->email.'</td>
-                <td>'.$key->telefono_1.'</td>
-                <td>'.$key->telefono_2.'</td>
-                <td>'.$key->genero.'</td>
-                <td>'.$key->municipio.'</td>
-                <td>'.$key->barrio.'</td>
-                <td>'.$key->direccion.'</td>
+        foreach ($data_terceros->result() as $key) {
+            $tbody .= '<tr>
+                <td>' . $key->descripcion . '</td>
+                <td>' . $key->nit . '</td>
+                <td>' . $key->primer_nombre . ' ' . $key->segundo_nombre . ' ' . $key->primer_apellido . ' ' . $key->segundo_apellido . '</td>
+                <td>' . $key->email . '</td>
+                <td>' . $key->telefono_1 . '</td>
+                <td>' . $key->telefono_2 . '</td>
+                <td>' . $key->genero . '</td>
+                <td>' . $key->municipio . '</td>
+                <td>' . $key->barrio . '</td>
+                <td>' . $key->direccion . '</td>
+                <td><button type="button"class="btn btn-primary">
+                <i class="fa-solid fa-pen-to-square"></i>
+                </button></td>
             </tr>';
         }
 
@@ -119,8 +128,5 @@ class TercerosController extends CI_Controller
         );
 
         echo json_encode($array_response);
-
     }
-
-
 }

@@ -31,6 +31,7 @@
                     <th>MUNICIPIO</th>
                     <th>BARRIO</th>
                     <th>DIRECCION</th>
+                    <th>EDITAR</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -43,4 +44,5 @@
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/admin/list_terceros.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/funciones_generales.js"></script>
+<script src="https://kit.fontawesome.com/d316d39692.js" crossorigin="anonymous"></script>
 <?php $this->load->view('footer');
