@@ -20,21 +20,14 @@ class EmpleadosController extends CI_Controller
             header("Location: " . base_url());
         } else {
             $perfil = $this->session->userdata('perfil');
-
             $data_where_menus = array(
                 'pm.perfil_id' => $perfil
             );
-
             $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-
             $html_menus = createMenuByPerfil($data_menus);
-
-
             $data_vista = array(
                 'data_menus' => $html_menus
             );
-
-
             $this->load->view('header', $data_vista);
             $this->load->view('empleados/index');
         }
@@ -47,7 +40,6 @@ class EmpleadosController extends CI_Controller
             header("Location: " . base_url());
         } else {
             $data_empleados = $this->EmpleadosModel->getEmpleados();
-
             $tbody = '';
             if ($data_empleados->num_rows() > 0) {
                 foreach ($data_empleados->result() as $row) {
@@ -62,11 +54,9 @@ class EmpleadosController extends CI_Controller
                 </tr>';
                 }
             }
-
             $array_response = array(
                 'tbody' => $tbody
             );
-
             echo json_encode($array_response);
         }
     }
@@ -77,29 +67,21 @@ class EmpleadosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-
             $perfil = $this->session->userdata('perfil');
-
             $data_where_menus = array(
                 'pm.perfil_id' => $perfil
             );
-
             $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-
             $html_menus = createMenuByPerfil($data_menus);
-
             $data_terceros = $this->TercerosModel->getTerceros()->result();
             $data_cargos = $this->EmpleadosModel->getCargoEmpleados()->result();
             $data_sedes = $this->SedesModel->getSedes()->result();
-
             $data_vista = array(
                 'data_menus' => $html_menus,
                 'data_terceros' => $data_terceros,
                 'data_cargos' => $data_cargos,
                 'data_sedes' => $data_sedes,
             );
-
-
             $this->load->view('header', $data_vista);
             $this->load->view('empleados/create');
         }
@@ -118,11 +100,8 @@ class EmpleadosController extends CI_Controller
             $inputIdSedeEmp = $this->input->POST('inputIdSedeEmp');
             /* $inputFileImgEmp = $this->input->POST('inputFileImgEmp'); */
             $inputEmailEmp = $this->input->POST('inputEmailEmp');
-
-
             $data_tercero = $this->TercerosModel->getTerceroById($inputIdTercero);
             $data_empleado = $this->EmpleadosModel->getEmpleadosByIdTercero($inputIdTercero);
-
             switch (true) {
                 case $data_tercero->num_rows() == 0:
                     $array_response = array(
@@ -136,7 +115,6 @@ class EmpleadosController extends CI_Controller
                         'sms' => 'El empleado que esta intentando crear ya se encuentra registrado en la base de datos'
                     );
                     break;
-
                 default:
                     $name_file = $data_tercero->row(0)->nit;
                     /* SCRIPT PARA GUARDAR LA IMAGEN DE PERFIL DEL EMPLEADO */
@@ -144,10 +122,7 @@ class EmpleadosController extends CI_Controller
                     $config['allowed_types'] = 'jpeg|jpg|png|gif';
                     $config['max_size'] = '10240000000';
                     $config['file_name'] = $name_file;
-
-
                     $this->load->library('upload', $config);
-
                     if (!$this->upload->do_upload('inputFileImgEmp')) {
                         $error = array('error' => $this->upload->display_errors());
 
@@ -180,7 +155,6 @@ class EmpleadosController extends CI_Controller
                     }
                     break;
             }
-
             echo json_encode($array_response);
         }
     }
