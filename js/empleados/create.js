@@ -19,8 +19,6 @@ const btnSubmitCreateEmpleado = document.getElementById(
 
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
-	sidebar.classList.add("collapsed"); //Ocultar el nav para cuando terminde de cargar
-
 	$(".js-select2-tercero").select2({
 		placeholder: "Seleccione un tercero",
 		width: "resolve",

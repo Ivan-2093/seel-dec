@@ -151,7 +151,7 @@
 </div> -->
 <div class="app-sidebar colored">
     <div class="sidebar-header">
-        <a class="header-brand" href="">
+        <a class="header-brand" href="#">
             <div class="logo-img">
                 <img width="30px" src="<?php echo base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" class="header-brand-img" alt="lavalite">
             </div>

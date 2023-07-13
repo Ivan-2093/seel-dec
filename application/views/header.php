@@ -41,10 +41,10 @@
 	<script src="<?= base_url() ?>calendar/lib/es.js"></script>
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" /> -->
+	<?php $this->load->helper('estilos_helper'); ?>
 </head>
 
 <body data-editor="ClassicEditor">
-	<div class="loader" id="cargando"></div>
 	<!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -72,3 +72,4 @@
 		<div class="page-wrap">
 			<?php $this->load->view('menu'); ?>
 			<div class="main-content">
+				<div class="loader" id="cargando"></div>
