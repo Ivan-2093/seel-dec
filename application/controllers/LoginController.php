@@ -9,8 +9,13 @@ class LoginController extends CI_Controller
         $this->load->model('EmpleadosModel');
     }
     public function index()
-    {        /* print_r($this->session->userdata()); */
-        $this->load->view('login/login');
+    {        
+        if ($this->session->userdata('login')) {
+            header("Location: " . base_url()."HomeController");
+        } else {
+            $this->load->view('login/login');
+        }
+        
     }
     public function login()
     {
