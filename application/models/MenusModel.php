@@ -49,4 +49,18 @@ class MenusModel extends CI_Model
     {
         return $this->db->get_where('menus', $data_where);
     }
+
+    public function getSubmenus()
+    {
+        $this->db->select('*, sm.icono as icono_submenu');
+        $this->db->from('submenus as sm');
+        $this->db->join('menus as m', 'sm.menu_id=m.id_menu');
+        return $this->db->get();
+    }
+
+    public function updateSubmenuById($data_update, $data_where)
+    {
+        return $this->db->update('submenus', $data_update, $data_where);
+    }
+
 }
