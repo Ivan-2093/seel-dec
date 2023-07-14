@@ -1,7 +1,37 @@
+<!-- MODAL PARA CAMBIAR DE CONTRASEÑA -->
+<div class="modal fade" id="modal_change_pass" tabindex="-1" role="dialog" aria-labelledby="modal_change_pass" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_change_pass">Es necesario que cambies tu contraseña</h5>
+            </div>
+            <div class="modal-body">
+                <form id="form_change_pass">
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <input hidden type="text" name="username" autocomplete="username" value="a_b">
+                            <label for="new_pass">Nueva contraseña</label>
+                            <input autocomplete="new-password" type="password" id="new_pass" name="new_pass" class="form-control" placeholder="Ingrese nueva contraseña">
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <label for="new_pass_check">Confirme la contraseña</label>
+                            <input autocomplete="new-password" type="password" id="new_pass_check" name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="<?php base_url() ?>LoginController/logout" class="btn btn-secondary">Cerrar</a>
+
+                <button type="button" id="btnChangePass" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <footer class="footer">
     <div class="w-100 clearfix">
-        <span class="text-center text-sm-left d-md-inline-block">Copyright © <?php echo date('Y')?> SeelDec Todos los derechos reservados.</span>
+        <span class="text-center text-sm-left d-md-inline-block">Copyright © <?php echo date('Y') ?> SeelDec Todos los derechos reservados.</span>
         <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">Power by Sergio Galvis & Jhon Silva</span>
     </div>
 </footer>
@@ -58,10 +88,12 @@
 <!-- datetimepicker -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
-<script>
-    var baseURL = "<?php echo base_url(); ?>";
-</script>
 
+<script type="text/javascript">
+    const change_password = <?php echo $this->session->userdata('change_password'); ?>;
+</script>
+<script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
+<script src="<?php echo base_url() ?>js/check_inputs.js"></script>
 
 </body>
 

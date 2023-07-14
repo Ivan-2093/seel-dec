@@ -49,7 +49,7 @@ class MenusModel extends CI_Model
     {
         return $this->db->get_where('menus', $data_where);
     }
-
+    /* ************************ SUBMENUS ************************* */
     public function getSubmenus()
     {
         $this->db->select('*, sm.icono as icono_submenu');
@@ -63,4 +63,14 @@ class MenusModel extends CI_Model
         return $this->db->update('submenus', $data_update, $data_where);
     }
 
+
+    public function getSubmenuByName($data_where)
+    {
+        return $this->db->get_where('submenus', $data_where);
+    }
+
+    public function insertSubmenu($data_insert)
+    {
+        return $this->db->insert('submenus', $data_insert);
+    }
 }

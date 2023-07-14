@@ -62,7 +62,14 @@
                 <h5 class="modal-title label col-lg-12 text-center font-bold" id="exampleModalLongTitle">Agregar Nuevo Submenu</h5>
             </div>
             <div class="modal-body">
-                <form id="formulario_menu">
+                <form id="formulario_submenu">
+                    <div class="form-group">
+                        <label for="id_menuSelect">Menu</label>
+                        <select id="id_menuSelect" name="id_menuSelect" class="form-control js-select2-id-menus">
+
+                        </select>
+                        
+                    </div>
                     <div class="form-group">
                         <label for="nombreMenu">Nombre del Submenu</label>
                         <input type="text" class="form-control" name="nombreSubmenu" id="nombreSubmenu" aria-describedby="emailHelp" placeholder="Nombre">
@@ -77,9 +84,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger shadow" data-dismiss="modal">Cerrar</button>
-                        <button type="button" id="btnAddNewSubmenu" class="btn btn-success shadow">Gurardar</button>
+                        <button type="button" id="btnAddNewSubmenu" class="btn btn-success shadow">Guardar</button>
                     </div>
-
                 </form>
 
             </div>
@@ -111,7 +117,7 @@
                         <tbody>
                             <tr>
                                 <td class="d-none">
-                                    <input  class="form-control" type="hidden" name="idSubMenuEditar" id="idSubMenuEditar">
+                                    <input class="form-control" type="hidden" name="idSubMenuEditar" id="idSubMenuEditar">
                                 </td>
                                 <td>
                                     <input cajaTexto="Nombre" class="form-control" type="text" name="nameSubMenuEditar" id="nameSubMenuEditar">
@@ -145,7 +151,4 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/menus/funciones_submenu.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/check_inputs.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/funciones_generales.js"></script>
-
 <?php $this->load->view('footer');

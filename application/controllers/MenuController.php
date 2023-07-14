@@ -236,17 +236,10 @@ class MenuController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            $data_menus = $this->MenusModel->getSubmenus();
-           /*  [id_submenu] => 1
-            [submenu] => MENUS
-            [path] => MenuController
-            [icono] => ik ik-settings
-            [menu_id] => 1
-            [id_menu] => 1
-            [menu] => CONFIGURACION */
+            $data_submenus = $this->MenusModel->getSubmenus();
             $tbody = "";
-            if ($data_menus->num_rows() > 0) {
-                foreach ($data_menus->result() as $row) {
+            if ($data_submenus->num_rows() > 0) {
+                foreach ($data_submenus->result() as $row) {
                     $tbody .=
                         '<tr>
                         <td>' . $row->menu . '</td>
@@ -374,38 +367,42 @@ class MenuController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            $nombreMenu = $this->input->POST('nombreMenu');
+            $nombreSubmenu = $this->input->POST('nombreSubmenu');
+            $ruta_submenu = $this->input->POST('ruta_submenu');
             $nombre_icono = $this->input->POST('nombre_icono');
+            $id_menuSelect = $this->input->POST('id_menuSelect');
 
-            if ($nombreMenu != '' && $nombre_icono != '') {
+            if ($nombreSubmenu != '' && $ruta_submenu != "" && $nombre_icono != '') {
                 $data_insert = array(
-                    'menu' => $nombreMenu,
+                    'submenu' => $nombreSubmenu,
+                    'path' => $ruta_submenu,
                     'icono' => $nombre_icono,
+                    'menu_id' => $id_menuSelect
                 );
 
                 $data_where = array(
-                    'menu' => $nombreMenu
+                    'submenu' => $nombreSubmenu,
                 );
 
-                if ($this->MenusModel->getMenuByName($data_where)->num_rows() == 0) {
-                    if ($this->MenusModel->insertMenu($data_insert)) {
+                if ($this->MenusModel->getSubmenuByName($data_where)->num_rows() == 0) {
+                    if ($this->MenusModel->insertSubmenu($data_insert)) {
                         $array_response = array(
                             'response' => 'success',
                             'title' => 'Exito!',
-                            'message' => 'Menu creado exitosamente!'
+                            'message' => 'Submenu creado exitosamente!'
                         );
                     } else {
                         $array_response = array(
                             'response' => 'error',
                             'title' => 'Error!',
-                            'message' => 'Error al crear el menu!'
+                            'message' => 'Error al crear el Submenu!'
                         );
                     }
                 } else {
                     $array_response = array(
                         'response' => 'warning',
                         'title' => 'Advertencia!',
-                        'message' => 'Ya se encuentra un menu con el mismo nombre: '.$nombreMenu
+                        'message' => 'Ya se encuentra un Submenu con el mismo nombre: '.$nombreSubmenu
                     );
                 }
             } else {
@@ -417,6 +414,26 @@ class MenuController extends CI_Controller
             }
             echo json_encode($array_response);
         }
+    }
+
+    public function htmlSelectMenus()
+    {
+        $DataMenus = $this->MenusModel->getMenus();
+        $OptionSelectMenu = "<option value=''>SELECCIONE UN MENU</option>";
+        if($DataMenus->num_rows() > 0)
+        {
+            foreach($DataMenus->result() as $row)
+            {
+                $OptionSelectMenu  .= '<option value="' . $row->id_menu . '">' . $row->menu . '</option>';
+            }
+        }
+
+        $data_response = array(
+            'OptionSelectMenu' => $OptionSelectMenu,
+        );
+
+        echo json_encode($data_response);
+
     }
 
 }

@@ -52,7 +52,6 @@ function alertFieldsVoids(arrayInputs) {
 		if (input.value == "") {
 			input.animate(newspaperSpinning, newspaperTiming);
 			input.focus();
-			input.value = "";
 		}
 	});
 }
@@ -69,7 +68,6 @@ function alertFieldsVoidsSelect(arrayInputs) {
 			} else {
 				input.animate(newspaperSpinning, newspaperTiming);
 				input.focus();
-				input.value = "";
 			}
 		}
 	});

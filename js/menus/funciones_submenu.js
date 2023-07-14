@@ -7,22 +7,25 @@ const nameIconoEditar = document.getElementById("nameIconoEditar");
 const iconoEditar = document.getElementById("iconoEditar");
 
 const formEditMenu = document.getElementById("formEditMenu");
-const formulario_menu = document.getElementById("formulario_menu");
+const formulario_submenu = document.getElementById("formulario_submenu");
 
 const btnEditarSubMenu = document.getElementById("btnEditarSubMenu");
-const btnAddNewMenu = document.getElementById("btnAddNewMenu");
+const btnAddNewSubmenu = document.getElementById("btnAddNewSubmenu");
 
 const nombreSubmenu = document.getElementById("nombreSubmenu");
 const ruta_submenu = document.getElementById("ruta_submenu");
 const nombre_icono = document.getElementById("nombre_icono");
 
+const id_menuSelect = document.getElementById("id_menuSelect");
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	load_tabla_submenu();
+	load_options_select_menus();
 });
 
 const arrayInputs = [nameSubMenuEditar, nameIconoEditar,rutaSubMenuEditar];
-const arrayInputsCreate = [nombreSubmenu,ruta_submenu,nombre_icono];
+const arrayInputsCreate = [id_menuSelect,nombreSubmenu,ruta_submenu,nombre_icono];
 
 function load_tabla_submenu() {
 	showLoading(cargando);
@@ -195,15 +198,15 @@ function deleteSubMenu(id_menu) {
 		});
 }
 
-btnAddNewMenu.addEventListener("click", () => {
+btnAddNewSubmenu.addEventListener("click", () => {
 	const inputsVoid = arrayInputsCreate.filter(function (input) {
 		if (input.tagName != "TEXTAREA") {
 			return input.value == "";
 		}
 	});
 	if (inputsVoid.length == 0) {
-		const data_formMenu = new FormData(formulario_menu);
-		createMenu(data_formMenu);
+		const data_formSubmenu = new FormData(formulario_submenu);
+		createSubmenu(data_formSubmenu);
 	} else {
 		const nameInput = inputsVoid
 			.map(function (input) {
@@ -224,9 +227,9 @@ btnAddNewMenu.addEventListener("click", () => {
 	}
 });
 
-function createMenu(data_formMenu) {
+function createSubmenu(data_formMenu) {
 	showLoading(cargando);
-	fetch(`${base_url}MenuController/createMenu`, {
+	fetch(`${base_url}MenuController/createSubmenu`, {
 		headers: {
 			"Content-type": "application/json",
 		},
@@ -266,5 +269,40 @@ function createMenu(data_formMenu) {
 				},
 			});
 			hiddenLoading(cargando);
+		});
+}
+
+function load_options_select_menus()
+{
+	fetch(`${base_url}MenuController/htmlSelectMenus`, {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: "no-cors",
+		method: "POST",
+	})
+		.then(function (response) {
+			// Transforma la respuesta. En este caso lo convierte a JSON
+			return response.json();
+		})
+		.then(function (json) {
+			id_menuSelect.innerHTML = json['OptionSelectMenu'];
+			$('.js-select2-id-menus').select2({
+				placeholder: 'Seleccione un menu',
+				width: '100%',
+			});
+		})
+		.catch(function (error) {
+			Swal.fire({
+				title: "ERROR",
+				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+				icon: "error",
+				confirmButtonText: "Ok",
+				allowOutsideClick: false,
+				showCloseButton: true,
+				willClose: () => {
+					location.reload();
+				},
+			});
 		});
 }
