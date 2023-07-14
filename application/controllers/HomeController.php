@@ -35,17 +35,7 @@ class HomeController extends CI_Controller
 
             $this->load->view('header', $data_vista);
             $this->load->view('dashboard');
-            /* $this->load->view('pages/login'); */
-        }
-    }
-
-    public function changePassword()
-    {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            
+            /* $this->load->view('pages/ui/icons'); */
         }
     }
 }
