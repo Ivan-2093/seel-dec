@@ -9,13 +9,12 @@ class LoginController extends CI_Controller
         $this->load->model('EmpleadosModel');
     }
     public function index()
-    {        
+    {
         if ($this->session->userdata('login')) {
-            header("Location: " . base_url()."HomeController");
+            header("Location: " . base_url() . "HomeController");
         } else {
             $this->load->view('login/login');
         }
-        
     }
     public function login()
     {
@@ -92,5 +91,24 @@ class LoginController extends CI_Controller
 
         $this->session->sess_destroy();
         header("Location: " . base_url());
+    }
+
+    public function changePassword()
+    {
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+
+            $user = $this->session->userdata('user');
+            $new_pass = $this->input->POST('new_pass');
+            $new_pass_check = $this->input->POST('new_pass_check');
+
+            if ($user != "" && $new_pass != "" && $new_pass_check != "" && $new_pass === $new_pass_check) {
+
+            } else {
+                
+            }
+        }
     }
 }

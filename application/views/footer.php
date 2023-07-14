@@ -9,13 +9,23 @@
                 <form id="form_change_pass">
                     <div class="row">
                         <div class="col-sm-6 col-12">
-                            <input hidden type="text" name="username" autocomplete="username" value="a_b">
                             <label for="new_pass">Nueva contraseña</label>
-                            <input autocomplete="new-password" type="password" id="new_pass" name="new_pass" class="form-control" placeholder="Ingrese nueva contraseña">
+                            <div class="input-group mb-3">
+                                <input hidden type="text" name="username" autocomplete="username" value="a_b">
+                                <input autocomplete="new-password" type="password" id="new_pass" name="new_pass" class="form-control" placeholder="Ingrese nueva contraseña">
+                                <div class="input-group-append">
+                                    <span style="cursor: pointer;" id="verPassNew" class="input-group-text "><i class="ik ik-eye-off"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6 col-12">
                             <label for="new_pass_check">Confirme la contraseña</label>
-                            <input autocomplete="new-password" type="password" id="new_pass_check" name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
+                            <div class="input-group mb-3">
+                                <input disabled autocomplete="new-password" type="password" id="new_pass_check" name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
+                                <div class="input-group-append">
+                                    <span style="cursor: pointer;" id="verPassCheck" class="input-group-text "><i class="ik ik-eye-off"></i></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
