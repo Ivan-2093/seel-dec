@@ -63,7 +63,7 @@
 											</small>
 										</div>
 										<div class="text-center mt-3">
-											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" class="btn btn-lg btn-primary">Iniciar sesión</button>
+											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" value="ENTRAR" class="btn btn-lg btn-primary">Iniciar sesión</button>
 										</div>
 									</form>
 								</div>
