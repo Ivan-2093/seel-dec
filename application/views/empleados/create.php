@@ -91,6 +91,4 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script src="<?php echo base_url() ?>js/empleados/create.js"></script>
-<script src="<?php echo base_url() ?>js/check_inputs.js"></script>
-<script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 <?php $this->load->view('footer');

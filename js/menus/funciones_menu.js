@@ -247,7 +247,6 @@ function createMenu(data_formMenu){
 					load_tabla_menu();
 				},
 			});
-
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {

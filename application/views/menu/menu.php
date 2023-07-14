@@ -71,7 +71,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger shadow" data-dismiss="modal">Cerrar</button>
-                        <button type="button" id="btnAddNewMenu" class="btn btn-success shadow">Gurardar</button>
+                        <button type="button" id="btnAddNewMenu" class="btn btn-success shadow">Guardar</button>
                     </div>
 
                 </form>
@@ -135,7 +135,5 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/menus/funciones_menu.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/check_inputs.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 
 <?php $this->load->view('footer');

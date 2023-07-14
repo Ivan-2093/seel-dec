@@ -29,13 +29,23 @@ class HomeController extends CI_Controller
 
 
             $data_vista = array(
-                'data_menus' => $html_menus
+                'data_menus' => $html_menus,
+                'name_page' => 'HOME'
             );
 
-
             $this->load->view('header', $data_vista);
-            /* $this->load->view('dashboard'); */
-            $this->load->view('pages/ui/icons');
+            $this->load->view('dashboard');
+            /* $this->load->view('pages/login'); */
+        }
+    }
+
+    public function changePassword()
+    {
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+            
         }
     }
 }
