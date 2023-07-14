@@ -2,7 +2,7 @@ const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 const formUser = document.getElementById("formUser");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
-const cargando = document.getElementById("cargando");
+
 
 const arrayInputs = [username, password];
 

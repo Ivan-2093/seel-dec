@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     // codigo para ejecutar
-    //Ocultar el nav para cuando terminde de cargar
-    if (screen.width < 1024) {
-        sidebar.classList.remove("collapsed");
-    }
     $('.js-select2-tercero').select2({
         placeholder: 'Seleccione un tercero',
         width: '100%',

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-auto">
     <div class="card">
       <div class="card-body">
         <ul class="nav nav-pills">
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 table-responsive">
+  <div class="col-auto table-responsive">
     <table id="tableEmpleados" class="table table-bordered">
       <thead>
         <tr>
@@ -37,9 +37,6 @@
 
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";
-  const sidebar = document.getElementById("sidebar");
-  const cargando = document.getElementById("cargando");
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/empleados/list.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/funciones_generales.js"></script>
 <?php $this->load->view('footer');

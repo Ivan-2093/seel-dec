@@ -23,13 +23,6 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand navbar-light navbar-bg" style="background-color: #7fb417 ;">
-		<div class="navbar-collapse collapse">
-			<ul class="navbar-nav navbar-align">
-
-			</ul>
-		</div>
-	</nav>
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
 			<div class="loader" id="cargando"></div>
@@ -53,11 +46,11 @@
 									<form id="formUser" name="formUser">
 										<div class="mb-3">
 											<label class="form-label">Usuario</label>
-											<input class="form-control form-control-lg" type="text" id="username" name="username" placeholder="Ingrese usuario" />
+											<input class="form-control form-control-lg" type="text" id="username" name="username" placeholder="Ingrese usuario" autocomplete="on" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Ingrese contraseña" />
+											<input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Ingrese contraseña" autocomplete="on" />
 											<small>
 												<a href="">Olvido su contraseña</a>
 											</small>
@@ -73,23 +66,8 @@
 				</div>
 			</div>
 		</div>
-	</main>
-	<footer class="footer" style="background-color: #cc006f;">
-		<div class="container-fluid">
-			<div class="row text-muted">
-				<div class="col-6 text-start">
-					<p class="mb-0">
-						<strong style="color:white;">Powered by: Sergio Ivan Galvis Esteban & Jhon Jairo Silva Fuentes Copyright © 2023</strong>
-					</p>
-				</div>
-				<div class="col-6 text-end">
-					<ul class="list-inline">
 
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+	</main>
 	<script>
 		const base_url = '<?php echo base_url() ?>';
 	</script>

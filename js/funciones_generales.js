@@ -1,3 +1,37 @@
+const wrapper = document.getElementsByClassName("wrapper");
+const sidebar_header = document.getElementsByClassName("sidebar-header");
+const cargando = document.getElementById("cargando");
+const btnChangePass = document.getElementById("btnChangePass");
+const form_change_pass = document.getElementById("form_change_pass");
+const new_pass = document.getElementById("new_pass");
+const new_pass_check = document.getElementById("new_pass_check");
+
+const verPassNew = document.getElementById('verPassNew');
+const verPassCheck = document.getElementById('verPassCheck');
+
+/* ARRAY DE INPUTS */
+const arrayInputs = [new_pass, new_pass_check];
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+	//Ocultar el menu para cuando terminde de cargar
+	/* 	wrapper[0].classList.add("nav-collapsed");
+		wrapper[0].classList.add("menu-collapsed"); 
+		sidebar_header[0].children[1].children[0].classList.remove('ik-toggle-right');
+		sidebar_header[0].children[1].children[0].classList.add('ik-toggle-left');
+		sidebar_header[0].children[1].children[0].setAttribute('data-toggle','collapsed')  
+	*/
+
+	if (change_password == 1) {
+		$("#modal_change_pass").modal({
+			backdrop: false,
+			keyboard: false,
+			focus: true,
+		});
+	}
+});
+
 function loadDatatable(id) {
 	$(`#${id}`).DataTable({
 		paging: true,
@@ -53,4 +87,104 @@ function hiddenLoading(cargando) {
 	cargando.style.display = "none";
 }
 
+btnChangePass.addEventListener("click", function () {
+	const inputsVoid = arrayInputs.filter(function (input) {
+		if (input.tagName != "TEXTAREA") {
+			return input.value == "";
+		}
+	});
+	if (inputsVoid.length == 0) {
+		const formPass = new FormData(form_change_pass);
+		fn_change_password(formPass);
+	} else {
+		const nameInput = inputsVoid
+			.map(function (input) {
+				return input.previousElementSibling.innerText;
+			})
+			.join(", ");
 
+		Swal.fire({
+			title: "Advertencia",
+			html: `Complete los siguientes campos vacios: <strong>${nameInput}</strong>`,
+			icon: "warning",
+			confirmButtonText: "Ok",
+			willClose: () => {
+				alertFieldsVoidsSelect(inputsVoid);
+			},
+		});
+	}
+});
+
+$("#modal_change_pass").on("hidden.bs.modal", function (e) {
+	console.info("Cambio de contraseña realizado");
+});
+
+function fn_change_password(formPass) {
+	showLoading(cargando);
+	fetch(`${base_url}LoginController/changePassword`, {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: "no-cors",
+		method: "POST",
+		body: formPass,
+	})
+		.then(function (response) {
+			// Transforma la respuesta. En este caso lo convierte a JSON
+			return response.json();
+		})
+		.then(function (json) {
+			Swal.fire({
+				title: `${json["title"]}`,
+				html: `${json["message"]}`,
+				icon: `${json["response"]}`,
+				confirmButtonText: "Ok",
+				allowOutsideClick: false,
+				showCloseButton: true,
+				willClose: () => {
+
+				},
+			});
+			hiddenLoading(cargando);
+		})
+		.catch(function (error) {
+			Swal.fire({
+				title: "ERROR",
+				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+				icon: "error",
+				confirmButtonText: "Ok",
+				allowOutsideClick: false,
+				showCloseButton: true,
+				willClose: () => {
+					location.reload();
+				},
+			});
+			hiddenLoading(cargando);
+		});
+}
+
+const newspaperSpinning = [{ background: "green" }, { background: "none" }];
+const newspaperTiming = { duration: 500, iterations: 5 };
+
+
+new_pass.addEventListener('keypress', () => {
+	if (new_pass.value != "" && new_pass.value.length >= 7) {
+		new_pass_check.removeAttribute('disabled');
+	}
+});
+new_pass_check.addEventListener('blur', () => {
+	if (new_pass.value != "" && new_pass_check.value != "") {
+		if(new_pass.value === new_pass_check.value){
+			new_pass.animate(newspaperSpinning, newspaperTiming);
+			new_pass_check.animate(newspaperSpinning, newspaperTiming);
+		}
+	}
+});
+
+
+verPassNew.addEventListener('click', () => {
+	
+});
+verPassCheck.addEventListener('click', () => {
+
+});

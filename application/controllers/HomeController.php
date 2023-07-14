@@ -5,9 +5,14 @@ class HomeController extends CI_Controller
     public function __construct() //define el constructor
     {
         parent::__construct(); //invoca al constructor de la clase superior
+<<<<<<< HEAD
         /*  */
         $this->load->library('session');
         $this->load->model('UsuariosModel'); //carga un modelo con el nombre de Usuarios“ 
+=======
+        $this->load->library('session');
+        $this->load->model('UsuariosModel'); 
+>>>>>>> 95aea58b7cebae2b877983f0dddb33481c967ef1
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
     }
@@ -30,11 +35,21 @@ class HomeController extends CI_Controller
 
 
             $data_vista = array(
+<<<<<<< HEAD
                 'data_menus' => $html_menus
             );
             $this->load->view('header', $data_vista);
             /* $this->load->view('dashboard'); */
             $this->load->view('pages/ui/icons');
+=======
+                'data_menus' => $html_menus,
+                'name_page' => 'HOME'
+            );
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('dashboard');
+            /* $this->load->view('pages/ui/icons'); */
+>>>>>>> 95aea58b7cebae2b877983f0dddb33481c967ef1
         }
     }
 }

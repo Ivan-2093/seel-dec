@@ -6,6 +6,8 @@ class TercerosController extends CI_Controller
         parent::__construct();
         $this->load->model('TercerosModel');
         $this->load->model('PaisesModel');
+        $this->load->model('MenusModel');
+        $this->load->helper('menu_helper');
     }
 
     public function index()
@@ -14,7 +16,23 @@ class TercerosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            $this->load->view('header');
+            $perfil = $this->session->userdata('perfil');
+
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+
+            $html_menus = createMenuByPerfil($data_menus);
+
+
+            $data_vista = array(
+                'data_menus' => $html_menus
+            );
+
+
+            $this->load->view('header', $data_vista);
             $this->load->view('terceros/index');
         }
     }
