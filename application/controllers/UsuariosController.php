@@ -135,4 +135,54 @@ class UsuariosController extends CI_Controller
             echo json_encode($array_response);
         }
     }
+
+    public function changePassword()
+    {
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+
+            $user = $this->session->userdata('user');
+            $new_pass = $this->input->POST('new_pass');
+            $new_pass_check = $this->input->POST('new_pass_check');
+            
+            if ($user != "" && $new_pass != "" && $new_pass_check != "" && $new_pass === $new_pass_check) {
+                $hash = password_hash($new_pass, PASSWORD_DEFAULT);
+
+                $data_where = array(
+                    'usuario' => $user
+                );
+                $data_update = array(
+                    'contrasena' => $hash
+                );
+
+                if($this->UsuariosModel->updateUsuario($data_where,$data_update)){
+                    $array_response = array(
+                        'title' => 'Exito!',
+                        'message' => 'Contraseña actualizada correctamente!',
+                        'response' => 'success',
+                    );
+                    /* $this->session->unset_userdata('change_password'); */
+                    $this->session->set_userdata('change_password', 0);
+                }else {
+                    $array_response = array(
+                        'title' => 'Error!',
+                        'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
+                        'response' => 'error',
+                    );
+                }               
+            } else {
+                $array_response = array(
+                    'title' => 'Advertencia!',
+                    'message' => 'Los campos estan vacios o las contraseñas no coinciden!',
+                    'response' => 'warning',
+                );
+            }
+
+
+
+            echo json_encode($array_response);
+        }
+    }
 }
