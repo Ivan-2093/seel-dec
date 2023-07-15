@@ -18,19 +18,22 @@
 
 	<link href="<?php base_url() ?>plantilla/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
+			<div class="loader" id="cargando"></div>
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
 					<div class="d-table-cell align-middle">
 
 						<div class="text-center mt-4">
-							<h1 class="h2"></h1>
+							<h1 class="h2">SEGURIDAD ELECTRONICA Y DECORACIÓN</h1>
 							<p class="lead">
-								
+
 							</p>
 						</div>
 
@@ -40,44 +43,37 @@
 									<div class="text-center">
 										<img src="<?php base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form>
+									<form id="formUser" name="formUser">
 										<div class="mb-3">
 											<label class="form-label">Usuario</label>
-											<input class="form-control form-control-lg" type="email" name="email" placeholder="Ingrese usuario" />
+											<input class="form-control form-control-lg" type="text" id="username" name="username" placeholder="Ingrese usuario" autocomplete="on" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" name="password" placeholder="Ingrese contraseña" />
+											<input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Ingrese contraseña" autocomplete="on" />
 											<small>
 												<a href="">Olvido su contraseña</a>
 											</small>
 										</div>
-										<div>
-											<label class="form-check">
-												<!-- <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-												<span class="form-check-label">
-													Remember me next time
-												</span> -->
-											</label>
-										</div>
 										<div class="text-center mt-3">
-											<a href="" class="btn btn-lg btn-primary">Iniciar sesión</a>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" value="ENTRAR" class="btn btn-lg btn-primary">Iniciar sesión</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
-	</main>
 
+	</main>
+	<script>
+		const base_url = '<?php echo base_url() ?>';
+	</script>
 	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
 	<script src="<?php base_url() ?>js/login/funciones.js"></script>
-
+	<script src="<?php base_url() ?>js/check_inputs.js"></script>
 </body>
 
 </html>
