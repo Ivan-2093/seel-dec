@@ -31,6 +31,7 @@
                     <th>MUNICIPIO</th>
                     <th>BARRIO</th>
                     <th>DIRECCION</th>
+                    <th>EDITAR</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -42,5 +43,10 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/terceros/list_terceros.js"></script>
+<<<<<<< HEAD
+<script type="text/javascript" src="<?= base_url() ?>js/funciones_generales.js"></script>
+<script src="https://kit.fontawesome.com/d316d39692.js" crossorigin="anonymous"></script>
+=======
 
+>>>>>>> 95aea58b7cebae2b877983f0dddb33481c967ef1
 <?php $this->load->view('footer');

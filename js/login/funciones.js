@@ -77,3 +77,10 @@ function login(data_formUser) {
 username.addEventListener("input", function (event) {
 	username.value = username.value.toUpperCase();
 });
+btnIniciarSesion.addEventListener("keypress", function (event) {
+	var keycode = event.keyCode;
+	if (keycode == 13) {
+		btnIniciarSesion.click();
+	}
+});
+username.focus();

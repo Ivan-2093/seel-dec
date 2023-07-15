@@ -56,7 +56,7 @@
 											</small>
 										</div>
 										<div class="text-center mt-3">
-											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" class="btn btn-lg btn-primary">Iniciar sesión</button>
+											<button id="btnIniciarSesion" name="btnIniciarSesion" type="button" value="ENTRAR" class="btn btn-lg btn-primary">Iniciar sesión</button>
 										</div>
 									</form>
 								</div>
@@ -71,9 +71,9 @@
 	<script>
 		const base_url = '<?php echo base_url() ?>';
 	</script>
-	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
-	<script src="<?php base_url() ?>js/login/funciones.js"></script>
-	<script src="<?php base_url() ?>js/check_inputs.js"></script>
+	<script src="<?php echo base_url() ?>plantilla/js/app.js"></script>
+	<script src="<?php echo base_url() ?>js/login/funciones.js"></script>
+	<script src="<?php echo base_url() ?>js/check_inputs.js"></script>
 </body>
 
 </html>

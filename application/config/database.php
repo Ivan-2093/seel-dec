@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -80,7 +80,7 @@ $db['default'] = array(
 	'password' => '^+bu8g4Vs;GN',
 	'database' => 'aftersal_seeldec',
 	'dbdriver' => 'mysqli',
-	'port'=> 3306,
+	'port' => 3306,
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
