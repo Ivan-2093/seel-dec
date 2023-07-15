@@ -12,6 +12,5 @@ class MenuController extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('menu/menu');
-        
     }
 }
