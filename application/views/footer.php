@@ -12,6 +12,7 @@
                             <label for="new_pass">Nueva contraseña</label>
                             <div class="input-group mb-3">
                                 <input hidden type="text" name="username" autocomplete="username" value="a_b">
+                                <label class="d-none" for="new_pass">Nueva contraseña</label>
                                 <input autocomplete="new-password" type="password" id="new_pass" name="new_pass" class="form-control" placeholder="Ingrese nueva contraseña">
                                 <div class="input-group-append">
                                     <span style="cursor: pointer;" id="verPassNew" class="input-group-text "><i class="ik ik-eye-off"></i></span>
@@ -21,10 +22,18 @@
                         <div class="col-sm-6 col-12">
                             <label for="new_pass_check">Confirme la contraseña</label>
                             <div class="input-group mb-3">
+                                <label class="d-none" for="new_pass_check">Confirme la contraseña</label>
                                 <input disabled autocomplete="new-password" type="password" id="new_pass_check" name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
                                 <div class="input-group-append">
                                     <span style="cursor: pointer;" id="verPassCheck" class="input-group-text "><i class="ik ik-eye-off"></i></span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-primary" role="alert">
+                            <i class="ik ik-alert-circle"></i> La contraseña debe ser mayor a 8 caracteres y menor a 16 caracteres, debe ser alfanumerica.
                             </div>
                         </div>
                     </div>
@@ -33,7 +42,7 @@
             <div class="modal-footer">
                 <a href="<?php base_url() ?>LoginController/logout" class="btn btn-secondary">Cerrar</a>
 
-                <button type="button" id="btnChangePass" class="btn btn-primary">Save changes</button>
+                <button type="button" id="btnChangePass" class="btn btn-primary">Cambiar</button>
             </div>
         </div>
     </div>

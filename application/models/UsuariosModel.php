@@ -30,4 +30,9 @@ class UsuariosModel extends CI_Model
     {
         return $this->db->get_where('usuarios', $data_where);
     }
+
+    public function updateUsuario($data_where, $data_update)
+    {
+        return $this->db->update('usuarios', $data_update, $data_where);
+    }
 }
