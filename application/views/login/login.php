@@ -71,9 +71,9 @@
 	<script>
 		const base_url = '<?php echo base_url() ?>';
 	</script>
-	<script src="<?php echo base_url() ?>plantilla/js/app.js"></script>
-	<script src="<?php echo base_url() ?>js/login/funciones.js"></script>
-	<script src="<?php echo base_url() ?>js/check_inputs.js"></script>
+	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
+	<script src="<?php base_url() ?>js/login/funciones.js"></script>
+	<script src="<?php base_url() ?>js/check_inputs.js"></script>
 </body>
 
 </html>
