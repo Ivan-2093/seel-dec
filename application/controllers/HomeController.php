@@ -6,7 +6,7 @@ class HomeController extends CI_Controller
     {
         parent::__construct(); //invoca al constructor de la clase superior
         $this->load->library('session');
-        $this->load->model('UsuariosModel'); 
+        $this->load->model('UsuariosModel');
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
     }
@@ -36,7 +36,6 @@ class HomeController extends CI_Controller
             $this->load->view('header', $data_vista);
             $this->load->view('dashboard');
             /* $this->load->view('pages/ui/icons'); */
-
         }
     }
 }
