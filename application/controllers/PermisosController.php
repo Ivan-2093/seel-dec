@@ -36,4 +36,9 @@ class PermisosController extends CI_Controller
         $this->load->helper('download');
         force_download('mybackup.gz', $backup);
     }
+    public function perfiles()
+    {
+        $this->load->model('PermisosModel');
+        print_r($this->PermisosModel->perfiles_menus());
+    }
 }
