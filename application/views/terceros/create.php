@@ -19,7 +19,7 @@
     <div class="card">
       <h5 class="card-header">FORMULARIO PARA CREAR TERCEROS</h5>
       <form id="formCreateTercero" name="formCreateTercero">
-        <div class="card-body">
+        <div class="card-body" style="background:#90ee9073;">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-floating mb-3">

@@ -28,12 +28,13 @@ class TercerosController extends CI_Controller
 
 
             $data_vista = array(
-                'data_menus' => $html_menus
+                'data_menus' => $html_menus,
+                'name_page' => 'TERCEROS',
             );
 
 
             $this->load->view('header', $data_vista);
-            $this->load->view('terceros/index');
+            $this->load->view('terceros/index', $data_vista);
         }
     }
 
@@ -43,18 +44,36 @@ class TercerosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
+
+            $perfil = $this->session->userdata('perfil');
+
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+
+            $html_menus = createMenuByPerfil($data_menus);
+
+
+            $data_vista = array(
+                
+            );
+
             $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
             $data_paises = $this->PaisesModel->getPaises()->result();
             $data_generos = $this->TercerosModel->getGeneros()->result();
 
             $data = array(
+                'data_menus' => $html_menus,
                 'data_tipo_doc' => $data_tipo_doc,
                 'data_paises' => $data_paises,
-                'data_generos' => $data_generos
+                'data_generos' => $data_generos,
+                'name_page' => 'CREAR TERCERO',
             );
 
-            $this->load->view('header');
-            $this->load->view('terceros/create', $data);
+            $this->load->view('header', $data);
+            $this->load->view('terceros/create');
         }
     }
 
@@ -70,8 +89,6 @@ class TercerosController extends CI_Controller
             foreach ($data_deptos as $depto) {
                 $select .= '<option value="' . $depto->id . '">' . $depto->departamento . '</option>';
             }
-
-
             $data_response = array(
                 'data_deptos' => $select
             );
@@ -152,16 +169,12 @@ class TercerosController extends CI_Controller
             $tbody = '';
             foreach ($data_terceros->result() as $key) {
                 $tbody .= '<tr>
-                <td>' . $key->descripcion . '</td>
                 <td>' . $key->nit . '</td>
                 <td>' . $key->primer_nombre . ' ' . $key->segundo_nombre . ' ' . $key->primer_apellido . ' ' . $key->segundo_apellido . '</td>
                 <td>' . $key->email . '</td>
                 <td>' . $key->telefono_1 . '</td>
                 <td>' . $key->telefono_2 . '</td>
-                <td>' . $key->genero . '</td>
-                <td>' . $key->municipio . '</td>
-                <td>' . $key->barrio . '</td>
-                <td>' . $key->direccion . '</td>
+                <td><button data=\'["' . $key->descripcion . '","' . $key->nit . '","' . $key->primer_nombre . '","' . $key->segundo_nombre . '","' . $key->primer_apellido . '","' . $key->segundo_apellido . '","' . $key->email . '","' . $key->telefono_1 . '","' . $key->telefono_2 . '","' . $key->genero . '","' . $key->municipio . '","' . $key->barrio . '","' . $key->direccion . '"]\' class="btn btn-warning ik ik-edit" data-toggle="tooltip" data-placement="top" title="EDITAR TERCERO" onclick="editTercero(this)"></button></td>
             </tr>';
             }
 
