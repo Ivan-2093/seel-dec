@@ -1,4 +1,3 @@
-const wrapper = document.getElementsByClassName("wrapper");
 const sidebar_header = document.getElementsByClassName("sidebar-header");
 const cargando = document.getElementById("cargando");
 const btnChangePass = document.getElementById("btnChangePass");
@@ -10,7 +9,7 @@ const verPassNew = document.getElementById('verPassNew');
 const verPassCheck = document.getElementById('verPassCheck');
 
 /* ARRAY DE INPUTS */
-const arrayInputs = [new_pass, new_pass_check];
+const arrayInputsPass = [new_pass, new_pass_check];
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -88,7 +87,7 @@ function hiddenLoading(cargando) {
 }
 
 btnChangePass.addEventListener("click", function () {
-	const inputsVoid = arrayInputs.filter(function (input) {
+	const inputsVoid = arrayInputsPass.filter(function (input) {
 		if (input.tagName != "TEXTAREA") {
 			return input.value == "";
 		}

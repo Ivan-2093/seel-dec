@@ -19,18 +19,11 @@
         <table class="table table-bordered" id="tableTerceros">
             <thead>
                 <tr class="align-middle">
-                    <th>TIPO DOCUMENTO</th>
                     <th>NÚMERO DE DOCUMENTO</th>
                     <th>NOMBRE</th>
                     <th>CORREO</th>
                     <th>TELEFONO CONTACTO</th>
                     <th>TELEFONO ADICIONAL</th>
-                    <th>GÉNERO</th>
-                    <!-- <th>PAIS</th>
-                    <th>DEPARTAMENTO</th> -->
-                    <th>MUNICIPIO</th>
-                    <th>BARRIO</th>
-                    <th>DIRECCION</th>
                     <th>EDITAR</th>
                 </tr>
             </thead>

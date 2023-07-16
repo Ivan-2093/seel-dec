@@ -123,7 +123,8 @@ class MenuController extends CI_Controller
                 $data_where_pm = array(
                     'menu_id' => $idMenuEditar
                 );
-                if ($this->MenusModel->getMenuPerfilByIdMenu($data_where_pm)->num_rows() == 0) {
+
+                if ($this->MenusModel->getMenuPerfilByIdMenu($data_where_pm)->num_rows() == 0 && $this->MenusModel->getSubmenusWhere($data_where_pm)->num_rows() == 0) {
 
                     if ($this->MenusModel->deleteMenuById($data_where_menu)) {
 
@@ -143,7 +144,7 @@ class MenuController extends CI_Controller
                     $array_response = array(
                         'response' => 'warning',
                         'title' => 'Advertencia!',
-                        'message' => 'No se puede eliminar el menu seleccionado, ya que se encuentra asigando al menos a un perfil.'
+                        'message' => 'No se puede eliminar el menu seleccionado, verifique que no este enlazado con algun submenu o este habilitado para algun perfil de usuario.'
                     );
                 }
             } else {
@@ -384,7 +385,7 @@ class MenuController extends CI_Controller
                     'submenu' => $nombreSubmenu,
                 );
 
-                if ($this->MenusModel->getSubmenuByName($data_where)->num_rows() == 0) {
+                if ($this->MenusModel->getSubmenusWhere($data_where)->num_rows() == 0) {
                     if ($this->MenusModel->insertSubmenu($data_insert)) {
                         $array_response = array(
                             'response' => 'success',
