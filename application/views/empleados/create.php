@@ -19,7 +19,7 @@
         <div class="card">
             <h5 class="card-header">FORMULARIO PARA CREAR EMPLEADOS</h5>
             <form id="formCreateEmpleado" name="formCreateEmpleado">
-                <div class="card-body">
+                <div class="card-body" style="background-color: #90ee9073 ;">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputIdTercero">TERCERO</label>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputEmailEmp">Correo Corporativo:</label>
-                            <input id="inputEmailEmp" name="inputEmailEmp" type="mail" class="form-control">
+                            <input id="inputEmailEmp" name="inputEmailEmp" type="mail" class="form-control" placeholder="ejemplo@seeldec.com">
                         </div>
                     </div>
                     <div class="row">

@@ -25,7 +25,6 @@ const arrayInputs = [
 	inputNumeroDoc,
 	inputFirstName,
 	inputFirstSurName,
-	inputIdGenero,
 	inputEmail,
 	inputTelefono_1,
 	comboPais,
@@ -76,7 +75,19 @@ comboDepto.addEventListener("change", () => {
 			.then(function (json) {
 				comboMunicipio.innerHTML = json["data_municipios"];
 			})
-			.catch(function (error) {});
+			.catch(function (error) {
+				Swal.fire({
+					title: "ERROR",
+					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+					icon: "error",
+					confirmButtonText: "Ok",
+					allowOutsideClick: false,
+					showCloseButton: true,
+					willClose: () => {
+						location.reload();
+					},
+				});
+			});
 	}
 });
 

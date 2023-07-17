@@ -6,6 +6,8 @@ class UsuariosController extends CI_Controller
         parent::__construct();
         $this->load->model('UsuariosModel');
         $this->load->model('EmpleadosModel');
+        $this->load->model('MenusModel');
+        $this->load->helper('menu_helper');
     }
 
     public function index()
@@ -14,7 +16,17 @@ class UsuariosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-            $this->load->view('header');
+            $perfil = $this->session->userdata('perfil');
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+            $html_menus = createMenuByPerfil($data_menus);
+            $data_vista = array(
+                'data_menus' => $html_menus,
+                'name_page' => 'USUARIOS',
+            );
+            $this->load->view('header', $data_vista);
             $this->load->view('usuarios/index');
         }
     }
@@ -25,16 +37,22 @@ class UsuariosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
+            $perfil = $this->session->userdata('perfil');
+            $data_where_menus = array(
+                'pm.perfil_id' => $perfil
+            );
+            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+            $html_menus = createMenuByPerfil($data_menus);
             $data_perfiles = $this->UsuariosModel->getPerfiles()->result();
             $data_empleados = $this->EmpleadosModel->getEmpleados()->result();
-
-            $data = array(
+            $data_vista = array(
+                'data_menus' => $html_menus,
+                'name_page' => 'CREAR USUARIO',
                 'data_empleados' => $data_empleados,
                 'data_perfiles' => $data_perfiles
             );
-
-            $this->load->view('header');
-            $this->load->view('usuarios/create', $data);
+            $this->load->view('header', $data_vista);
+            $this->load->view('usuarios/create');
         }
     }
 
@@ -146,7 +164,7 @@ class UsuariosController extends CI_Controller
             $user = $this->session->userdata('user');
             $new_pass = $this->input->POST('new_pass');
             $new_pass_check = $this->input->POST('new_pass_check');
-            
+
             if ($user != "" && $new_pass != "" && $new_pass_check != "" && $new_pass === $new_pass_check) {
                 $hash = password_hash($new_pass, PASSWORD_DEFAULT);
 
@@ -157,7 +175,7 @@ class UsuariosController extends CI_Controller
                     'contrasena' => $hash
                 );
 
-                if($this->UsuariosModel->updateUsuario($data_where,$data_update)){
+                if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
                     $array_response = array(
                         'title' => 'Exito!',
                         'message' => 'Contraseña actualizada correctamente!',
@@ -165,13 +183,13 @@ class UsuariosController extends CI_Controller
                     );
                     /* $this->session->unset_userdata('change_password'); */
                     $this->session->set_userdata('change_password', 0);
-                }else {
+                } else {
                     $array_response = array(
                         'title' => 'Error!',
                         'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
                         'response' => 'error',
                     );
-                }               
+                }
             } else {
                 $array_response = array(
                     'title' => 'Advertencia!',
