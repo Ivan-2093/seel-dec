@@ -21,5 +21,21 @@ function deteleImgEmpleado($path_to_file)
     return json_encode($array_response);
 }
 
-        /* $path_to_file = 'public/empleados/' . $inputIdTercero . '.jpg'; */
+function deleteFile($path_to_file)
+{
+    if (file_exists($path_to_file)) {
+        if(unlink($path_to_file)){
+            $result = 1;
+        }else {
+            $result = 2;
+        }
+    } else {
+        $result = 3 . "/" . $path_to_file;
+    }
+
+}
+
+
+
+        /* $path_to_file = 'media/imagenes/empleados/' . $inputIdTercero . '.jpg'; */
         /* echo deteleImgEmpleado($path_to_file); */ //Funcion para eliminar un archivo 

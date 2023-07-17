@@ -40,4 +40,8 @@ class EmpleadosModel extends CI_Model
     {
         return $this->db->insert('empleados', $data_insert);
     }
+    public function updateEmpleado($data_insert,$data_where)
+    {
+        return $this->db->update('empleados', $data_insert, $data_where);
+    }
 }

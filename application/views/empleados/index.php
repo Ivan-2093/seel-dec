@@ -48,7 +48,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <form id="formEditarEmpleado" name="formEditarEmpleado">
+          <form id="formEditarEmpleado" name="formEditarEmpleado" enctype="multipart/form-data">
             <div class="card-body" style="background-color: #90ee9073 ;">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
@@ -109,6 +109,7 @@
               </div>
             </div>
             <div class="card-footer text-right">
+              <input type="hidden" id="inputIdTerceroHidden" name="inputIdTerceroHidden" value="">
               <button id="btnSubmitEditEmpleado" name="btnSubmitEditEmpleado" type="button" class="btn btn-success">ACTUALIZAR</button>
             </div>
           </form>
