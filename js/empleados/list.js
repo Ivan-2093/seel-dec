@@ -5,6 +5,7 @@ const inputIdSedeEmp = document.getElementById("inputIdSedeEmp");
 const inputFileImgEmp = document.getElementById("inputFileImgEmp");
 const inputEmailEmp = document.getElementById("inputEmailEmp");
 const btnSubmitEditEmpleado = document.getElementById("btnSubmitEditEmpleado");
+const inputIdTerceroHidden = document.getElementById("inputIdTerceroHidden");
 
 /* ARRAY DE INPUTS */
 const arrayInputs = [
@@ -55,7 +56,7 @@ function loadTableEmpleados() {
 
 function editarEmpleado(data) {
 	const data_empleado = JSON.parse(data.getAttribute("data"));
-
+    inputIdTerceroHidden.value = data_empleado[0];
 	$("#inputIdTercero").val(data_empleado[0]);
 	$("#inputIdCargoEmp").val(data_empleado[1]);
 	$("#inputIdSedeEmp").val(data_empleado[2]);

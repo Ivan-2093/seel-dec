@@ -49,7 +49,7 @@ class EmpleadosController extends CI_Controller
             $data_empleados = $this->EmpleadosModel->getEmpleados();
             $tbody = '';
             if ($data_empleados->num_rows() > 0) {
-              /*   [id] => 1
+                /*   [id] => 1
                 [id_tercero] => 1
                 [id_cargo] => 1
                 [id_sede] => 1
@@ -192,11 +192,16 @@ class EmpleadosController extends CI_Controller
         }
     }
 
-    public function editEmpleado(){
-        $inputIdTercero = $this->input->POST('inputIdTercero');
+    public function editEmpleado()
+    {
+
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+            $inputIdTercero = $this->input->POST('inputIdTerceroHidden');
             $inputIdCargoEmp = $this->input->POST('inputIdCargoEmp');
             $inputIdSedeEmp = $this->input->POST('inputIdSedeEmp');
-            /* $inputFileImgEmp = $this->input->POST('inputFileImgEmp'); */
             $inputEmailEmp = $this->input->POST('inputEmailEmp');
             $data_tercero = $this->TercerosModel->getTerceroById($inputIdTercero);
             $data_empleado = $this->EmpleadosModel->getEmpleadosByIdTercero($inputIdTercero);
@@ -204,55 +209,60 @@ class EmpleadosController extends CI_Controller
                 case $data_tercero->num_rows() == 0:
                     $array_response = array(
                         'response' => 'warning',
-                        'sms' => 'El empleado que esta intentando crear no se encuentra registrado en la base de datos'
+                        'sms' => 'El empleado que esta intentando editar no se encuentra registrado en la base de datos de Terceros'
                     );
                     break;
-                case $data_empleado->num_rows() > 0:
+                case $data_empleado->num_rows() == 0:
                     $array_response = array(
                         'response' => 'warning',
-                        'sms' => 'El empleado que esta intentando crear ya se encuentra registrado en la base de datos'
+                        'sms' => 'El empleado que esta intentando editar no se encuentra registrado en la base de datos como Empleado'
                     );
                     break;
                 default:
-                    $name_file = $data_tercero->row(0)->nit;
-                    /* SCRIPT PARA GUARDAR LA IMAGEN DE PERFIL DEL EMPLEADO */
-                    $config['upload_path'] = './public/empleados';
-                    $config['allowed_types'] = 'jpeg|jpg|png|gif';
-                    $config['max_size'] = '10240000000';
-                    $config['file_name'] = $name_file;
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('inputFileImgEmp')) {
-                        $error = array('error' => $this->upload->display_errors());
-
-                        $array_response = array(
-                            'response' => 'error',
-                            'sms' => $error
-                        );
-                    } else {
+                    $foto_perfil = $data_empleado->row(0)->foto_perfil != "" ? $data_empleado->row(0)->foto_perfil : NULL;
+                     /* SCRIPT PARA GUARDAR LA IMAGEN DE PERFIL DEL EMPLEADO */
+                     $config['upload_path'] = './media/imagenes/empleados';
+                     $config['allowed_types'] = 'jpeg|jpg|png|gif';
+                     $config['max_size'] = '10240000000';
+                     $config['overwrite'] = TRUE;
+                     $config['file_name'] = $foto_perfil;
+                     
+                     $this->load->library('upload', $config);
+                    if ($this->upload->do_upload('inputFileImgEmp')) {
+                        $path_delete = "media/imagenes/empleados/$foto_perfil";
+                        /* deleteFile($path_delete); */
                         $data = array('upload_data' => $this->upload->data());
 
-                        $data_insert = array(
-                            'id_tercero' => $inputIdTercero,
-                            'id_cargo' => $inputIdCargoEmp,
-                            'id_sede' => $inputIdSedeEmp,
-                            'foto_perfil' =>  $data['upload_data']['file_name'],
-                            'email' => $inputEmailEmp
-                        );
-
-                        if ($this->EmpleadosModel->createEmpleado($data_insert)) {
-                            $array_response = array(
-                                'response' => 'success',
-                                'sms' => 'Empleado creado correctamente'
-                            );
-                        } else {
-                            $array_response = array(
-                                'response' => 'error',
-                                'sms' => 'Ha ocurrido un error, intente nuevamente!'
-                            );
-                        }
+                        $foto_perfil = $data['upload_data']['file_name'] != "" ? $data['upload_data']['file_name'] : NULL;
                     }
+                    clearstatcache();
+                    /* echo $foto_perfil;die; */
+
+                    $data_insert = array(
+                        'id_tercero' => $inputIdTercero,
+                        'id_cargo' => $inputIdCargoEmp,
+                        'id_sede' => $inputIdSedeEmp,
+                        'foto_perfil' =>  $foto_perfil,
+                        'email' => $inputEmailEmp
+                    );
+                    $data_where = array(
+                        'id_tercero' => $inputIdTercero
+                    );
+                    if ($this->EmpleadosModel->updateEmpleado($data_insert, $data_where)) {
+                        $array_response = array(
+                            'response' => 'success',
+                            'sms' => 'Datos del empleado actualizados correctamente'
+                        );
+                    } else {
+                        $array_response = array(
+                            'response' => 'error',
+                            'sms' => 'Ha ocurrido un error, intente nuevamente!'
+                        );
+                    }
+
                     break;
             }
             echo json_encode($array_response);
+        }
     }
 }

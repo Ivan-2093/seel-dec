@@ -11,11 +11,6 @@ class MenuController extends CI_Controller
 
     public function index()
     {
-<<<<<<< HEAD
-
-        $this->load->view('header');
-        $this->load->view('menu/menu');
-=======
         if (!$this->session->userdata('login')) {
             $this->session->sess_destroy();
             header("Location: " . base_url());
@@ -33,7 +28,7 @@ class MenuController extends CI_Controller
             $this->load->view('header', $data_vista);
             $this->load->view('menu/menu');
         }
->>>>>>> e108dbc86d4fa180353853f48693b8df9c7b4b7a
+
     }
 
     public function listMenus()
