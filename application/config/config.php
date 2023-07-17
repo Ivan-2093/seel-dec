@@ -23,7 +23,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+<<<<<<< HEAD
+$config['base_url'] = 'http://localhost/seeldec/';
+=======
 $config['base_url'] = 'http://localhost:8080/seel-dec/';
+>>>>>>> 63a595d375d10c7e86b3c5b6f4ea0a7b9fe52f39
 
 /*
 |--------------------------------------------------------------------------
