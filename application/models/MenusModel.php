@@ -63,8 +63,7 @@ class MenusModel extends CI_Model
         return $this->db->update('submenus', $data_update, $data_where);
     }
 
-
-    public function getSubmenuByName($data_where)
+    public function getSubmenusWhere($data_where)
     {
         return $this->db->get_where('submenus', $data_where);
     }
