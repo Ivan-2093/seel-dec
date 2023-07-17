@@ -17,24 +17,23 @@ class TercerosController extends CI_Controller
             header("Location: " . base_url());
         } else {
             $perfil = $this->session->userdata('perfil');
-
             $data_where_menus = array(
                 'pm.perfil_id' => $perfil
             );
-
             $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-
             $html_menus = createMenuByPerfil($data_menus);
-
-
-            $data_vista = array(
+            $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
+            $data_paises = $this->PaisesModel->getPaises()->result();
+            $data_generos = $this->TercerosModel->getGeneros()->result();
+            $data = array(
                 'data_menus' => $html_menus,
+                'data_tipo_doc' => $data_tipo_doc,
+                'data_paises' => $data_paises,
+                'data_generos' => $data_generos,
                 'name_page' => 'TERCEROS',
             );
-
-
-            $this->load->view('header', $data_vista);
-            $this->load->view('terceros/index', $data_vista);
+            $this->load->view('header', $data);
+            $this->load->view('terceros/index');
         }
     }
 
@@ -44,26 +43,15 @@ class TercerosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-
             $perfil = $this->session->userdata('perfil');
-
             $data_where_menus = array(
                 'pm.perfil_id' => $perfil
             );
-
             $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-
             $html_menus = createMenuByPerfil($data_menus);
-
-
-            $data_vista = array(
-                
-            );
-
             $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
             $data_paises = $this->PaisesModel->getPaises()->result();
             $data_generos = $this->TercerosModel->getGeneros()->result();
-
             $data = array(
                 'data_menus' => $html_menus,
                 'data_tipo_doc' => $data_tipo_doc,
@@ -71,7 +59,6 @@ class TercerosController extends CI_Controller
                 'data_generos' => $data_generos,
                 'name_page' => 'CREAR TERCERO',
             );
-
             $this->load->view('header', $data);
             $this->load->view('terceros/create');
         }
@@ -165,7 +152,6 @@ class TercerosController extends CI_Controller
             header("Location: " . base_url());
         } else {
             $data_terceros = $this->TercerosModel->getTerceros();
-            /* print_r($data_terceros->result()); */
             $tbody = '';
             foreach ($data_terceros->result() as $key) {
                 $tbody .= '<tr>
@@ -174,13 +160,75 @@ class TercerosController extends CI_Controller
                 <td>' . $key->email . '</td>
                 <td>' . $key->telefono_1 . '</td>
                 <td>' . $key->telefono_2 . '</td>
-                <td><button data=\'["' . $key->descripcion . '","' . $key->nit . '","' . $key->primer_nombre . '","' . $key->segundo_nombre . '","' . $key->primer_apellido . '","' . $key->segundo_apellido . '","' . $key->email . '","' . $key->telefono_1 . '","' . $key->telefono_2 . '","' . $key->genero . '","' . $key->municipio . '","' . $key->barrio . '","' . $key->direccion . '"]\' class="btn btn-warning ik ik-edit" data-toggle="tooltip" data-placement="top" title="EDITAR TERCERO" onclick="editTercero(this)"></button></td>
+                <td><button data=\'["' . $key->id_tipo_doc . '","' . $key->descripcion . '","' . $key->nit . '","' . $key->primer_nombre . '","' . $key->segundo_nombre . '","' . $key->primer_apellido . '","' . $key->segundo_apellido . '","' . $key->email . '","' . $key->telefono_1 . '","' . $key->telefono_2 . '","' . $key->id_genero . '","' . $key->id_pais . '","' . $key->id_dpto . '","' . $key->id_municipio . '","' . $key->barrio . '","' . $key->direccion . '"]\' class="btn btn-warning ik ik-edit" data-toggle="tooltip" data-placement="top" title="EDITAR TERCERO" onclick="editTercero(this)"></button></td>
             </tr>';
             }
 
             $array_response = array(
                 'tbody' => $tbody
             );
+
+            echo json_encode($array_response);
+        }
+    }
+
+    public function editTercero()
+    {
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        } else {
+
+            /* [inputTipoDoc] => 1
+            [inputNumeroDoc] => 1232892531
+            [inputFirstName] => ENYIMBER
+            [inputSecondName] => FERLEY
+            [inputFirstSurName] => AGUILAR
+            [inputSecondSurName] => CARREÑO
+            [inputIdGenero] => 2
+            [inputEmail] => ENYIMBER1999@GMAIL.COM
+            [inputTelefono_1] => 3177742714
+            [inputTelefono_2] => 3182506301
+            [comboPais] => 1
+            [comboDepto] => 28
+            [comboMunicipio] => 119
+            [inputBarrio] => CARRERA 11 58 N 14
+            [inputDireccion] => EL PABLON */
+
+            $array_inputs = array(
+                'id_tipo_doc' => $this->input->POST('inputTipoDoc'),
+                'nit' => $this->input->POST('inputNumeroDoc'),
+                'primer_nombre' => $this->input->POST('inputFirstName'),
+                'segundo_nombre' => $this->input->POST('inputSecondName'),
+                'primer_apellido' => $this->input->POST('inputFirstSurName'),
+                'segundo_apellido' => $this->input->POST('inputSecondSurName'),
+                'id_genero' => $this->input->POST('inputIdGenero'),
+                'email' => $this->input->POST('inputEmail'),
+                'telefono_1' => $this->input->POST('inputTelefono_1'),
+                'telefono_2' => $this->input->POST('inputTelefono_2'),
+                'id_municipio' => $this->input->POST('comboMunicipio'),
+                'barrio' => $this->input->POST('inputBarrio'),
+                'direccion' => $this->input->POST('inputDireccion'),
+            );
+            if ($this->TercerosModel->getTerceroByNumeroDoc($array_inputs['nit'])->num_rows() > 0) {
+                $data_where = array(
+                    'nit' => $this->input->POST('inputNumeroDoc'),
+                );
+                if ($this->TercerosModel->editTercero($array_inputs, $data_where)) {
+                    $array_response = array(
+                        'response' => 'success'
+                    );
+                } else {
+                    $array_response = array(
+                        'response' => 'error'
+                    );
+                }
+            } else {
+                $array_response = array(
+                    'response' => 'warning'
+                );
+            }
+
 
             echo json_encode($array_response);
         }

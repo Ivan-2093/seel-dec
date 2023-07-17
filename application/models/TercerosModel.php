@@ -34,4 +34,9 @@ class TercerosModel extends CI_Model
     public function createTercero($data_insert){
         return $this->db->insert('terceros',$data_insert);
     }
+
+    public function editTercero($data_update,$data_where)
+    {
+        return $this->db->update('terceros',$data_update,$data_where);
+    }
 }
