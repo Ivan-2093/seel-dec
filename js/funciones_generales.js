@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadDatatable(id) {
+
+	$(`#${id}`).dataTable().fnDestroy();
 	$(`#${id}`).DataTable({
 		paging: true,
 		pageLength: -1,

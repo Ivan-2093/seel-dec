@@ -2,6 +2,10 @@ const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 const formUser = document.getElementById("formUser");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+const verPassCheck = document.getElementById("verPassCheck");
+const forgot_pass = document.getElementById("forgot_pass");
+const btnRestPass = document.getElementById("btnRestPass");
+const usernameRest = document.getElementById("usernameRest");
 
 
 const arrayInputs = [username, password];
@@ -85,3 +89,73 @@ btnIniciarSesion.addEventListener("keypress", function (event) {
 	}
 });
 username.focus();
+
+verPassCheck.addEventListener('mousedown', () => {
+	if (password.getAttribute('type') === 'text') {
+		password.setAttribute('type', 'password');
+		verPassCheck.children[0].classList.remove('ik-eye-off');
+		verPassCheck.children[0].classList.add('ik-eye');
+	} else {
+		password.setAttribute('type', 'text');
+		verPassCheck.children[0].classList.remove('ik-eye-off');
+		verPassCheck.children[0].classList.add('ik-eye');
+	}
+});
+
+forgot_pass.addEventListener('click', () => {
+	$('#exampleModalCenter').modal('show');
+});
+
+
+btnRestPass.addEventListener('click', () => {
+	if (usernameRest.value != "") {
+		const formRestPass = new FormData();
+		formRestPass.append('username',usernameRest.value);
+
+		fetch(`${base_url}LoginController/restPassword`, {
+			headers: {
+				"Content-type": "application/json",
+			},
+			mode: "no-cors",
+			method: "POST",
+			body: formRestPass,
+		})
+			.then(function (response) {
+				// Transforma la respuesta. En este caso lo convierte a JSON
+				return response.json();
+			})
+			.then(function (json) {
+				Swal.fire({
+					title: `${json['']}`,
+					html: `<strong>${json["sms"]}</strong>`,
+					icon: `${json['']}`,
+					confirmButtonText: "Ok",
+				});
+			})
+			.catch(function (error) {
+				Swal.fire({
+					title: "ERROR",
+					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+					icon: "error",
+					confirmButtonText: "Ok",
+					allowOutsideClick: false,
+					showCloseButton: true,
+					willClose: () => {
+						location.reload();
+					},
+				});
+			});
+	} else {
+		Swal.fire({
+			title: "Advertencia",
+			html: `Debe ingresar un usuario!.`,
+			icon: "warning",
+			confirmButtonText: "Ok",
+			allowOutsideClick: false,
+			showCloseButton: true,
+		});
+	}
+
+});
+
+
