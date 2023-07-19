@@ -7,6 +7,7 @@ class LoginController extends CI_Controller
         parent::__construct(); //invoca al constructor de la clase superior
         $this->load->model('UsuariosModel'); //carga un modelo con el nombre de Usuarios“  
         $this->load->model('EmpleadosModel');
+        $this->load->library('phpmailer_lib');
     }
     public function index()
     {
@@ -105,21 +106,25 @@ class LoginController extends CI_Controller
             if ($data_user->num_rows() > 0) {
                 $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);
                 $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_whereEmp);
-                print_r($data_empleado->row(0)->correo);
+                $this->sendEmail($data_empleado->row(0)->correo,$data_empleado->row(0)->primer_nombre ." " . $data_empleado->row(0)->primer_apellido,$data_empleado->row(0)->nit);
             } else {
             }
         } else {
         }
     }
-
-    public function sendEmail()
+    /* sendEmail recibe como parametro el correo del usuario! */
+    public function sendEmail($mail_address,$username,$token_pass)
     {
-        $this->load->library('phpmailer_lib');
-        $correo = $this->phpmailer_lib->load();
 
+        $data_usuario = array(
+            'name_user' => $username,
+            'new_password' => $token_pass,
+        );
+
+        $correo = $this->phpmailer_lib->load();
         // SMTP configuration
         $correo->IsSMTP();
-        $correo->SMTPDebug = 1;
+        /* $correo->SMTPDebug = 1; */
         $correo->SMTPAuth = true;
         $correo->SMTPSecure = 'tls';
         $correo->Host = "mail.aftersalesassistance.com";
@@ -134,44 +139,14 @@ class LoginController extends CI_Controller
         );
         $correo->Username = "developer@aftersalesassistance.com";
         $correo->Password = "kA0&!7cQ(ws(";
-        $correo->SetFrom("developer@aftersalesassistance.com", "CODIESEL S.A");
-        $correo->addAddress("programador3@codiesel.co");
-        $correo->Subject = "Solicitud ausentismo ";
+        $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC");// CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+        $correo->addAddress($mail_address);
+        /* $correo->addAddress('jjairo0813@gmail.com'); */
+        $correo->Subject = "Restablecer contraseña";
+        $correo->CharSet = 'UTF-8';
 
-        $mensaje = '<!DOCTYPE html>
-				<html>
-				<head>
-				<meta charset="utf-8">
-				<title></title>
-				<style type="text/css">
-									#boton_aceptar{
-				background-color: #199319;
-				color: white;
-				padding: 15px 25px;
-				text-decoration: none;
-				}
-									#boton_rechasar{
-					background-color: red;
-					color: white;
-					padding: 15px 25px;
-					text-decoration: none;
-				}
-				</style>
-				</head>
-				<body>
-				<div style="padding: 20px;">
-                HDPTA
-				</div>
-				<div style="padding: 20px;display: inline-block;">
-				</div>
-				</body>
-				</html>';
+        $mensaje = $this->load->view('mails/restablecer_contrasena',$data_usuario,true);
         $correo->MsgHTML($mensaje);
-
-        if (!$correo->Send()) {
-            echo "err";
-        } else {
-            echo 'ok';
-        }
+        $correo->send();
     }
 }
