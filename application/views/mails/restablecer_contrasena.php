@@ -174,18 +174,18 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="padding: 35px 70px 30px" class="em_padd" valign="top" bgcolor="#90ee9073" align="center">
+								<td style="padding: 35px 70px 30px" class="em_padd" valign="top" bgcolor="#0d1121" align="center">
 									<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
 										<tbody>
 											<tr>
 												<td style="font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 16px;
 															line-height: 30px;
-															color: #000000;
+															color: #fbeb59;
 														" valign="top" align="left">
 													Hola <?php echo $name_user ?>,<br /><br />
 
-													Recientemente ha solicitado restablecer la contraseña de su cuenta SEELDEC.COM.
+													Recientemente ha solicitado restablecer la contraseña de su cuenta de SEELDEC.<br /><br />
 
 												</td>
 											</tr>
@@ -197,7 +197,7 @@
 															font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 18px;
 															line-height: 22px;
-															color: #000000;
+															color: white;
 															text-transform: uppercase;
 															letter-spacing: 2px;
 															padding-bottom: 12px;
@@ -208,12 +208,11 @@
 															font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 18px;
 															line-height: 22px;
-															color: #000000;
+															color: white;
 															background-color: white;
-															text-transform: uppercase;
 															letter-spacing: 2px;
 															padding-bottom: 12px;
-														" valign="top" align="center"><?php echo $new_password ?></spam>
+														" valign="top" align="center"><?php echo $new_password ?></spam><br /><br />
 
 												</td>
 											</tr>
@@ -224,10 +223,10 @@
 												<td style="font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 16px;
 															line-height: 30px;
-															color: #000000;
+															color: #fbeb59;
 														" valign="top" align="left">
 													Si no ha solicitado el restablecimiento de la contraseña, ignore este correo electrónico o contactenos al siguiente correo electronico developer@seeldec.com<br />
-
+													<br /><br />
 													Gracias, el equipo de SEELDEC
 												</td>
 											</tr>

@@ -23,6 +23,35 @@
 	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/icon-kit/dist/css/iconkit.min.css">
 	<!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style type="text/css">
+		.loader {
+			position: fixed;
+			left: 240px;
+			top: 0px;
+			width: -webkit-fill-available;
+			height: -webkit-fill-available;
+			z-index: 9999;
+			background: center / contain no-repeat url('<?= base_url() ?>media/imagenes/cargando.gif'), 50% 50%, rgb(249, 249, 249);
+			background-size: inherit;
+			opacity: .8;
+			display: none;
+		}
+
+		@media screen and (max-width: 991px) {
+			.loader {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: -webkit-fill-available;
+				height: -webkit-fill-available;
+				z-index: 9999;
+				background: center / contain no-repeat url('<?= base_url() ?>media/imagenes/cargando.gif'), 50% 50%, rgb(249, 249, 249);
+				background-size: inherit;
+				opacity: .8;
+				display: none;
+			}
+		}
+	</style>
 </head>
 
 <body>
@@ -95,7 +124,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="btnRestPass" type="button" class="btn btn-primary" data-dismiss="modal">CONTINUAR</button>
+					<button id="btnRestPass" type="button" class="btn btn-primary">CONTINUAR</button>
 				</div>
 			</div>
 		</div>
@@ -109,7 +138,7 @@
 		window.jQuery || document.write('<script src="src/js/vendor/jquery-3.3.1.min.js"><\/script>')
 	</script>
 	<script src="<?php base_url() ?>plantilla/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="<?php base_url() ?>plantilla/js/app.js"></script>
+	<!-- <script src="<?php base_url() ?>plantilla/js/app.js"></script> -->
 	<script src="<?php base_url() ?>js/login/funciones.js"></script>
 	<script src="<?php base_url() ?>js/check_inputs.js"></script>
 </body>
