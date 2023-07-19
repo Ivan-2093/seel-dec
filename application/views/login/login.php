@@ -24,20 +24,6 @@
 	<!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<style type="text/css">
-		.loader {
-			position: fixed;
-			left: 240px;
-			top: 0px;
-			width: -webkit-fill-available;
-			height: -webkit-fill-available;
-			z-index: 9999;
-			background: center / contain no-repeat url('<?= base_url() ?>media/imagenes/cargando.gif'), 50% 50%, rgb(249, 249, 249);
-			background-size: inherit;
-			opacity: .8;
-			display: none;
-		}
-
-		@media screen and (max-width: 991px) {
 			.loader {
 				position: fixed;
 				left: 0px;
@@ -50,7 +36,6 @@
 				opacity: .8;
 				display: none;
 			}
-		}
 	</style>
 </head>
 
@@ -78,7 +63,7 @@
 									<form id="formUser" name="formUser">
 										<div class="mb-3">
 											<label class="form-label">Usuario</label>
-											<input class="form-control form-control" type="text" id="username" name="username" placeholder="Ingrese usuario" autocomplete="on" />
+											<input oninput="this.value = this.value.toUpperCase()" class="form-control form-control" type="text" id="username" name="username" placeholder="Ingrese usuario" autocomplete="on" />
 										</div>
 										<div class="mb-3">
 											<label for="new_pass_check">Confirme la contraseña</label>
@@ -120,7 +105,7 @@
 				<div class="modal-body">
 					<div class="mb-3">
 						<label class="form-label">Usuario</label>
-						<input class="form-control form-control" type="text" id="usernameRest" name="usernameRest" placeholder="Ingrese usuario" autocomplete="on" />
+						<input oninput="this.value = this.value.toUpperCase()" class="form-control form-control" type="text" id="usernameRest" name="usernameRest" placeholder="Ingrese usuario" autocomplete="on" />
 					</div>
 				</div>
 				<div class="modal-footer">

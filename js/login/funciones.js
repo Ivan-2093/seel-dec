@@ -131,11 +131,9 @@ btnRestPass.addEventListener('click', () => {
 					html: `<strong>${json["sms"]}</strong>`,
 					icon: `${json['response']}`,
 					confirmButtonText: "Ok",
-					willClose: () => {
-						location.reload();
-					},
 				});
 				hiddenLoading(cargando);
+				$('#exampleModalCenter').modal('hide');
 			})
 			.catch(function (error) {
 				Swal.fire({

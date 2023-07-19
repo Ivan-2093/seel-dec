@@ -182,6 +182,7 @@
 															font-size: 16px;
 															line-height: 30px;
 															color: #fbeb59;
+															text-transform: uppercase;
 														" valign="top" align="left">
 													Hola <?php echo $name_user ?>,<br /><br />
 
@@ -197,22 +198,21 @@
 															font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 18px;
 															line-height: 22px;
-															color: white;
+															color: #fbeb59;
 															text-transform: uppercase;
 															letter-spacing: 2px;
-															padding-bottom: 12px;
-														" valign="top" align="center">
-													Su nueva contraseña es:
+															padding-bottom: 12px;"
+															valign="top" align="center">
+													Su nueva contraseña es:<br/>
 
-													<spam style="
-															font-family: 'Open Sans', Arial, sans-serif;
+													<strong style="font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 18px;
 															line-height: 22px;
-															color: white;
+															color: #30a226;
 															background-color: white;
 															letter-spacing: 2px;
-															padding-bottom: 12px;
-														" valign="top" align="center"><?php echo $new_password ?></spam><br /><br />
+															padding: 4px;"
+															valign="top" align="center"><?php echo $new_password ?></strong><br /><br />
 
 												</td>
 											</tr>
@@ -224,6 +224,7 @@
 															font-size: 16px;
 															line-height: 30px;
 															color: #fbeb59;
+															text-transform: uppercase;
 														" valign="top" align="left">
 													Si no ha solicitado el restablecimiento de la contraseña, ignore este correo electrónico o contactenos al siguiente correo electronico developer@seeldec.com<br />
 													<br /><br />
@@ -251,6 +252,7 @@
 																					line-height: 14px;
 																					color: #ffffff;
 																					max-width: 26px;
+																					
 																				" width="26" border="0" height="26" /></a>
 																</td>
 																<td style="width: 6px" width="6">&nbsp;</td>
