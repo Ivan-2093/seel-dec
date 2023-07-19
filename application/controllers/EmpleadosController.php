@@ -151,7 +151,7 @@ class EmpleadosController extends CI_Controller
                 default:
                     $name_file = $data_tercero->row(0)->nit;
                     /* SCRIPT PARA GUARDAR LA IMAGEN DE PERFIL DEL EMPLEADO */
-                    $config['upload_path'] = './public/empleados';
+                    $config['upload_path'] = './media/imagenes/empleados';
                     $config['allowed_types'] = 'jpeg|jpg|png|gif';
                     $config['max_size'] = '10240000000';
                     $config['file_name'] = $name_file;
