@@ -8,6 +8,7 @@ class UsuariosController extends CI_Controller
         $this->load->model('EmpleadosModel');
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
+        $this->load->library('phpmailer_lib');
     }
 
     public function index()
@@ -91,6 +92,7 @@ class UsuariosController extends CI_Controller
                         'empleado_id' => $empleado->id_empleado,
                         'usuario' => $username,
                         'contrasena' => $hash,
+                        'change_pass' => 1,
                         'estado_id' => 1,
                         'fecha_create' => date('Y-m-d H:i:s'),
                         'perfil_id' => $inputIdPerfil
@@ -160,47 +162,179 @@ class UsuariosController extends CI_Controller
             $this->session->sess_destroy();
             header("Location: " . base_url());
         } else {
-
             $user = $this->session->userdata('user');
+            $nit = $this->session->userdata('nit');
             $new_pass = $this->input->POST('new_pass');
             $new_pass_check = $this->input->POST('new_pass_check');
 
-            if ($user != "" && $new_pass != "" && $new_pass_check != "" && $new_pass === $new_pass_check) {
-                $hash = password_hash($new_pass, PASSWORD_DEFAULT);
-
-                $data_where = array(
-                    'usuario' => $user
-                );
-                $data_update = array(
-                    'contrasena' => $hash
-                );
-
-                if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
+            switch (true) {
+                case ($user == "" && $new_pass == "" && $new_pass_check == ""):
                     $array_response = array(
-                        'title' => 'Exito!',
-                        'message' => 'Contraseña actualizada correctamente!',
-                        'response' => 'success',
+                        'title' => 'Advertencia!',
+                        'message' => 'Los campos estan vacios!',
+                        'response' => 'warning',
                     );
-                    /* $this->session->unset_userdata('change_password'); */
-                    $this->session->set_userdata('change_password', 0);
-                } else {
+                    break;
+                case ($new_pass != $new_pass_check):
                     $array_response = array(
-                        'title' => 'Error!',
-                        'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
-                        'response' => 'error',
+                        'title' => 'Advertencia!',
+                        'message' => 'Las contraseñas no coincidieron!',
+                        'response' => 'warning',
                     );
-                }
-            } else {
-                $array_response = array(
-                    'title' => 'Advertencia!',
-                    'message' => 'Los campos estan vacios o las contraseñas no coinciden!',
-                    'response' => 'warning',
-                );
+                    break;
+                case ($new_pass === $nit):
+                    $array_response = array(
+                        'title' => 'Advertencia!',
+                        'message' => 'La contraseña no puede ser su número de documento de identidad!',
+                        'response' => 'warning',
+                    );
+                    break;
+                default:
+                    $hash = password_hash($new_pass, PASSWORD_DEFAULT);
+
+                    $data_where = array(
+                        'usuario' => $user,
+                    );
+                    $data_update = array(
+                        'contrasena' => $hash,
+                        'change_pass' => 0,
+                    );
+
+                    if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
+                        $array_response = array(
+                            'title' => 'Exito!',
+                            'message' => 'Contraseña actualizada correctamente!',
+                            'response' => 'success',
+                        );
+                        $this->session->set_userdata('change_password', 0);
+                    } else {
+                        $array_response = array(
+                            'title' => 'Error!',
+                            'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
+                            'response' => 'error',
+                        );
+                    }
+                    break;
             }
-
-
 
             echo json_encode($array_response);
         }
     }
+
+    public function restPassword()
+    {
+        $username = $this->input->POST('username');
+        if ($username != "" && $username != NULL) {
+            $data_where = array(
+                'usuario' => $username
+            );
+            $data_user = $this->UsuariosModel->getUserByNameUser($data_where);
+
+            if ($data_user->num_rows() > 0) {
+                $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);
+                $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_whereEmp);
+
+                $nombre_usuario = $data_empleado->row(0)->primer_nombre . " " . $data_empleado->row(0)->primer_apellido;
+                $correo_usuario = $data_empleado->row(0)->correo;
+
+                // Obtener una representación codificada hexadecimal para el token:
+                $pass = array();
+                for ($i = 0; $i < 15; $i++) {
+                    switch (mt_rand(1, 2)) {
+                        case '1':
+                            $pass[] = chr(mt_rand(48, 57));
+                            break;
+                        
+                        default:
+                            $pass[] = chr(mt_rand(65, 90));
+                            break;
+                    }
+                    
+                }
+                $key = implode($pass);
+                $hash = password_hash($key, PASSWORD_DEFAULT);
+
+                $data_update = array(
+                    'contrasena' => $hash,
+                    'change_pass' => 1,
+                );
+
+                if($this->UsuariosModel->updateUsuario($data_where,$data_update)){
+                    if($this->sendEmail($nombre_usuario,$correo_usuario,$key)){
+                        $data_response = array (
+                            'response' => 'success',
+                            'title' => 'Exito!',
+                            'sms' => "Se ha enviado una contraseña temporal al correo electronico corporativo asignado al usuario: $username!",
+                        );
+                    }else{
+                        $data_response = array (
+                            'response' => 'warning',
+                            'title' => 'Advertencia!',
+                            'sms' => "Ha ocurrido un error al enviar una contraseña temporal al correo electronico corporativo asignado al usuario: $username!, intente nuevamente o contate con el departamento de SISTEMAS",
+                        );
+                    }
+                }else {
+                    $data_response = array (
+                        'response' => 'warning',
+                        'title' => 'Advertencia!',
+                        'sms' => "Ha ocurrido un error al intentar restablecer la contraseña, intente nuevamente o contacter con el departamento de SISTEMAS!",
+                    );
+                }                
+            } else {
+                $data_response = array (
+                    'response' => 'error',
+                    'title' => 'Error!',
+                    'sms' => "El usuario <strong>$username</strong> ingresado no existe!",
+                );
+            }
+        } else {
+            $data_response = array (
+                'response' => 'warning',
+                'title' => 'Advertencia!',
+                'sms' => 'Campo de usuario vacio',
+            );
+        }
+
+        echo json_encode($data_response);
+
+    }
+    /* sendEmail recibe como parametro el correo del usuario! */
+    public function sendEmail($username,$mail_address,$token_pass)
+    {
+
+        $data_usuario = array(
+            'name_user' => $username,
+            'new_password' => $token_pass,
+        );
+
+        $correo = $this->phpmailer_lib->load();
+        // SMTP configuration
+        $correo->IsSMTP();
+        /* $correo->SMTPDebug = 1; */
+        $correo->SMTPAuth = true;
+        $correo->SMTPSecure = 'tls';
+        $correo->Host = "mail.aftersalesassistance.com";
+        $correo->Port = 587;
+        $correo->IsHTML(true);
+        $correo->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        $correo->Username = "developer@aftersalesassistance.com";
+        $correo->Password = "kA0&!7cQ(ws(";
+        $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+        $correo->addAddress($mail_address);
+        /* $correo->addAddress('jjairo0813@gmail.com'); */
+        $correo->Subject = "Restablecer contraseña";
+        $correo->CharSet = 'UTF-8';
+
+        $mensaje = $this->load->view('mails/restablecer_contrasena', $data_usuario, true);
+        $correo->MsgHTML($mensaje);
+        
+        return $correo->send();
+    }
+
 }

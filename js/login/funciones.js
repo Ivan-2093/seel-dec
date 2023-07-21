@@ -109,10 +109,11 @@ forgot_pass.addEventListener('click', () => {
 
 btnRestPass.addEventListener('click', () => {
 	if (usernameRest.value != "") {
+		showLoading(cargando);
 		const formRestPass = new FormData();
 		formRestPass.append('username',usernameRest.value);
 
-		fetch(`${base_url}LoginController/restPassword`, {
+		fetch(`${base_url}UsuariosController/restPassword`, {
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -126,11 +127,13 @@ btnRestPass.addEventListener('click', () => {
 			})
 			.then(function (json) {
 				Swal.fire({
-					title: `${json['']}`,
+					title: `${json['title']}`,
 					html: `<strong>${json["sms"]}</strong>`,
-					icon: `${json['']}`,
+					icon: `${json['response']}`,
 					confirmButtonText: "Ok",
 				});
+				hiddenLoading(cargando);
+				$('#exampleModalCenter').modal('hide');
 			})
 			.catch(function (error) {
 				Swal.fire({
@@ -138,12 +141,13 @@ btnRestPass.addEventListener('click', () => {
 					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
 					icon: "error",
 					confirmButtonText: "Ok",
-					allowOutsideClick: false,
+					allowOutsideClick: true,
 					showCloseButton: true,
 					willClose: () => {
 						location.reload();
 					},
 				});
+				hiddenLoading(cargando);
 			});
 	} else {
 		Swal.fire({
@@ -154,8 +158,17 @@ btnRestPass.addEventListener('click', () => {
 			allowOutsideClick: false,
 			showCloseButton: true,
 		});
+		$('#exampleModalCenter').modal('show');
 	}
 
 });
+
+function showLoading(cargando) {
+	cargando.style.display = "block";
+}
+
+function hiddenLoading(cargando) {
+	cargando.style.display = "none";
+}
 
 

@@ -5,7 +5,7 @@ CREATE TABLE usuarios (
     empleado_id bigint not null UNIQUE,
     usuario varchar(30) NOT null UNIQUE,
 	contrasena varchar(30) not null,
-	token varchar(200) not null,
+	change_pass tinyint not null, --0 is inactivo // 1 is activo
 	estado_id tinyint not null,
 	fecha_create datetime not null,
 	FOREIGN KEY (empleado_id) REFERENCES empleados(id),
