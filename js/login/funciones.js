@@ -113,7 +113,7 @@ btnRestPass.addEventListener('click', () => {
 		const formRestPass = new FormData();
 		formRestPass.append('username',usernameRest.value);
 
-		fetch(`${base_url}UsuariosController/restPassword`, {
+		fetch(`${base_url}LoginController/restPassword`, {
 			headers: {
 				"Content-type": "application/json",
 			},

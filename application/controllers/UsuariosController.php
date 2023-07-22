@@ -1,143 +1,141 @@
 <?php
 class UsuariosController extends CI_Controller
 {
+
+    public $html_menus = NULL;
+    public $perfil = NULL;
+
     public function __construct()
     {
+
         parent::__construct();
+
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        }
+
         $this->load->model('UsuariosModel');
         $this->load->model('EmpleadosModel');
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
+
+        $this->perfil = $this->session->userdata('perfil');
+        $data_where_menus = array(
+            'pm.perfil_id' => $this->perfil,
+        );
+
+        $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+        $this->html_menus = createMenuByPerfil($data_menus);
     }
 
     public function index()
     {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            $perfil = $this->session->userdata('perfil');
-            $data_where_menus = array(
-                'pm.perfil_id' => $perfil
-            );
-            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-            $html_menus = createMenuByPerfil($data_menus);
-            $data_vista = array(
-                'data_menus' => $html_menus,
-                'name_page' => 'USUARIOS',
-            );
-            $this->load->view('header', $data_vista);
-            $this->load->view('usuarios/index');
-        }
+
+        $data_vista = array(
+            'data_menus' => $this->html_menus,
+            'name_page' => 'USUARIOS',
+        );
+        $this->load->view('header', $data_vista);
+        $this->load->view('usuarios/index');
     }
 
     public function create()
     {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            $perfil = $this->session->userdata('perfil');
-            $data_where_menus = array(
-                'pm.perfil_id' => $perfil
-            );
-            $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
-            $html_menus = createMenuByPerfil($data_menus);
-            $data_perfiles = $this->UsuariosModel->getPerfiles()->result();
-            $data_empleados = $this->EmpleadosModel->getEmpleados()->result();
-            $data_vista = array(
-                'data_menus' => $html_menus,
-                'name_page' => 'CREAR USUARIO',
-                'data_empleados' => $data_empleados,
-                'data_perfiles' => $data_perfiles
-            );
-            $this->load->view('header', $data_vista);
-            $this->load->view('usuarios/create');
-        }
+
+        $data_perfiles = $this->UsuariosModel->getPerfiles()->result();
+        $data_empleados = $this->EmpleadosModel->getEmpleados()->result();
+        $data_vista = array(
+            'data_menus' =>  $this->html_menus,
+            'name_page' => 'CREAR USUARIO',
+            'data_empleados' => $data_empleados,
+            'data_perfiles' => $data_perfiles
+        );
+        $this->load->view('header', $data_vista);
+        $this->load->view('usuarios/create');
     }
 
     public function createUsuario()
     {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            //Obtenemos los datos enviados a traves de POST
-            $inputIdEmpleado = $this->input->POST('inputIdEmpleado');
-            $inputIdPerfil = $this->input->POST('inputIdPerfil');
+        //Obtenemos los datos enviados a traves de POST
+        $inputIdEmpleado = $this->input->POST('inputIdEmpleado');
+        $inputIdPerfil = $this->input->POST('inputIdPerfil');
 
-            //Creamos arrays para el where de las Query de CodeIgneier
-            $data_where_empleado = array(
-                'e.id' => $inputIdEmpleado
-            );
-            $data_where_usuario = array(
-                'empleado_id' => $inputIdEmpleado
-            );
+        //Creamos arrays para el where de las Query de CodeIgneier
+        $data_where_empleado = array(
+            'e.id' => $inputIdEmpleado
+        );
+        $data_where_usuario = array(
+            'empleado_id' => $inputIdEmpleado
+        );
 
-            //Obtenemos información con el ID del empleado seleccionado para crear el usuario
-            $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_where_empleado);
-            //Validamos si el ID del empleado existe
-            if ($data_empleado->num_rows() > 0) {
-                //Obtenemos información de la tabla Usuarios con el ID del empleado
-                $data_usuario = $this->UsuariosModel->getUsuariosByIdEmpleado($data_where_usuario);
-                //Validamos si el ID del empleado no existe como Usuario
-                if ($data_usuario->num_rows() == 0) {
-                    $empleado = $data_empleado->row(0);
-                    $username = $empleado->primer_nombre[0] . $empleado->segundo_nombre[0] . $empleado->primer_apellido . $empleado->segundo_apellido[0];
-                    $password = $empleado->nit;
-                    $hash = password_hash($password, PASSWORD_DEFAULT);
+        //Obtenemos información con el ID del empleado seleccionado para crear el usuario
+        $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_where_empleado);
+        //Validamos si el ID del empleado existe
+        if ($data_empleado->num_rows() > 0) {
+            //Obtenemos información de la tabla Usuarios con el ID del empleado
+            $data_usuario = $this->UsuariosModel->getUsuariosByIdEmpleado($data_where_usuario);
+            //Validamos si el ID del empleado no existe como Usuario
+            if ($data_usuario->num_rows() == 0) {
+                $empleado = $data_empleado->row(0);
+                $username = $empleado->primer_nombre[0] . $empleado->segundo_nombre[0] . $empleado->primer_apellido . $empleado->segundo_apellido[0];
 
-                    $data_insert = array(
-                        'empleado_id' => $empleado->id_empleado,
-                        'usuario' => $username,
-                        'contrasena' => $hash,
-                        'change_pass' => 1,
-                        'estado_id' => 1,
-                        'fecha_create' => date('Y-m-d H:i:s'),
-                        'perfil_id' => $inputIdPerfil
+                $data_where = array(
+                    'usuario' => $username
+                );
+                $data_user = $this->UsuariosModel->getUserByNameUser($data_where);
+
+                $username = $data_user->num_rows() == 0 ? $username : $username . $data_user->num_rows();
+
+                $password = $empleado->nit;
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+
+                $data_insert = array(
+                    'empleado_id' => $empleado->id_empleado,
+                    'usuario' => $username,
+                    'contrasena' => $hash,
+                    'change_pass' => 1,
+                    'estado_id' => 1,
+                    'fecha_create' => date('Y-m-d H:i:s'),
+                    'perfil_id' => $inputIdPerfil
+                );
+
+                if ($this->UsuariosModel->insertUsuario($data_insert)) {
+                    $array_response = array(
+                        'response' => 'success',
+                        'message' => 'Usuario registrado con exito',
                     );
-
-                    if ($this->UsuariosModel->insertUsuario($data_insert)) {
-                        $array_response = array(
-                            'response' => 'success',
-                            'message' => 'Usuario registrado con exito',
-                        );
-                    } else {
-                        $array_response = array(
-                            'response' => 'warning',
-                            'message' => 'Ha ocurrido un error, intente nuevamente',
-                        );
-                    }
                 } else {
                     $array_response = array(
                         'response' => 'warning',
-                        'message' => 'El Usuario que esta tratando de registrar ya se encuentra registrado',
+                        'message' => 'Ha ocurrido un error, intente nuevamente',
                     );
                 }
             } else {
                 $array_response = array(
-                    'response' => 'error',
-                    'message' => 'El Usuario que esta tratando de registrar no se encuentra en la base de datos como empleado',
+                    'response' => 'warning',
+                    'message' => 'El Usuario que esta tratando de registrar ya se encuentra registrado',
                 );
             }
-
-            echo json_encode($array_response);
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'message' => 'El Usuario que esta tratando de registrar no se encuentra en la base de datos como empleado',
+            );
         }
+
+        echo json_encode($array_response);
     }
 
     public function loadUsuarios()
     {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            $data_usuarios = $this->UsuariosModel->getUsuarios();
+        $data_usuarios = $this->UsuariosModel->getUsuarios();
 
-            $tbody = '';
-            if ($data_usuarios->num_rows() > 0) {
-                foreach ($data_usuarios->result() as $usuario) {
-                    $tbody .= '<tr>
+        $tbody = '';
+        if ($data_usuarios->num_rows() > 0) {
+            foreach ($data_usuarios->result() as $usuario) {
+                $tbody .= '<tr>
                 <td>' . $usuario->id_user . '</td>
                 <td>' . $usuario->usuario . '</td>
                 <td>' . $usuario->nit . '</td>
@@ -145,196 +143,73 @@ class UsuariosController extends CI_Controller
                 <td>' . $usuario->estado . '</td>
                 <td></td>
                 </tr>';
-                }
             }
-
-            $array_response = array(
-                'tbody' => $tbody
-            );
-
-            echo json_encode($array_response);
         }
+
+        $array_response = array(
+            'tbody' => $tbody
+        );
+
+        echo json_encode($array_response);
     }
 
     public function changePassword()
     {
-        if (!$this->session->userdata('login')) {
-            $this->session->sess_destroy();
-            header("Location: " . base_url());
-        } else {
-            $user = $this->session->userdata('user');
-            $nit = $this->session->userdata('nit');
-            $new_pass = $this->input->POST('new_pass');
-            $new_pass_check = $this->input->POST('new_pass_check');
+        $user = $this->session->userdata('user');
+        $nit = $this->session->userdata('nit');
+        $new_pass = $this->input->POST('new_pass');
+        $new_pass_check = $this->input->POST('new_pass_check');
 
-            switch (true) {
-                case ($user == "" && $new_pass == "" && $new_pass_check == ""):
-                    $array_response = array(
-                        'title' => 'Advertencia!',
-                        'message' => 'Los campos estan vacios!',
-                        'response' => 'warning',
-                    );
-                    break;
-                case ($new_pass != $new_pass_check):
-                    $array_response = array(
-                        'title' => 'Advertencia!',
-                        'message' => 'Las contraseñas no coincidieron!',
-                        'response' => 'warning',
-                    );
-                    break;
-                case ($new_pass === $nit):
-                    $array_response = array(
-                        'title' => 'Advertencia!',
-                        'message' => 'La contraseña no puede ser su número de documento de identidad!',
-                        'response' => 'warning',
-                    );
-                    break;
-                default:
-                    $hash = password_hash($new_pass, PASSWORD_DEFAULT);
+        switch (true) {
+            case ($user == "" && $new_pass == "" && $new_pass_check == ""):
+                $array_response = array(
+                    'title' => 'Advertencia!',
+                    'message' => 'Los campos estan vacios!',
+                    'response' => 'warning',
+                );
+                break;
+            case ($new_pass != $new_pass_check):
+                $array_response = array(
+                    'title' => 'Advertencia!',
+                    'message' => 'Las contraseñas no coincidieron!',
+                    'response' => 'warning',
+                );
+                break;
+            case ($new_pass === $nit):
+                $array_response = array(
+                    'title' => 'Advertencia!',
+                    'message' => 'La contraseña no puede ser su número de documento de identidad!',
+                    'response' => 'warning',
+                );
+                break;
+            default:
+                $hash = password_hash($new_pass, PASSWORD_DEFAULT);
 
-                    $data_where = array(
-                        'usuario' => $user,
-                    );
-                    $data_update = array(
-                        'contrasena' => $hash,
-                        'change_pass' => 0,
-                    );
-
-                    if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
-                        $array_response = array(
-                            'title' => 'Exito!',
-                            'message' => 'Contraseña actualizada correctamente!',
-                            'response' => 'success',
-                        );
-                        $this->session->set_userdata('change_password', 0);
-                    } else {
-                        $array_response = array(
-                            'title' => 'Error!',
-                            'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
-                            'response' => 'error',
-                        );
-                    }
-                    break;
-            }
-
-            echo json_encode($array_response);
-        }
-    }
-
-    public function restPassword()
-    {
-        $username = $this->input->POST('username');
-        if ($username != "" && $username != NULL) {
-            $data_where = array(
-                'usuario' => $username
-            );
-            $data_user = $this->UsuariosModel->getUserByNameUser($data_where);
-
-            if ($data_user->num_rows() > 0) {
-                $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);
-                $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_whereEmp);
-
-                $nombre_usuario = $data_empleado->row(0)->primer_nombre . " " . $data_empleado->row(0)->primer_apellido;
-                $correo_usuario = $data_empleado->row(0)->correo;
-
-                // Obtener una representación codificada hexadecimal para el token:
-                $pass = array();
-                for ($i = 0; $i < 15; $i++) {
-                    switch (mt_rand(1, 2)) {
-                        case '1':
-                            $pass[] = chr(mt_rand(48, 57));
-                            break;
-                        
-                        default:
-                            $pass[] = chr(mt_rand(65, 90));
-                            break;
-                    }
-                    
-                }
-                $key = implode($pass);
-                $hash = password_hash($key, PASSWORD_DEFAULT);
-
+                $data_where = array(
+                    'usuario' => $user,
+                );
                 $data_update = array(
                     'contrasena' => $hash,
-                    'change_pass' => 1,
+                    'change_pass' => 0,
                 );
 
-                if($this->UsuariosModel->updateUsuario($data_where,$data_update)){
-                    if($this->sendEmail($nombre_usuario,$correo_usuario,$key)){
-                        $data_response = array (
-                            'response' => 'success',
-                            'title' => 'Exito!',
-                            'sms' => "Se ha enviado una contraseña temporal al correo electronico corporativo asignado al usuario: $username!",
-                        );
-                    }else{
-                        $data_response = array (
-                            'response' => 'warning',
-                            'title' => 'Advertencia!',
-                            'sms' => "Ha ocurrido un error al enviar una contraseña temporal al correo electronico corporativo asignado al usuario: $username!, intente nuevamente o contate con el departamento de SISTEMAS",
-                        );
-                    }
-                }else {
-                    $data_response = array (
-                        'response' => 'warning',
-                        'title' => 'Advertencia!',
-                        'sms' => "Ha ocurrido un error al intentar restablecer la contraseña, intente nuevamente o contacter con el departamento de SISTEMAS!",
+                if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
+                    $array_response = array(
+                        'title' => 'Exito!',
+                        'message' => 'Contraseña actualizada correctamente!',
+                        'response' => 'success',
                     );
-                }                
-            } else {
-                $data_response = array (
-                    'response' => 'error',
-                    'title' => 'Error!',
-                    'sms' => "El usuario <strong>$username</strong> ingresado no existe!",
-                );
-            }
-        } else {
-            $data_response = array (
-                'response' => 'warning',
-                'title' => 'Advertencia!',
-                'sms' => 'Campo de usuario vacio',
-            );
+                    $this->session->set_userdata('change_password', 0);
+                } else {
+                    $array_response = array(
+                        'title' => 'Error!',
+                        'message' => 'Ha ocurrio un error al realizar la actualización de la contraseña!',
+                        'response' => 'error',
+                    );
+                }
+                break;
         }
 
-        echo json_encode($data_response);
-
+        echo json_encode($array_response);
     }
-    /* sendEmail recibe como parametro el correo del usuario! */
-    public function sendEmail($username,$mail_address,$token_pass)
-    {
-
-        $data_usuario = array(
-            'name_user' => $username,
-            'new_password' => $token_pass,
-        );
-
-        $correo = $this->phpmailer_lib->load();
-        // SMTP configuration
-        $correo->IsSMTP();
-        /* $correo->SMTPDebug = 1; */
-        $correo->SMTPAuth = true;
-        $correo->SMTPSecure = 'tls';
-        $correo->Host = "mail.aftersalesassistance.com";
-        $correo->Port = 587;
-        $correo->IsHTML(true);
-        $correo->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-        $correo->Username = "developer@aftersalesassistance.com";
-        $correo->Password = "kA0&!7cQ(ws(";
-        $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-        $correo->addAddress($mail_address);
-        /* $correo->addAddress('jjairo0813@gmail.com'); */
-        $correo->Subject = "Restablecer contraseña";
-        $correo->CharSet = 'UTF-8';
-
-        $mensaje = $this->load->view('mails/restablecer_contrasena', $data_usuario, true);
-        $correo->MsgHTML($mensaje);
-        
-        return $correo->send();
-    }
-
 }

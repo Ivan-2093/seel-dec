@@ -34,7 +34,7 @@
             </div>
         </div>
         <!-- Button trigger modal -->
-        <div class="card-body">
+        <div class="card-body table-responsive">
 
             <table class="table table-hover table-bordered " id="tabla_menu">
                 <thead class="bg-dark">
@@ -90,7 +90,7 @@
             <div class="modal-header">
                 <h5 class="modal-title label col-lg-12 text-center font-bold" id="modalEditarMenuTitle">Editar Menu: </h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body table-responsive">
                 <form id="formEditMenu">
                     <table class="table table-hover table-bordered " id="tabla_menu">
                         <thead class="bg-dark">

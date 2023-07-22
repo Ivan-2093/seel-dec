@@ -86,7 +86,7 @@ function createUsuario(data_insert) {
                     allowOutsideClick: false,
                     showCloseButton: true,
                     willClose: () => {
-
+                        location.href = base_url + "UsuariosController";
                     },
                 });
             } else if (json['response'] === 'error') {

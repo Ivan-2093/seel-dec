@@ -3,6 +3,7 @@ const formEditTercero = document.getElementById("formEditTercero");
 const btnSubmitEditTercero = document.getElementById("btnSubmitEditTercero");
 
 /* INPUTS DEL FORMULARIO */
+const inputIdTercero = document.getElementById("inputIdTercero");
 const inputTipoDoc = document.getElementById("inputTipoDoc");
 const inputNumeroDoc = document.getElementById("inputNumeroDoc");
 const inputFirstName = document.getElementById("inputFirstName");
@@ -165,6 +166,7 @@ function editTercero(data) {
 	inputIdGenero.value = data_tercero[10];
 	inputDireccion.value = data_tercero[14];
 	inputBarrio.value = data_tercero[15];
+	inputIdTercero.value = data_tercero[16];
 
 	$("#modalEditTercero").modal({
 		keyboard: false,

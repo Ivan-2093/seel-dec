@@ -38,6 +38,8 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";

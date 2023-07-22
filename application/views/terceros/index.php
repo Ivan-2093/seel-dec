@@ -181,6 +181,7 @@
                         </div>
                         <div class="card-footer text-right">
                             <button id="btnSubmitEditTercero" name="btnSubmitEditTercero" type="button" class="btn btn-success">GUARDAR</button>
+                            <input id="inputIdTercero" name="inputIdTercero" type="hidden" hidden>
                         </div>
                     </form>
                 </div>
