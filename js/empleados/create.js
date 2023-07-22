@@ -13,7 +13,9 @@ const arrayInputs = [
 	inputFileImgEmp,
 ];
 
-const btnSubmitCreateEmpleado = document.getElementById("btnSubmitCreateEmpleado");
+const btnSubmitCreateEmpleado = document.getElementById(
+	"btnSubmitCreateEmpleado"
+);
 
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
@@ -83,7 +85,7 @@ function createEmpleado(data_formEmpleado) {
 					allowOutsideClick: false,
 					showCloseButton: true,
 					willClose: () => {
-						location.reload();
+						location.href = base_url + "EmpleadosController";
 					},
 				});
 			} else if (json["response"] === "warning") {

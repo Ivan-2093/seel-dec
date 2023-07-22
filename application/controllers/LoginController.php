@@ -95,4 +95,117 @@ class LoginController extends CI_Controller
         header("Location: " . base_url());
     }
 
+    public function restPassword()
+    {
+        $username = $this->input->POST('username');
+        if ($username != "" && $username != NULL) {
+            $data_where = array(
+                'usuario' => $username
+            );
+            $data_user = $this->UsuariosModel->getUserByNameUser($data_where);
+
+            if ($data_user->num_rows() > 0) {
+                $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);
+                $data_empleado = $this->EmpleadosModel->getEmpleadosByIdEmpleado($data_whereEmp);
+
+                $nombre_usuario = $data_empleado->row(0)->primer_nombre . " " . $data_empleado->row(0)->primer_apellido;
+                $correo_usuario = $data_empleado->row(0)->correo;
+
+                // Obtener una representación codificada hexadecimal para el token:
+                $pass = array();
+                for ($i = 0; $i < 15; $i++) {
+                    switch (mt_rand(1, 2)) {
+                        case '1':
+                            $pass[] = chr(mt_rand(48, 57));
+                            break;
+
+                        default:
+                            $pass[] = chr(mt_rand(65, 90));
+                            break;
+                    }
+                }
+                $key = implode($pass);
+                $hash = password_hash($key, PASSWORD_DEFAULT);
+
+                $data_update = array(
+                    'contrasena' => $hash,
+                    'change_pass' => 1,
+                );
+
+                if ($this->UsuariosModel->updateUsuario($data_where, $data_update)) {
+                    if ($this->sendEmail($nombre_usuario, $correo_usuario, $key)) {
+                        $data_response = array(
+                            'response' => 'success',
+                            'title' => 'Exito!',
+                            'sms' => "Se ha enviado una contraseña temporal al correo electronico corporativo asignado al usuario: $username!",
+                        );
+                    } else {
+                        $data_response = array(
+                            'response' => 'warning',
+                            'title' => 'Advertencia!',
+                            'sms' => "Ha ocurrido un error al enviar una contraseña temporal al correo electronico corporativo asignado al usuario: $username!, intente nuevamente o contate con el departamento de SISTEMAS",
+                        );
+                    }
+                } else {
+                    $data_response = array(
+                        'response' => 'warning',
+                        'title' => 'Advertencia!',
+                        'sms' => "Ha ocurrido un error al intentar restablecer la contraseña, intente nuevamente o contacter con el departamento de SISTEMAS!",
+                    );
+                }
+            } else {
+                $data_response = array(
+                    'response' => 'error',
+                    'title' => 'Error!',
+                    'sms' => "El usuario <strong>$username</strong> ingresado no existe!",
+                );
+            }
+        } else {
+            $data_response = array(
+                'response' => 'warning',
+                'title' => 'Advertencia!',
+                'sms' => 'Campo de usuario vacio',
+            );
+        }
+
+        echo json_encode($data_response);
+    }
+    /* sendEmail recibe como parametro el correo del usuario! */
+    public function sendEmail($username, $mail_address, $token_pass)
+    {
+
+        $data_usuario = array(
+            'name_user' => $username,
+            'new_password' => $token_pass,
+        );
+
+        $correo = $this->phpmailer_lib->load();
+        // SMTP configuration
+        $correo->IsSMTP();
+        /* $correo->SMTPDebug = 1; */
+        $correo->SMTPAuth = true;
+        $correo->SMTPSecure = 'tls';
+        $correo->Host = "mail.aftersalesassistance.com";
+        $correo->Port = 587;
+        $correo->IsHTML(true);
+        $correo->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        $correo->Username = "developer@aftersalesassistance.com";
+        $correo->Password = "kA0&!7cQ(ws(";
+        $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+        $correo->addAddress($mail_address);
+        /* $correo->addAddress('jjairo0813@gmail.com'); */
+        $correo->Subject = "Restablecer contraseña";
+        $correo->CharSet = 'UTF-8';
+
+        $mensaje = $this->load->view('mails/restablecer_contrasena', $data_usuario, true);
+        $correo->MsgHTML($mensaje);
+
+        return $correo->send();
+    }
 }

@@ -155,7 +155,7 @@ function deleteSubMenu(id_menu) {
 	showLoading(cargando);
 	const formDeleteMenu = new FormData();
 	formDeleteMenu.append("idMenuDelete", id_menu);
-	fetch(`${base_url}MenuController/deleteMenuById`, {
+	fetch(`${base_url}MenuController/deleteSubmenuById`, {
 		headers: {
 			"Content-type": "application/json",
 		},

@@ -72,4 +72,12 @@ class MenusModel extends CI_Model
     {
         return $this->db->insert('submenus', $data_insert);
     }
+    public function getMenuPerfilByIdSubmenu($data_where)
+    {
+        return $this->db->get_where('perfiles_submenus', $data_where);
+    }
+    public function deleteSubmenuById($data_where)
+    {
+        return $this->db->delete('submenus', $data_where);
+    }
 }

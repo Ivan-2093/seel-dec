@@ -147,7 +147,7 @@ function createTercero(data_insert) {
 					allowOutsideClick: false,
 					showCloseButton: true,
 					willClose: () => {
-						
+						location.href = base_url+"TercerosController";
 					},
 				});
 			}else if (json['response'] === 'error'){
