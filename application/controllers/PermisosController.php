@@ -3,42 +3,50 @@
 class PermisosController extends CI_Controller
 {
 
+
+    public $html_menus = NULL;
+    public $perfil = NULL;
+
+    public function __construct()
+    {
+
+        parent::__construct();
+
+        if (!$this->session->userdata('login')) {
+            $this->session->sess_destroy();
+            header("Location: " . base_url());
+        }
+
+        $this->load->library('session');
+        $this->load->model('UsuariosModel');
+        $this->load->model('MenusModel');
+        $this->load->model('PermisosModel');
+        $this->load->helper('menu_helper');
+        $this->load->helper('drawHtml_helper');
+        $this->load->library('phpmailer_lib');
+
+        $this->perfil = $this->session->userdata('perfil');
+        $data_where_menus = array(
+            'pm.perfil_id' => $this->perfil,
+        );
+
+        $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
+        $this->html_menus = createMenuByPerfil($data_menus);
+    }
+
+
     public function index()
     {
-        $this->load->model('PermisosModel');
-        print_r($this->PermisosModel->consulta());
+        $data_perfiles = drawOptionsSelectHtml($this->PermisosModel->getPerfiles());
+        $data_vista = array(
+            'data_menus' => $this->html_menus,
+            'data_perfiles' => $data_perfiles,
+            'name_page' => 'PERMISOS'
+        );
+
+        $this->load->view('header', $data_vista);
+        /* $this->load->view('dashboard'); */
+        $this->load->view('permisos/index');
     }
 
-    public function alter()
-    {
-        $this->load->model('PermisosModel');
-        print_r($this->PermisosModel->altertable());
-    }
-
-    public function eliminar()
-    {
-        $this->load->model('PermisosModel');
-        print_r($this->PermisosModel->dropcolunm());
-    }
-    public function backup()
-    {
-        // Load the DB utility class
-        $this->load->dbutil();
-
-        // Backup your entire database and assign it to a variable
-        $backup = $this->dbutil->backup();
-
-        // Load the file helper and write the file to your server
-        $this->load->helper('file');
-        write_file('/path/to/mybackup.gz', $backup);
-
-        // Load the download helper and send the file to your desktop
-        $this->load->helper('download');
-        force_download('mybackup.gz', $backup);
-    }
-    public function perfiles()
-    {
-        $this->load->model('PermisosModel');
-        print_r($this->PermisosModel->perfiles_menus());
-    }
 }

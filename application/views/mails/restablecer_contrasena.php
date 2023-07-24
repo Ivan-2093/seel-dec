@@ -164,7 +164,6 @@
 																font-family: Arial, sans-serif;
 																font-size: 16px;
 																line-height: 30px;
-																color: #000000;
 																max-width: 700px;
 															" src="https://scontent.fbga1-4.fna.fbcdn.net/v/t39.30808-6/358708798_269148342396883_8958066685431328768_n.jpg?_nc_cat=111&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeG0AIpktm9g1zmavqvhQ5KzU-EZKCmnexNT4RkoKad7ExSQQA2lEF06uIEHF8oXXDtuS6Zn_8hcZJe8Kwst72r-&_nc_ohc=IAgaC6tUYocAX9d8J3T&_nc_ht=scontent.fbga1-4.fna&oh=00_AfC0GZaJfaJhgpa6eMEUKWGkBZNoVlzvUUFBmYOmJXH_2g&oe=64BCC39E" width="700" border="0" height="345" />
 												</td>
@@ -174,15 +173,14 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="padding: 35px 70px 30px" class="em_padd" valign="top" bgcolor="#0d1121" align="center">
+								<td style="padding: 35px 70px 30px; background-color: #90EE90;" class="em_padd" valign="top" align="center">
 									<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
 										<tbody>
 											<tr>
 												<td style="font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 16px;
 															line-height: 30px;
-															color: #fbeb59;
-															text-transform: uppercase;
+															color: #000000;
 														" valign="top" align="left">
 													Hola <?php echo $name_user ?>,<br /><br />
 
@@ -198,7 +196,7 @@
 															font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 18px;
 															line-height: 22px;
-															color: #fbeb59;
+															color: #000000;
 															text-transform: uppercase;
 															letter-spacing: 2px;
 															padding-bottom: 12px;"
@@ -223,10 +221,9 @@
 												<td style="font-family: 'Open Sans', Arial, sans-serif;
 															font-size: 16px;
 															line-height: 30px;
-															color: #fbeb59;
-															text-transform: uppercase;
+															color: #000000;
 														" valign="top" align="left">
-													Si no ha solicitado el restablecimiento de la contraseña, ignore este correo electrónico o contactenos al siguiente correo electronico developer@seeldec.com<br />
+													Si no ha solicitado el restablecimiento de la contraseña, contactenos al siguiente correo electronico developer@seeldec.com<br />
 													<br /><br />
 													Gracias, el equipo de SEELDEC
 												</td>
