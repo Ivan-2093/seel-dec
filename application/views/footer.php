@@ -56,11 +56,6 @@
 </footer>
 </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="src/js/vendor/jquery-3.3.1.min.js"><\/script>')
-</script>
 <script src="<?= base_url() ?>plantilla/plugins/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= base_url() ?>plantilla/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

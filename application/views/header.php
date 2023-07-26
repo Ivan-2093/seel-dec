@@ -40,6 +40,10 @@
 	<script src="<?= base_url() ?>calendar/lib/main.min.js"></script>
 	<script src="<?= base_url() ?>calendar/lib/es.js"></script>
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		window.jQuery || document.write('<script src="src/js/vendor/jquery-3.3.1.min.js"><\/script>')
+	</script>
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" /> -->
 	<?php $this->load->helper('estilos_helper'); ?>
 </head>
