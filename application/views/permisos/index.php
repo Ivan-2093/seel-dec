@@ -37,6 +37,11 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-12" id="content_permisos">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
