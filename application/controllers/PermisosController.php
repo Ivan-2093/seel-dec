@@ -77,13 +77,13 @@ class PermisosController extends CI_Controller
                                 <strong class="card-title">' . $key->menu . '</strong>
                             </div>
                             <div class="col-auto">
-                                <input class="toggle-one" id="' . $key->menu . '" ' . $checked . ' type="checkbox" data-width="30" data-height="20"
-                                data-onstyle="success" onchange="check_menu(\'' . $key->menu . '\',' . $key->id_menu . ',' . $perfil_id . ');"  data-toggle="toggle" data-size="xs">							
+                                <input class="toggle-one" data-toggle="toggle" data-size="xs" data-on="" data-off="<i class=\'fa fa-play\'></i>" data-onstyle="success" data-offstyle="danger" id="' . $key->menu . '" ' . $checked . ' type="checkbox" onchange="check_menu(\'' . $key->menu . '\',' . $key->id_menu . ',' . $perfil_id . ',this);" >							
                             </div>
                         </div>
             
                     </div>
-                    <div class="card-body">';
+                    <div class="card-body">
+                    <div class="row">';
                 $data_where_sub = array(
                     'menu_id' => $key->id_menu,
                 );
@@ -102,15 +102,16 @@ class PermisosController extends CI_Controller
                             $checked2 = "checked";
                         }
 
-
-                        $html_permisos_perfil .= '
-                                <input class="toggle-one" id="' . $sm->submenu . '" ' . $checked2 . ' type="checkbox" data-width="20" data-height="20"
+                        $html_permisos_perfil .= '<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                                <label>' . $sm->submenu . '</label>
+                                <input class="toggle-one" id="' . $sm->submenu . '" ' . $checked2 . ' type="checkbox" data-onstyle="success" data-offstyle="danger"
                                 data-toggle="toggle" onchange="check_submenu(\'' . $sm->submenu . '\',' . $sm->id_submenu . ',' . $this->perfil . ');" data-size="xs">
-                                <label>' . $sm->submenu . '</label>';
+                                </div>';
                     }
                 }
                 $html_permisos_perfil .= '
-                    </div>
+                </div>    
+                </div>
                 </div>
                 </section>
                 ';
@@ -123,4 +124,43 @@ class PermisosController extends CI_Controller
 
         echo json_encode($data_response);
     }
+
+    public function update_permisos_perfil ()
+    {
+        $menu_id = intval($this->input->POST('menu_id'));
+        $perfil_id = intval($this->input->POST('perfil_id'));
+        $options = intval($this->input->POST('options'));
+
+        $array_where = array(
+            'perfil_id' => $perfil_id,
+            'menu_id' => $menu_id
+        );
+
+        switch (true) {
+            case ($menu_id == "" || $perfil_id == ""):
+                $response = 'error';
+                $mensaje = 'Ha ocurrido un error al enviar la identificación del menu y el perfil de usuario';
+                break;
+            case ($options === 1):
+                $this->PermisosModel->insertPermisoMenu($array_where);
+                $response = 'success';
+                $mensaje = 'Se ha asignado el permiso al menu';
+                break;
+            case ($options === 0):
+                $this->PermisosModel->deletePermisoMenu($array_where);
+                $response = 'success';
+                $mensaje = 'Se ha denegado el permiso al menu';
+                break;
+        }
+
+        $data_response = array(
+            'response' => $response,
+            'mensaje' => $mensaje,
+        );
+
+        echo json_encode($data_response);
+
+
+    }
+
 }
