@@ -12,8 +12,8 @@ function createMenuByPerfil($data_menus)
                 'sm.menu_id' => $row->menu_id
             );
             $data_submenus = $CI->MenusModel->getSubmenusByPerfil($data_where_submenu);
-
-            $menu_html .= '<div class="nav-item has-sub">
+            $has_submenu = ($data_submenus->num_rows() > 0 ? 'has-sub' : '');
+            $menu_html .= '<div class="nav-item '.$has_submenu.'">
                        <a href="javascript:void(0)"><i class="' . $row->icono . '"></i><span>' . $row->menu . '</span></a>';
 
                 $menu_html .= createSubmenuByMenuByPerfil($data_submenus);
