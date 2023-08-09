@@ -92,7 +92,7 @@ class PermisosController extends CI_Controller
                     foreach ($submenus->result() as $sm) {
 
                         $data_submenu_perfil = array(
-                            'perfil_id' => $this->perfil,
+                            'perfil_id' => $perfil_id,
                             'submenu_id' => $sm->id_submenu,
                         );
 
@@ -105,7 +105,7 @@ class PermisosController extends CI_Controller
                         $html_permisos_perfil .= '<div class="col-lg-2 col-md-3 col-sm-6 col-12">
                                 <label>' . $sm->submenu . '</label>
                                 <input class="toggle-one" id="' . $sm->submenu . '" ' . $checked2 . ' type="checkbox" data-onstyle="success" data-offstyle="danger"
-                                data-toggle="toggle" onchange="check_submenu(\'' . $sm->submenu . '\',' . $sm->id_submenu . ',' . $this->perfil . ');" data-size="xs">
+                                data-toggle="toggle" onchange="check_submenu(\'' . $sm->submenu . '\',' . $sm->id_submenu . ',' . $perfil_id . ',this);" data-size="xs">
                                 </div>';
                     }
                 }
@@ -125,7 +125,7 @@ class PermisosController extends CI_Controller
         echo json_encode($data_response);
     }
 
-    public function update_permisos_perfil ()
+    public function update_permisos_menu_perfil ()
     {
         $menu_id = intval($this->input->POST('menu_id'));
         $perfil_id = intval($this->input->POST('perfil_id'));
@@ -150,6 +150,44 @@ class PermisosController extends CI_Controller
                 $this->PermisosModel->deletePermisoMenu($array_where);
                 $response = 'success';
                 $mensaje = 'Se ha denegado el permiso al menu';
+                break;
+        }
+
+        $data_response = array(
+            'response' => $response,
+            'mensaje' => $mensaje,
+        );
+
+        echo json_encode($data_response);
+
+
+    }
+
+    public function update_permisos_submenu_perfil ()
+    {
+        $submenu_id = intval($this->input->POST('submenu_id'));
+        $perfil_id = intval($this->input->POST('perfil_id'));
+        $options = intval($this->input->POST('options'));
+
+        $array_where = array(
+            'perfil_id' => $perfil_id,
+            'submenu_id' => $submenu_id
+        );
+
+        switch (true) {
+            case ($submenu_id == "" || $perfil_id == ""):
+                $response = 'error';
+                $mensaje = 'Ha ocurrido un error al enviar la identificación del submenu y el perfil de usuario';
+                break;
+            case ($options === 1):
+                $this->PermisosModel->insertPermisoSubMenu($array_where);
+                $response = 'success';
+                $mensaje = 'Se ha asignado el permiso al submenu';
+                break;
+            case ($options === 0):
+                $this->PermisosModel->deletePermisoSubMenu($array_where);
+                $response = 'success';
+                $mensaje = 'Se ha denegado el permiso al submenu';
                 break;
         }
 
