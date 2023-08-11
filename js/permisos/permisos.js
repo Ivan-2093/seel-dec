@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
-selectPerfilBtn.addEventListener("change", function (e) {
+selectPerfilBtn.addEventListener("click", function (e) {
 	if (selectPerfil.value != "") {
 		showLoading(cargando);
 		const form_perfil = new FormData();
