@@ -20,7 +20,7 @@ function validate_url_permiso_perfil($perfil)
     );
 
     if ($CI->MenusModel->getSubmenusByPerfil($data_where)->num_rows() > 0) {
-        if ($CI->MenusModel->getSubmenusByPerfil($data_where_perfil)->num_rows() > 0) {
+        if ($CI->MenusModel->getSubmenusByPerfil($data_where_perfil)->num_rows() == 0) {
             header("Location: " . base_url() . "acceso_denegado");
         }
     }
