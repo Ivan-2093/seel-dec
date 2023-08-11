@@ -19,8 +19,9 @@ class MenuController extends CI_Controller
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
-
+        $this->load->helper('permisos_url_helper');
         $this->perfil = $this->session->userdata('perfil');
+        validate_url_permiso_perfil($this->perfil);
         $data_where_menus = array(
             'pm.perfil_id' => $this->perfil,
         );
