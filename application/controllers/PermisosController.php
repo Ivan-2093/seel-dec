@@ -23,7 +23,7 @@ class PermisosController extends CI_Controller
         $this->load->model('MenusModel');
         $this->load->model('PermisosModel');
         $this->load->helper('menu_helper');
-        $this->load->helper('drawHtml_helper');
+        $this->load->helper('drawhtml_helper');
         $this->load->library('phpmailer_lib');
         $this->load->helper('permisos_url_helper');
         $this->perfil = $this->session->userdata('perfil');

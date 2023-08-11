@@ -18,7 +18,7 @@ class EmpleadosController extends CI_Controller
         $this->load->model('TercerosModel');
         $this->load->model('EmpleadosModel');
         $this->load->model('SedesModel');
-        $this->load->helper('deleteFile_helper');
+        /* $this->load->helper('deleteFile_helper'); */
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');

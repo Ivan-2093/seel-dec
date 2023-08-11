@@ -9,6 +9,6 @@ function drawOptionsSelectHtml($data)
             $OptionSelectMenu  .= '<option value="' . $row->id_perfil . '">' . $row->perfil . '</option>';
         }
     }
-
     return $OptionSelectMenu;
 }
+?>
