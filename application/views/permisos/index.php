@@ -28,11 +28,14 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-12">
+                <div class="col-auto">
                     <label for="selectPerfilId">Perfil:</label>
                     <select style="width:200px;" id="selectPerfil" name="selectPerfil" class="form-control js-select2-perfiles">
                         <?php echo $data_perfiles ?>
                     </select>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success btn-large" id="selectPerfilBtn" >CARGAR</button>
                 </div>
             </div>
         </div>

@@ -32,10 +32,4 @@ function deleteFile($path_to_file)
     } else {
         $result = 3 . "/" . $path_to_file;
     }
-
 }
-
-
-
-        /* $path_to_file = 'media/imagenes/empleados/' . $inputIdTercero . '.jpg'; */
-        /* echo deteleImgEmpleado($path_to_file); */ //Funcion para eliminar un archivo 

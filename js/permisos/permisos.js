@@ -1,5 +1,6 @@
 const selectPerfil = document.getElementById("selectPerfil");
 const content_permisos = document.getElementById("content_permisos");
+const selectPerfilBtn = document.getElementById("selectPerfilBtn");
 document.addEventListener("DOMContentLoaded", () => {
 	$(".js-select2-perfiles").select2({
 		theme: "classic",
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
-$(".js-select2-perfiles").on("change", function (e) {
+selectPerfilBtn.addEventListener("click", function (e) {
 	if (selectPerfil.value != "") {
 		showLoading(cargando);
 		const form_perfil = new FormData();

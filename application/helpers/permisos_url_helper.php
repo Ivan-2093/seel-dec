@@ -13,10 +13,15 @@ function validate_url_permiso_perfil($perfil)
 
     $data_where = array(
         'path' => $url_actual,
+    );
+    $data_where_perfil = array(
+        'path' => $url_actual,
         'perfil_id' => $perfil
     );
 
-    if ($CI->MenusModel->getSubmenusByPerfil($data_where)->num_rows() == 0) {
-        header("Location: " . base_url() . "acceso_denegado");
+    if ($CI->MenusModel->getSubmenusByPerfil($data_where)->num_rows() > 0) {
+        if ($CI->MenusModel->getSubmenusByPerfil($data_where_perfil)->num_rows() == 0) {
+            header("Location: " . base_url() . "acceso_denegado");
+        }
     }
 }
