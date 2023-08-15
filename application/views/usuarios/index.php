@@ -23,12 +23,12 @@
           <div class="col-12 table-responsive">
             <table id="tableUsuarios" class="table table-bordered">
               <thead>
-                <tr>
+                <tr class="text-center">
                   <th>ID</th>
                   <th>USUARIO</th>
                   <th>DOCUMENTO</th>
                   <th>NOMBRE</th>
-                  <th>ESTADO</th>
+                  <th>PERFIL</th>
                   <th>OPCIONES</th>
                 </tr>
               </thead>

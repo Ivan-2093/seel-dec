@@ -136,13 +136,26 @@ class UsuariosController extends CI_Controller
         $tbody = '';
         if ($data_usuarios->num_rows() > 0) {
             foreach ($data_usuarios->result() as $usuario) {
+                $btn_estado_usuario = '';
+                switch ($usuario->id_estado) {
+                    case '1':
+                        $btn_estado_usuario = '<button type="button" class="btn btn-success ik ik-check-square" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        break;
+                    case '2':
+                        $btn_estado_usuario = '<button type="button" class="btn btn-warning ik ik-alert-octagon" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        break;
+                    case '3':
+                        $btn_estado_usuario = '<button type="button" class="btn btn-danger ik ik-x-square" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        break;
+                }
+
                 $tbody .= '<tr>
                 <td>' . $usuario->id_user . '</td>
-                <td>' . $usuario->usuario . '</td>
+                <td class="text-center">' . $usuario->usuario . '</td>
                 <td>' . $usuario->nit . '</td>
                 <td>' . $usuario->primer_nombre . ' ' . $usuario->segundo_nombre . ' ' . $usuario->primer_apellido . ' ' . $usuario->segundo_apellido . '</td>
-                <td>' . $usuario->estado . '</td>
-                <td></td>
+                <td class="text-center">' . $usuario->perfil . '</td>
+                <td class="text-center">'.$btn_estado_usuario.' <button data=\'["' . $usuario->id_user . '","' . $usuario->perfil . '","' . $usuario->perfil_id . '"]\' class="btn btn-primary ik ik-edit" onclick="editUsuario(this);"></button></td>
                 </tr>';
             }
         }
