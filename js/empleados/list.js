@@ -126,7 +126,7 @@ function editEmpleado(data_formEmpleado) {
 				Swal.fire({
 					title: "Exito",
 					html: `Se ha registrado el empleado exitosamente!`,
-					icon: "sucess",
+					icon: "success",
 					confirmButtonText: "Ok",
 					allowOutsideClick: false,
 					showCloseButton: true,
