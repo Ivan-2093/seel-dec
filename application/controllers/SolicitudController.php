@@ -38,8 +38,7 @@ class SolicitudController extends CI_Controller
         );
 
         $this->load->view('header', $data_vista);
-        /* $this->load->view('dashboard'); */
-        $this->load->view('pages/ui/icons');
+        $this->load->view('solicitudes/solicitud_cliente');
     }
     public function index1()
     {
