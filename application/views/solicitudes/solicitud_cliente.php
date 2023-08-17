@@ -1,22 +1,52 @@
 <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">SOLICITUD DEL CLIENTE</h5>
+    </div>
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <form id="formCreateSolicitudCliente" name="formCreateSolicitudCliente">
+                    <div class="card-body" style="background:#90ee9073;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="inputNombres">NOMBRE:</label>
+                                    <input id="inputNombres" name="inputNombres" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="inputEmail">CORREO:</label>
+                                    <input id="inputEmail" name="inputEmail" type="mail" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="inputPhone">TELEFONO:</label>
+                                    <input id="inputPhone" name="inputPhone" type="tel" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="inputAddress">DIRECCIÓN:</label>
+                                    <input id="inputAddress" name="inputAddress" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="inputSolicitud">SOLICITUD O OBSERVACIONES:</label>
+                                    <textarea rows="10" id="inputSolicitud" name="inputSolicitud" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <div class="card-footer text-right">
+                        <button id="btnSubmitCreateSolicitud" name="btnSubmitCreateSolicitud" type="button" class="btn btn-success">CREAR</button>
                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -25,4 +55,5 @@
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<?php $this->load->view('footer');
+<script type="text/javascript" src="<?php echo base_url() ?>js/solicitudes/solicitud_cliente.js"></script>
+<?php $this->load->view('footer');?>
