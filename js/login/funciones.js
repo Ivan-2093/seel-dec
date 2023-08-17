@@ -103,7 +103,9 @@ verPassCheck.addEventListener('mousedown', () => {
 });
 
 forgot_pass.addEventListener('click', () => {
-	$('#exampleModalCenter').modal('show');
+	$('#exampleModalCenter').modal({
+		keyboard: true
+	  })
 });
 
 
