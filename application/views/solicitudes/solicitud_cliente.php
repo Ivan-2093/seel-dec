@@ -30,6 +30,22 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-floating mb-3">
+                                    <label for="comboDepto">DEPARTAMENTO:</label>
+                                    <select id="comboDepto" name="comboDepto" class="form-control">
+                                        <option value="">SELECCIONE UN DEPARTAMENTO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <label for="comboMunicipio">MUNICIPIO:</label>
+                                    <select id="comboMunicipio" name="comboMunicipio" class="form-control">
+                                        <option value="">SELECCIONE UN MUNICIPIO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-floating mb-3">
                                     <label for="inputAddress">DIRECCIÓN:</label>
                                     <input id="inputAddress" name="inputAddress" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
                                 </div>
@@ -56,4 +72,4 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/solicitudes/solicitud_cliente.js"></script>
-<?php $this->load->view('footer');?>
+<?php $this->load->view('footer'); ?>
