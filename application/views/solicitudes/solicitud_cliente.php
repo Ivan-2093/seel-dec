@@ -1,7 +1,21 @@
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">SOLICITUD DEL CLIENTE</h5>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">CREAR SOLICITUD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>SolicitudController/gestionSolicitud">GESTION SOLICITUDES</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-12">

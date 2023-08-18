@@ -45,7 +45,7 @@ function loadDatatable(id) {
 		searching: true,
 		ordering: false,
 		info: true,
-		autoWidth: true,
+		autoWidth: false,
 		language: {
 			sProcessing: "Procesando...",
 			sLengthMenu: "Mostrar _MENU_ registros",
