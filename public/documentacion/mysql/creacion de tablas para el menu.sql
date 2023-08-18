@@ -70,3 +70,31 @@ CREATE TABLE perfiles_submenus (
 INSERT INTO `perfiles_submenus`(`perfil_id`, `submenu_id`) VALUES (1,1);
 INSERT INTO `perfiles_submenus`(`perfil_id`, `submenu_id`) VALUES (1,2);
 
+CREATE TABLE tipo_solicitudes 
+(
+	id_tipo tinyint AUTO_INCREMENT PRIMARY KEY,
+    tipo_solicitud varchar(100) not null
+);
+
+INSERT INTO `tipo_solicitudes`(`tipo_solicitud`) VALUES ('CORREO ELECTRONICO');
+INSERT INTO `tipo_solicitudes`(`tipo_solicitud`) VALUES ('LLAMADA');
+
+
+CREATE TABLE solicitudes_prospecto
+(
+	id_solicitud bigint AUTO_INCREMENT PRIMARY KEY,
+   	prospecto varchar(200) not null,
+    correo varchar(200) not null,
+    telefono bigint null,
+    id_municipio int not null,
+    direccion varchar(200) null,
+    observacion text not null,
+    usuario varchar(30) NOT null,
+	fecha_creado datetime not null,
+    id_tipo_solicitud tinyint not null,    
+    FOREIGN KEY (id_municipio) REFERENCES municipios(id),
+    FOREIGN KEY (id_tipo_solicitud) REFERENCES tipo_solicitudes(id_tipo)
+);
+
+
+
