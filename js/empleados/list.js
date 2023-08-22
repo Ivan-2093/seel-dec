@@ -34,22 +34,13 @@ function loadTableEmpleados() {
 			return response.json();
 		})
 		.then(function (json) {
+			$(`#${tableEmpleados.id}`).dataTable().fnDestroy();
 			tableEmpleados.tBodies[0].innerHTML = json["tbody"];
 			loadDatatable(tableEmpleados.id);
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -156,14 +147,7 @@ function editEmpleado(data_formEmpleado) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "Error",
-				html: `${error}`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

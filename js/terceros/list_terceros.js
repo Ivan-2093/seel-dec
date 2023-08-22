@@ -53,22 +53,13 @@ function loadTerceros() {
 			return response.json();
 		})
 		.then(function (json) {
+			$(`#${tableTerceros.id}`).dataTable().fnDestroy();
 			tableTerceros.tBodies[0].innerHTML = json["tbody"];
 			loadDatatable(tableTerceros.id);
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -98,6 +89,7 @@ comboPais.addEventListener("change", () => {
 				hiddenLoading(cargando);
 			})
 			.catch(function (error) {
+				reportError(error);
 				hiddenLoading(cargando);
 			});
 	}
@@ -126,17 +118,7 @@ comboDepto.addEventListener("change", function () {
 				hiddenLoading(cargando);
 			})
 			.catch(function (error) {
-				Swal.fire({
-					title: "ERROR",
-					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-					icon: "error",
-					confirmButtonText: "Ok",
-					allowOutsideClick: false,
-					showCloseButton: true,
-					willClose: () => {
-						location.reload();
-					},
-				});
+				reportError(error);
 				hiddenLoading(cargando);
 			});
 	}
@@ -253,17 +235,7 @@ function createTercero(data_update) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

@@ -36,17 +36,7 @@ selectPerfilBtn.addEventListener("click", function (e) {
 				hiddenLoading(cargando);
 			})
 			.catch(function (error) {
-				Swal.fire({
-					title: "ERROR",
-					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-					icon: "error",
-					confirmButtonText: "Ok",
-					allowOutsideClick: false,
-					showCloseButton: true,
-					willClose: () => {
-						location.reload();
-					},
-				});
+				reportError(error);
 				hiddenLoading(cargando);
 			});
 	}
@@ -102,17 +92,7 @@ function check_menu(menu,menu_id,perfil_id,input){
 			
 		})	
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					/* location.reload(); */
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -167,17 +147,7 @@ function check_submenu(submenu,submenu_id,perfil_id,input){
 			
 		})	
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					/* location.reload(); */
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

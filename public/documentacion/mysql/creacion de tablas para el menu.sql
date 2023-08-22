@@ -96,5 +96,191 @@ CREATE TABLE solicitudes_prospecto
     FOREIGN KEY (id_tipo_solicitud) REFERENCES tipo_solicitudes(id_tipo)
 );
 
+CREATE TABLE clientes
+(
+   id_cliente bigint AUTO_INCREMENT PRIMARY KEY, 
+   id_tercero bigint not null UNIQUE,
+   usuario_registro varchar(100) not null,
+   fecha_registro datetime not null,
+   FOREIGN KEY (id_tercero) REFERENCES terceros(id)
+);
+
+CREATE TABLE proveedores
+(
+   id_proveedor bigint AUTO_INCREMENT PRIMARY KEY, 
+   id_tercero bigint not null UNIQUE,
+   usuario_registro varchar(100) not null,
+   fecha_registro datetime not null,
+   FOREIGN KEY (id_tercero) REFERENCES terceros(id)
+);
+
+
+CREATE TABLE categorias
+(
+	id_categoria int AUTO_INCREMENT PRIMARY KEY,
+    categoria varchar(300) not null unique
+);
+
+CREATE TABLE tipos_productos
+(
+	id_tipo int AUTO_INCREMENT PRIMARY KEY,
+    tipo varchar(300) not null unique,
+    id_categoria_c int not null,
+    FOREIGN KEY (id_categoria_c) REFERENCES categorias(id_categoria)
+);
+
+CREATE TABLE productos
+(
+    id_producto bigint AUTO_INCREMENT PRIMARY KEY,
+    referencia varchar(1000) not null,
+    descripcion varchar(1000) null,
+    anchos_tela_metro varchar(200) null,
+    unidad_medida varchar(200) null,
+	factor_apertura varchar(200) null,
+	costo_elite bigint not null,
+    costo_premium bigint null,
+    id_tipo_p int not null,
+    FOREIGN KEY (id_tipo_p) REFERENCES tipos_productos(id_tipo)
+);
+
+ALTER TABLE productos
+ADD FOREIGN KEY (proveedor_id) REFERENCES proveedores(id_proveedor);
+
+INSERT INTO `categorias`( `categoria`) VALUES ('CORTINAS');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) VALUES ('CORTINA ENROLLABLE EN SCREEN','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ENROLLABLE COLECCIÓN EUROPEA','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ENROLLABLE EN SHEER ELEGANCE','1');
+
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ENROLLABLE EN BLACKOUT','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MEMBRANAS','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('SCREEN','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS PARA ENROLLABLES','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PANEL JAPONÉS EN SCREEN','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PANEL JAPONÉS COLECCIÓN EUROPEA (POLIÉSTER)','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PANEL JAPONÉS EN TELA SHEER ELEGANCE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PANEL JAPONÉS BLACK OUT','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PANEL JAPONÉS EN TELA SHEER ELEGANCE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MEMBRANAS','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('SCREEN PARA EXTERIORES','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('SISTEMAS PANEL JAPONÉS','1');
+
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ROMANA EN SCREEN','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ROMANA COLECCIÓN EUROPEA','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA ROMANA BLACKOUT','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PERSIANA VERTICAL EN SCREEN','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PERSIANA VERTICAL COLECCIÓN EUROPEA','1');
+
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('PERSIANA VERTICAL EN BLACKOUT','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('SISTEMA VERTICAL','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA SHANGRI - LA Y SHEER ELEGANCE (DOBLE TELA)','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('CORTINA HANNA','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('OUTLET - LÍNEA ESPECIAL','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA ENROLLABLE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN PANEL JAPONÉS','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA ROMANA Y MACROMADERA','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN SHEER ELEGANCE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORIZACIÓN PEL #1','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORES RECARGABLES PEL #1','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORES RECARGABLES PEL #1','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA ENROLLABLE PX','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORES RECARGABLES PEL #1','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN PANEL JAPONÉS PX','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA ROMANA Y MACROMADERA PX','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN SHEER ELEGANCE PX','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORIZACIÓN PX','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('LÍNEA PEL # 2 MOTORIZACIÓN  Y  AUTOMATIZACIÓN CORTINA  ENROLLABLE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORES PEL #2','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORES RECARGABLES PEL #2','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('ACCESORIOS MOTORES RECARGABLES PEL #2','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA ENROLLABLE','1');
+
+INSERT INTO `tipos_productos`( `tipo`, `id_categoria_c`) 
+VALUES ('MOTORIZACIÓN CORTINA  ENROLLABLE','1');
+
 
 

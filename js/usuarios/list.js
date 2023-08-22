@@ -27,22 +27,13 @@ function loadUsuarios() {
             return response.json();
         })
         .then(function (json) {
+            $(`#${tableUsuarios.id}`).dataTable().fnDestroy();
             tableUsuarios.tBodies[0].innerHTML = json['tbody'];
             loadDatatable(tableUsuarios.id);
             hiddenLoading(cargando);
         })
         .catch(function (error) {
-            Swal.fire({
-                title: "ERROR",
-                html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-                icon: "error",
-                confirmButtonText: "Ok",
-                allowOutsideClick: false,
-                showCloseButton: true,
-                willClose: () => {
-                    location.reload();
-                },
-            });
+            reportError(error);
             hiddenLoading(cargando);
         });
 }

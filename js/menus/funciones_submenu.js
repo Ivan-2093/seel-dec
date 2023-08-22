@@ -45,17 +45,7 @@ function load_tabla_submenu() {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -136,17 +126,7 @@ function editarMenuById(formEditMenu) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -183,17 +163,7 @@ function deleteSubMenu(id_menu) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -257,17 +227,7 @@ function createSubmenu(data_formMenu) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -293,16 +253,6 @@ function load_options_select_menus()
 			});
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 		});
 }

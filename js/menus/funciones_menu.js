@@ -40,17 +40,7 @@ function load_tabla_menu() {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -130,17 +120,7 @@ function editarMenuById(formEditMenu) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -177,17 +157,7 @@ function deleteMenu(id_menu) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
@@ -250,17 +220,7 @@ function createMenu(data_formMenu){
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

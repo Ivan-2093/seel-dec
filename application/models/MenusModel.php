@@ -13,6 +13,7 @@ class MenusModel extends CI_Model
         $this->db->from('menus as m');
         $this->db->join('perfiles_menus as pm', 'm.id_menu = pm.menu_id');
         $this->db->where($data_where);
+        $this->db->order_by('m.id_menu', 'ASC');
         return $this->db->get();
     }
 
@@ -21,6 +22,7 @@ class MenusModel extends CI_Model
         $this->db->select('*');
         $this->db->from('submenus as sm');
         $this->db->join('perfiles_submenus as psm', 'sm.id_submenu=psm.submenu_id');
+        $this->db->order_by('sm.submenu', 'ASC');
         $this->db->where($data_where);
         return $this->db->get();
     }
