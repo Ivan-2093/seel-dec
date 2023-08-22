@@ -5,7 +5,7 @@ class ProspectosModel extends CI_Model
     {
         return $this->db->insert('solicitudes_prospecto',$array_insert);
     }
-    public function getSolicitudes()
+    public function getSolicitudes($data_where)
     {
         $this->db->select('s.id_solicitud, s.prospecto, s.telefono, s.correo, m.municipio, s.direccion, s.observacion, t.primer_nombre, t.primer_apellido,ts.tipo_solicitud, s.fecha_creado');
         $this->db->from('solicitudes_prospecto as s');
@@ -15,6 +15,7 @@ class ProspectosModel extends CI_Model
         $this->db->join('empleados as e', 'u.empleado_id = e.id');
         $this->db->join('terceros as t', 'e.id_tercero = t.id');
         $this->db->join('tipo_solicitudes as ts', 's.id_tipo_solicitud = ts.id_tipo');
+        $this->db->where($data_where);
         return $this->db->get();
     }
 

@@ -39,4 +39,14 @@ class TercerosModel extends CI_Model
     {
         return $this->db->update('terceros',$data_update,$data_where);
     }
+
+    public function getTerceroBy($array_where)
+    {
+        $this->db->select();
+        $this->db->select('t.id as id_tercero');
+        $this->db->from('terceros as t');
+        $this->db->or_like($array_where);
+        return $this->db->get();
+    }
+
 }

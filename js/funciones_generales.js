@@ -5,15 +5,13 @@ const form_change_pass = document.getElementById("form_change_pass");
 const new_pass = document.getElementById("new_pass");
 const new_pass_check = document.getElementById("new_pass_check");
 
-const verPassNew = document.getElementById('verPassNew');
-const verPassCheck = document.getElementById('verPassCheck');
+const verPassNew = document.getElementById("verPassNew");
+const verPassCheck = document.getElementById("verPassCheck");
 
 /* ARRAY DE INPUTS */
 const arrayInputsPass = [new_pass, new_pass_check];
 
-
 document.addEventListener("DOMContentLoaded", function () {
-
 	//Ocultar el menu para cuando terminde de cargar
 	/* 	wrapper[0].classList.add("nav-collapsed");
 		wrapper[0].classList.add("menu-collapsed"); 
@@ -32,8 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadDatatable(id) {
-
-	$(`#${id}`).dataTable().fnDestroy();
 	$(`#${id}`).DataTable({
 		paging: true,
 		pageLength: -1,
@@ -95,10 +91,10 @@ btnChangePass.addEventListener("click", function () {
 		}
 	});
 	if (inputsVoid.length == 0) {
-		if(new_pass.value === new_pass_check.value){
+		if (new_pass.value === new_pass_check.value) {
 			const formPass = new FormData(form_change_pass);
 			fn_change_password(formPass);
-		}else {
+		} else {
 			Swal.fire({
 				title: "Advertencia",
 				html: `Las contraseñas no coinciden!`,
@@ -158,60 +154,65 @@ function fn_change_password(formPass) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }
 
-new_pass.addEventListener('keyup', () => {
-	if (new_pass.value != "" && new_pass.value.length >= 8 && new_pass.value.length <= 16 && (new_pass.value.match(/[A-Z]/) || new_pass.value.match(/[a-z]/) ) && new_pass.value.match(/[0-9]/)) {
-		new_pass_check.removeAttribute('disabled');
-		new_pass.style.boxShadow = '0px 0px 5px 1px green';
-	}else {
-		new_pass_check.setAttribute('disabled','');
-		new_pass.style.boxShadow = '0px 0px 5px 1px red';
+new_pass.addEventListener("keyup", () => {
+	if (
+		new_pass.value != "" &&
+		new_pass.value.length >= 8 &&
+		new_pass.value.length <= 16 &&
+		(new_pass.value.match(/[A-Z]/) || new_pass.value.match(/[a-z]/)) &&
+		new_pass.value.match(/[0-9]/)
+	) {
+		new_pass_check.removeAttribute("disabled");
+		new_pass.style.boxShadow = "0px 0px 5px 1px green";
+	} else {
+		new_pass_check.setAttribute("disabled", "");
+		new_pass.style.boxShadow = "0px 0px 5px 1px red";
 	}
 });
-new_pass_check.addEventListener('keyup', () => {
+new_pass_check.addEventListener("keyup", () => {
 	if (new_pass.value != "" && new_pass_check.value != "") {
-		if(new_pass.value === new_pass_check.value){
-			new_pass_check.style.boxShadow = '0px 0px 5px 1px green';
-		}else {
-			new_pass_check.style.boxShadow = '0px 0px 5px 1px red';
+		if (new_pass.value === new_pass_check.value) {
+			new_pass_check.style.boxShadow = "0px 0px 5px 1px green";
+		} else {
+			new_pass_check.style.boxShadow = "0px 0px 5px 1px red";
 		}
 	}
 });
 
-
-verPassNew.addEventListener('mousedown', () => {
-	if (new_pass.getAttribute('type') === 'text'){
-		new_pass.setAttribute('type','password');
-		verPassNew.children[0].classList.remove('ik-eye');
-		verPassNew.children[0].classList.add('ik-eye-off');
-	}else {
-		new_pass.setAttribute('type','text');
-		verPassNew.children[0].classList.remove('ik-eye-off');
-		verPassNew.children[0].classList.add('ik-eye');
-		
+verPassNew.addEventListener("mousedown", () => {
+	if (new_pass.getAttribute("type") === "text") {
+		new_pass.setAttribute("type", "password");
+		verPassNew.children[0].classList.remove("ik-eye");
+		verPassNew.children[0].classList.add("ik-eye-off");
+	} else {
+		new_pass.setAttribute("type", "text");
+		verPassNew.children[0].classList.remove("ik-eye-off");
+		verPassNew.children[0].classList.add("ik-eye");
 	}
-	
 });
-verPassCheck.addEventListener('mousedown', () => {
-	if (new_pass_check.getAttribute('type') === 'text'){
-		new_pass_check.setAttribute('type','password');
-	}else {
-		new_pass_check.setAttribute('type','text');
+verPassCheck.addEventListener("mousedown", () => {
+	if (new_pass_check.getAttribute("type") === "text") {
+		new_pass_check.setAttribute("type", "password");
+	} else {
+		new_pass_check.setAttribute("type", "text");
 	}
 });
 
-
+function reportError(error) {
+	Swal.fire({
+		title: "ERROR",
+		html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+		icon: "error",
+		confirmButtonText: "Ok",
+		allowOutsideClick: false,
+		showCloseButton: true,
+		willClose: () => {
+			location.reload();
+		},
+	});
+}

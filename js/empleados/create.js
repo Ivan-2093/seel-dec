@@ -110,14 +110,7 @@ function createEmpleado(data_formEmpleado) {
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "Error",
-				html: `${error}`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

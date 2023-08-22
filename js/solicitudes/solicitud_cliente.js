@@ -90,17 +90,7 @@ comboDepto.addEventListener("change", () => {
 				comboMunicipio.innerHTML = json["data_municipios"];
 			})
 			.catch(function (error) {
-				Swal.fire({
-					title: "ERROR",
-					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-					icon: "error",
-					confirmButtonText: "Ok",
-					allowOutsideClick: false,
-					showCloseButton: true,
-					willClose: () => {
-						location.reload();
-					},
-				});
+				reportError(error);
 			});
 	}
 });
@@ -191,17 +181,7 @@ function createSolicitud(data_formSolicitud) {
 			}
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

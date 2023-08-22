@@ -64,17 +64,7 @@ function login(data_formUser) {
 			}
 		})
 		.catch(function (error) {
-			Swal.fire({
-				title: "ERROR",
-				html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-				icon: "error",
-				confirmButtonText: "Ok",
-				allowOutsideClick: false,
-				showCloseButton: true,
-				willClose: () => {
-					location.reload();
-				},
-			});
+			reportError(error);
 		});
 }
 
@@ -138,17 +128,7 @@ btnRestPass.addEventListener('click', () => {
 				$('#exampleModalCenter').modal('hide');
 			})
 			.catch(function (error) {
-				Swal.fire({
-					title: "ERROR",
-					html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
-					icon: "error",
-					confirmButtonText: "Ok",
-					allowOutsideClick: true,
-					showCloseButton: true,
-					willClose: () => {
-						location.reload();
-					},
-				});
+				reportError(error);
 				hiddenLoading(cargando);
 			});
 	} else {

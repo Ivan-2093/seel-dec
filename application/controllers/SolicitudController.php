@@ -85,7 +85,7 @@ class SolicitudController extends CI_Controller
                 'response' => 'warning',
                 'title' => 'ADVERTENCIA!',
                 'sms' => 'Se encontraron campos vacios, verifique nuevamente.',
-                'campos' => $this->input->POST()//enviar los datos que se recibieron!
+                'campos' => $this->input->POST() //enviar los datos que se recibieron!
             );
         }
 
@@ -105,24 +105,47 @@ class SolicitudController extends CI_Controller
 
     public function load_data_solicitudes()
     {
+        $where = array();
+        if (count($this->input->POST()) > 0) {
+            if ($this->input->POST('date_start')) {
+                $where['s.fecha_creado >='] = $this->input->POST('date_start');
+            }
 
-        $tbody='';
+            if ($this->input->POST('date_end')) {
+                $where['s.fecha_creado <='] = $this->input->POST('date_end');
+            }
 
-        $data_solicitudes = $this->ProspectosModel->getSolicitudes();
-        if($data_solicitudes->num_rows() > 0){
-            foreach ($data_solicitudes->result() as $row){
+            if (($this->input->POST('inputNames'))) {
+                $where['s.prospecto like'] = $this->input->POST('inputNames');
+            }
+
+            if ($this->input->POST('inputPhone')) {
+                $where['s.telefono'] = $this->input->POST('inputPhone');
+            }
+
+            if ($this->input->POST('inputEmail')) {
+                $where['s.correo'] = $this->input->POST('inputEmail');
+            }
+        }
+
+        $tbody = '';
+
+        $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
+        if ($data_solicitudes->num_rows() > 0) {
+            foreach ($data_solicitudes->result() as $row) {
                 $tbody .=
-                '<tr>
-                    <td>'.$row->id_solicitud.'</td>
-                    <td>'.$row->prospecto.'</td>
-                    <td>'.$row->telefono.'</td>
-                    <td>'.$row->correo.'</td>
-                    <td>'.$row->municipio.'</td>
-                    <td>'.$row->direccion.'</td>
-                    <td>'.$row->observacion.'</td>
-                    <td>'.$row->tipo_solicitud.'</td>
-                    <td>'.$row->primer_nombre. ' ' .$row->primer_apellido.'</td>
-                    <td>'.$row->fecha_creado.'</td>
+                    '<tr>
+                    <td>' . $row->id_solicitud . '</td>
+                    <td>' . $row->prospecto . '</td>
+                    <td>' . $row->telefono . '</td>
+                    <td>' . $row->correo . '</td>
+                    <td>' . $row->municipio . '</td>
+                    <td>' . $row->direccion . '</td>
+                    <td>' . $row->observacion . '</td>
+                    <td>' . $row->tipo_solicitud . '</td>
+                    <td>' . $row->primer_nombre . ' ' . $row->primer_apellido . '</td>
+                    <td>' . $row->fecha_creado . '</td>
+                    <td class="text-center"><button onclick="createCotizacion(' . $row->id_solicitud . ');" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="COTIZAR"><i class="ik ik-external-link"></i></button></td>
                 </tr>';
             }
         }
@@ -132,5 +155,4 @@ class SolicitudController extends CI_Controller
 
         echo json_encode($array_response);
     }
-
 }
