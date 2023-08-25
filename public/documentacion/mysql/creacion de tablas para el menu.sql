@@ -545,7 +545,7 @@ INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unida
 VALUES ('Tensor escualizable guaya grad balin','Tensor escualizable guaya grad balin','2','1','','60000','','7','1','30');
 
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
-VALUES ('Soporte central con bujes para 2 enrollables tubo 1 1/2"','Soporte central con bujes para 2 enrollables tubo 1 1/2"','3','1','','7700','','7','1','30');
+VALUES ('Soporte central con bujes para 2 enrollables tubo 1 1/2','Soporte central con bujes para 2 enrollables tubo 1 1/2','3','1','','7700','','7','1','30');
 
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
 VALUES ('Perfil lateral para oscuridad total (incluye felpa interna)','Perfil lateral para oscuridad total (incluye felpa interna)','1','1','','12500','','7','1','30');
@@ -554,7 +554,7 @@ INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unida
 VALUES ('Perfil lateral enrollable blanco especial para oscuridad total Cortinas motorizadas','Perfil lateral enrollable blanco especial para oscuridad total Cortinas motorizadas','1','1','','18000','','7','1','30');
 
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
-VALUES ('Tubo Acero inox 1" - incluye bujes plásticos laterales (Especial para toldo vertical PEL)','Tubo Acero inox 1" - incluye bujes plásticos laterales (Especial para toldo vertical PEL)','1','1','','35000','','7','1','30');
+VALUES ('Tubo Acero inox 1 - incluye bujes plásticos laterales (Especial para toldo vertical PEL)','Tubo Acero inox 1 - incluye bujes plásticos laterales (Especial para toldo vertical PEL)','1','1','','35000','','7','1','30');
 
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
 VALUES ('Tubo de Aluminio sin bujes','Tubo de Aluminio sin bujes','1','1','','8800','','7','1','30');
@@ -967,4 +967,181 @@ VALUES ('BLACKOUT LISBOA','BLACKOUT LISBOA','2,4','1','Blackout','99000','109000
 
 
 
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 3001','SCREEN 3001','89mm','4','1','69900','4000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 3003','SCREEN 3003','89mm','4','3','65500','3800','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 3005','SCREEN 3005','89mm','4','5','59500','3600','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 303','SCREEN 303','89mm','4','3','85000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 305 L','SCREEN 305 L','89mm','4','5','75000','4000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 310','SCREEN 310','89mm','4','10','59500','3600','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 401','SCREEN 401','89mm','4','1','87000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 410 L','SCREEN 410 L','89mm','4','10','62500','3700','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 411 L','SCREEN 411 L','89mm','4','11','84000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 412 L','SCREEN 412 L','89mm','4','12','84000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 416 L','SCREEN 416 L','89mm','4','16','65500','3800','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 420','SCREEN 420','89mm','4','10','75000','4000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 425','SCREEN 425','89mm','4','5','72000','3800','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 508 NEW CRYSTAL','SCREEN 508 NEW CRYSTAL','89mm','4','8','99000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 511 ESPIGA','SCREEN 511 ESPIGA','89mm','4','7','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 523','SCREEN 523','89mm','4','3','82000','4200','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 550 CRYSTAL','SCREEN 550 CRYSTAL','89mm','4','5','86000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 573 RUSTICO','SCREEN 573 RUSTICO','89mm','4','3','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN ESTUCO','SCREEN ESTUCO','89mm','4','5','75000','4000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN GRANITO','SCREEN GRANITO','89mm','4','5','75000','4200','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN JACQUARD CORCEGA','SCREEN JACQUARD CORCEGA','89mm','4','7','90000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN JACQUARD INCANTO','SCREEN JACQUARD INCANTO','89mm','4','3','90000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN PALMA','SCREEN PALMA','89mm','4','7','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN PLATINUM','SCREEN PLATINUM','89mm','4','3','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN RATAN','SCREEN RATAN','89mm','4','5','84000','4500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN REFLECTIVE','SCREEN REFLECTIVE','89mm','4','3','105000','5500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN SPIRAL','SCREEN SPIRAL','89mm','4','7','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN VISION 320','SCREEN VISION 320','89mm','4','20','57100','3500','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN VISION 350','SCREEN VISION 350','89mm','4','10','65650','3800','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN WINTER','SCREEN WINTER','89mm','4','7','105000','5000','22','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SCREEN 4000','SCREEN 4000','1,83 - 2,50','1','0','92000','5000','22','1','30');
+-----------------------------
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR ATENAS','SOLAR ATENAS','89mm','4','Trasluz','50000','3600','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR LISBOA','SOLAR LISBOA','89mm','4','Trasluz','85000','4000','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR LISBOA PRINTED','SOLAR LISBOA PRINTED','89mm','4','Trasluz','88000','4000','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR MONACO','SOLAR MONACO','89mm','4','Trasluz','68000','3800','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR MUCUR','SOLAR MUCUR','89mm','4','Trasluz','64000','3800','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR TOKYO','SOLAR TOKYO','89mm','4','Trasluz','64000','3800','23','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SOLAR TOLEDO','SOLAR TOLEDO','89mm','4','Trasluz','68000','3800','23','1','30');
+
+
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT DUAL COLOR','BLACKOUT DUAL COLOR','2,00 - 2,80','1','Blackout','89700','4200','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACK OUT PRINTED','BLACK OUT PRINTED','89mm','4','Blackout','62400','3800','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACK OUT TEX','BLACK OUT TEX','89mm','4','Blackout','90050','4500','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACK OUT STAR','BLACK OUT STAR','89mm','4','Blackout','136500','6000','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACK OUT APOLO','BLACK OUT APOLO','89mm','4','Blackout','154700','6600','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACK OUT PEACOCK METALLIC','BLACK OUT PEACOCK METALLIC','89mm','4','Blackout','90050','4500','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT ASIA','BLACKOUT ASIA','89mm','4','Blackout','55000','3600','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT ATENAS','BLACKOUT ATENAS','89mnm','4','Blackout','76200','4200','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT GLITTER (NUEVO)','BLACKOUT GLITTER (NUEVO)','89mm','4','Blackout','158800','6600','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT LINO (NUEVO)','BLACKOUT LINO (NUEVO)','89mm','4','Blackout','142950','6000','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT LISBOA','BLACKOUT LISBOA','89mm','4','Blackout','93100','5000','24','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('BLACKOUT MOIRE','BLACKOUT MOIRE','89mm','4','Blackout','62500','3800','24','1','30');
+
+----------------------------------------------------------------
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHANGRI-LA CLASSIC','SHANGRI-LA CLASSIC','2,8','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHANGRI-LA CRYSTAL','SHANGRI-LA CRYSTAL','2,8','4','Trasluz','99000','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG INSPIRACION','SHEER ELEG INSPIRACION','2,00 - 2,45 - 2,75','4','Trasluz','82000','74000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG NEW SANTA FE WIDE B.O.','SHEER ELEG NEW SANTA FE WIDE B.O.','2,8','4','Semi Blackout','110000','100000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG PLISADA','SHEER ELEG PLISADA','2,6','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG PLISADA ECO','SHEER ELEG PLISADA ECO','3','4','Trasluz','88000','74000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG PLISADA WIDE','SHEER ELEG PLISADA WIDE','2,6','4','Trasluz','95000','86000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR (M.A - M.C)','SHEER ELEG SCR (M.A - M.C)','1,50 - 1,83 - 2,50 - 3,00','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR 2T (M.A - M.C)','SHEER ELEG SCR 2T (M.A - M.C)','1,50 - 1,83 - 2,50','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR 2T WIDE (M.A - M.C)','SHEER ELEG SCR 2T WIDE (M.A - M.C)','1,83 - 2,20 - 2,50','4','Trasluz','102500','93000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR CLASICA M.C','SHEER ELEG SCR CLASICA M.C','1,83 - 2,50','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR COMBI 3 (M.A - M.C)','SHEER ELEG SCR COMBI 3 (M.A - M.C)','1,83 - 2,50','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR CRYSTAL','SHEER ELEG SCR CRYSTAL','1,83 - 2,50','4','Trasluz','102500','93000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR EXTRA WIDE','SHEER ELEG SCR EXTRA WIDE','2,2','4','Trasluz','75000','68000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR TRAZOS M.C','SHEER ELEG SCR TRAZOS M.C','1,83 - 2,50','4','Trasluz','99900','90000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR WIDE (M.A - M.C)','SHEER ELEG SCR WIDE (M.A - M.C)','1,83 - 2,50','4','Trasluz','99900','93000','26','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('SHEER ELEG SCR WIDE COMBI 3 (M.A - M.C)','SHEER ELEG SCR WIDE COMBI 3 (M.A - M.C)','1,83 - 2,20','4','Trasluz','99900','93000','26','1','30');
+
+----------------------------------------------------------------
+
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA AFRODITA','HANNA AFRODITA','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA ARTEMISA','HANNA ARTEMISA','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA ATENEA','HANNA ATENEA','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA GAIA','HANNA GAIA','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA SELENE','HANNA SELENE','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA MINERVA (NUEVO)','HANNA MINERVA (NUEVO)','41CM','5','','124000','','27','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('HANNA HERA (NUEVO)','HANNA HERA (NUEVO)','41CM','5','','136000','','27','1','30');
+
+
+------- --------------------------------
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Enrollable','Enrollable','2 m2','5','','32000','50000','28','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Sheer Elegance','Sheer Elegance','2 m2','5','','48000','66000','28','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Panel Japonés','Panel Japonés','3 m2','5','','','45200','28','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Romana','Romana','2 m2','5','','','51050','28','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Macromadera','Macromadera','2 m2','5','','99600','108.000','28','1','30');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
+VALUES ('Vertical','Vertical','2 m2','5','','48000','','28','1','30');
 
