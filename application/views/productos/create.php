@@ -74,11 +74,63 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputReferenciaProducto">REFERENCIA</label>
-                            <input type="text" class="form-control " id="inputReferenciaProducto" name="inputReferenciaProducto" />
+                            <input type="text" class="form-control " id="inputReferenciaProducto" name="inputReferenciaProducto" placeholder="Referencia del producto"/>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
                             <label class="d-block" for="inputDescripcionProducto">DESCRIPCIÓN</label>
                             <textarea class="form-control" id="inputDescripcionProducto" name="inputReferenciaProducto" placeholder="Escriba la descripción del producto aquí!"></textarea>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputCostoElite">COSTO ELITE</label>
+                            <input type="number" class="form-control " id="inputCostoElite" name="inputCostoElite" placeholder="Costo Elite del producto"/>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputCostoPremium">COSTO PREMIUM</label>
+                            <input type="number" class="form-control " id="inputCostoPremium" name="inputCostoPremium" placeholder="Costo Premium del producto" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputPerPrecio">PORCENTAJE PRECIO</label>
+                            <input type="number" class="form-control " id="inputPerPrecio" name="inputPerPrecio" placeholder="Porcentage precio del producto"/>
+                        </div>
+                    </div>
+                    <div class="row" id="isDeco" hidden>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputAnchoTela">ANCHO DE TELA</label>
+                            <input type="text" class="form-control " id="inputAnchoTela" name="inputAnchoTela" placeholder="Ancho de Tela"/>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputUndMedida">UNIDAD DE MEDIDA</label>
+                            <select class="form-control js-select2-medida" id="inputUndMedida" name="inputUndMedida">
+                                <option value=""></option>
+                                <?php
+                                /* print_r($data_terceros); */
+                                foreach ($data_medidas as $medida) {
+                                    echo '<option value="' . $medida->id_medida . '">' . $medida->medidad . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputFactorApertura">FACTOR APERTURA</label>
+                            <input type="text" class="form-control " id="inputFactorApertura" name="inputFactorApertura" />
+                        </div>
+                    </div>
+                    <div class="row" id="isSegurity" hidden>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputPasadores">PASADORES</label>
+                            <input type="number" class="form-control " id="inputPasadores" name="inputPasadores" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputCerradura">CERRADURA</label>
+                            <textarea type="text" class="form-control " id="inputCerradura" name="inputCerradura"></textarea>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputLlaves">LLAVES</label>
+                            <textarea type="text" class="form-control " id="inputLlaves" name="inputLlaves" ></textarea>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputTipoSegurity">LLAVES</label>
+                            <textarea type="text" class="form-control " id="inputTipoSegurity" name="inputTipoSegurity"></textarea>
                         </div>
                     </div>
                 </div>
