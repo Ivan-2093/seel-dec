@@ -33,10 +33,13 @@ class UsuariosController extends CI_Controller
 
     public function index()
     {
-
+        $data_perfiles = $this->UsuariosModel->getPerfiles()->result();
+        $data_estados = $this->UsuariosModel->getEstadosUsuario()->result();
         $data_vista = array(
             'data_menus' => $this->html_menus,
             'name_page' => 'USUARIOS',
+            'data_perfiles' => $data_perfiles,
+            'data_estados' => $data_estados
         );
         $this->load->view('header', $data_vista);
         $this->load->view('usuarios/index');
@@ -139,23 +142,28 @@ class UsuariosController extends CI_Controller
                 $btn_estado_usuario = '';
                 switch ($usuario->id_estado) {
                     case '1':
-                        $btn_estado_usuario = '<button type="button" class="btn btn-success ik ik-check-square" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        $btn_estado_usuario = '<button type="button" class="btn btn-success ik ik-check-square" data-toggle="tooltip" data-placement="top" title="Estado: ' . $usuario->estado . '"></button>';
                         break;
                     case '2':
-                        $btn_estado_usuario = '<button type="button" class="btn btn-warning ik ik-alert-octagon" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        $btn_estado_usuario = '<button type="button" class="btn btn-warning ik ik-alert-octagon" data-toggle="tooltip" data-placement="top" title="Estado: ' . $usuario->estado . '"></button>';
                         break;
                     case '3':
-                        $btn_estado_usuario = '<button type="button" class="btn btn-danger ik ik-x-square" data-toggle="tooltip" data-placement="" title="Estado: '.$usuario->estado.'"></button>';
+                        $btn_estado_usuario = '<button type="button" class="btn btn-danger ik ik-x-square" data-toggle="tooltip" data-placement="top" title="Estado: ' . $usuario->estado . '"></button>';
                         break;
                 }
+                $nombre_usuario = $usuario->primer_nombre . ' ' . $usuario->segundo_nombre . ' ' . $usuario->primer_apellido . ' ' . $usuario->segundo_apellido;
+                $btnEditUser = '<button data=\'["' . $usuario->id_user . '","' . $nombre_usuario . '","' . $usuario->usuario . '","' . $usuario->perfil . '","' . $usuario->perfil_id . '","' . $usuario->id_estado . '"]\' class="btn btn-primary ik ik-edit m-2" onclick="editUsuario(this);" data-toggle="tooltip" data-placement="top" title="Editar usuario: ' . $usuario->usuario . '"></button>';
+
+
 
                 $tbody .= '<tr>
                 <td>' . $usuario->id_user . '</td>
                 <td class="text-center">' . $usuario->usuario . '</td>
                 <td>' . $usuario->nit . '</td>
-                <td>' . $usuario->primer_nombre . ' ' . $usuario->segundo_nombre . ' ' . $usuario->primer_apellido . ' ' . $usuario->segundo_apellido . '</td>
+                <td>' . $nombre_usuario . '</td>
                 <td class="text-center">' . $usuario->perfil . '</td>
-                <td class="text-center">'.$btn_estado_usuario.' <button data=\'["' . $usuario->id_user . '","' . $usuario->perfil . '","' . $usuario->perfil_id . '"]\' class="btn btn-primary ik ik-edit" onclick="editUsuario(this);"></button></td>
+                <td class="text-center">' . $btn_estado_usuario . '</td>
+                <td class="text-center">' . $btnEditUser . '</td>
                 </tr>';
             }
         }
@@ -224,6 +232,46 @@ class UsuariosController extends CI_Controller
                 break;
         }
 
+        echo json_encode($array_response);
+    }
+
+
+    public function editUsuario()
+    {
+        //Obtenemos los datos enviados a traves de POST
+        $inputIdUser = $this->input->POST('inputIdUser');
+        $inputIdPerfil = $this->input->POST('inputIdPerfil');
+        $inputIdEstado = $this->input->POST('inputIdEstado');
+
+        //Creamos arrays para el where de las Query de CodeIgneier
+        $data_where_user = array(
+            'id_user' => $inputIdUser
+        );
+        $data_update_usuario = array(
+            'estado_id' => $inputIdEstado,
+            'perfil_id' => $inputIdPerfil
+        );
+        //Obtenemos información con el ID del usuario seleccionado para editar el usuario
+        $data_usuario = $this->UsuariosModel->getUsuariosByIdEmpleado($data_where_user);
+        //Validamos si el ID del empleado existe
+        if ($data_usuario->num_rows() > 0) {
+            if ($this->UsuariosModel->updateUsuario($data_where_user,$data_update_usuario)) {
+                $array_response = array(
+                    'response' => 'success',
+                    'message' => 'Usuario actualizado con exito',
+                );
+            } else {
+                $array_response = array(
+                    'response' => 'warning',
+                    'message' => 'Ha ocurrido un error, intente nuevamente',
+                );
+            }
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'message' => 'El Usuario que esta tratando de actualizar no se encuentra en la base de datos como empleado',
+            );
+        }
         echo json_encode($array_response);
     }
 }

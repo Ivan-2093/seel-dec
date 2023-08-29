@@ -34,13 +34,22 @@ class LoginController extends CI_Controller
         } else {
 
             $data_where = array(
-                'usuario' => $username
+                'usuario' => $username,
+                'estado_id <>' => 3
             );
 
             $data_user = $this->UsuariosModel->getUserByNameUser($data_where);
 
             if ($data_user->num_rows() > 0) {
-
+                /* Valida si el usario esta activo */
+                if($data_user->row(0)->estado_id != 1 ){
+                    $array_response = array(
+                        'response' => 'warning',
+                        'sms' => 'Usuario Bloqueado <br><br><strong>Nota: para desbloquear su usuario informe a su jefe inmediato!</strong>',
+                    );
+                    echo json_encode($array_response);
+                    exit;
+                }
                 if (password_verify($password, $data_user->row(0)->contrasena)) {
                     /* print_r($data_user->result()); */
                     $data_whereEmp = array('e.id' => $data_user->row(0)->empleado_id);

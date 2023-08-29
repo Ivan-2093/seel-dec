@@ -35,4 +35,9 @@ class UsuariosModel extends CI_Model
     {
         return $this->db->update('usuarios', $data_update, $data_where);
     }
+
+    public function getEstadosUsuario()
+    {
+        return $this->db->get('estados');
+    }
 }

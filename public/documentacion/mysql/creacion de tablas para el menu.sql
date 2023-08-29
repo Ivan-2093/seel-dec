@@ -1610,3 +1610,48 @@ VALUES ('736','CTRL REMOTO LUTRON PICO','','2','','238500','','33','1','30');
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`) 
 VALUES ('797','FUENTE DE PODER','','2','','300800','','33','1','30');
 
+-- --------------------------------
+
+ALTER TABLE productos
+ADD pasadores tinyint;
+
+ALTER TABLE productos
+ADD cerradura varchar(200);
+
+ALTER TABLE productos
+ADD llaves varchar(200);
+
+ALTER TABLE productos
+ADD tipo_seguridad varchar(200);
+
+-- --------------------------------------------------------
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Italiana','Hoja puerta en lamina calibre 14 con refuerzos internos, marco en lamina calibre 14 anclado y fundido en concreto. Enchapado en madera *conservando el
+diseño de propiedad horizontal *','','2','','5000000','','2','1','30','13','Italiana','5 llaves usuario y 1
+de servicio','Aleta de seguridad anti palanca - 3 bisagras tipo caja fuerte - pasador nocturno ');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Italiana 4K','Hoja puerta en lamina calibre 14 con refuerzos internos, marco en lamina calibre 14 anclado y fundido en concreto. Enchapado en madera *conservando el
+diseño de propiedad horizontal *','','2','','5500000','','2','1','30','13','Italiana + 1 Adicional Viajera','5 llaves usuario y 1
+de servicio','Aleta de seguridad anti palanca - 3 bisagras tipo caja fuerte - pasador nocturno ');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Israeli','Hoja puerta en lamina calibre 14 con refuerzos internos, marco en lamina calibre 14 anclado y fundido en concreto. Enchapado en madera *conservando el
+diseño de propiedad horizontal *','','2','','6000000','','2','1','30','13','Israelí','5 llaves
+codificadas con  restricción de
+copia','Aleta de seguridad anti palanca - 3 bisagras tipo caja fuerte - pasador nocturno ');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Americana','Hoja puerta en lamina calibre 14 con refuerzos internos, marco en lamina calibre 14 anclado y fundido en concreto. Enchapado en madera *conservando el
+diseño de propiedad horizontal *','','2','','6500000','','2','1','30','13','USA AMERICANA MUL-T-LOCK ','5
+llaves de usuario con restricción de copia','Aleta de seguridad anti palanca - 3 bisagras tipo caja fuerte - pasador nocturno ');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('China','Hoja puerta en lamina calibre 14 con refuerzos internos, marco en lamina calibre 14 anclado y fundido en concreto. Enchapado en madera *conservando el
+diseño de propiedad horizontal *','','2','','7000000','','2','1','30','13','ADEL-TTLOCK-SAMSUNG-ISEOMULTI-
+LOCK','200 claves - apertura por app - 1 pasador de seguridad - compatible con Alexa y home domótica','Aleta de seguridad anti palanca - 3 bisagras tipo caja fuerte');
+
+
+--  --------------------------------------------------------
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Tetra','4','','2','','300000','','54','1','30','4','3','5 llaves tetra','Escudo anti ganzuda');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Anti taladro','3','','2','','420000','','54','1','30','3','2','5 llaves codificadas','Escudo anti taladro');
+
+
+
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad 1','4+1','','2','','1600000','','55','1','30','4+1','4','Digital','Clave, huella, app y llave');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad 2','4+1','','2','','2000000','','55','1','30','4+1','4','Digital','Clave, huella,app y tarjeta');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad 3','4+1','','2','','2100000','','55','1','30','4+1','4','Digital','Clave, huella,app y cámara');
+INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad total','4+1','','2','','2400000','','55','1','30','4+1','6','Digital','Clave, huella,app, cámara, tarjeta y llave');
