@@ -62,8 +62,14 @@ function alertFieldsVoidsSelect(arrayInputs) {
 			if (input.type == "select-one") {
 				let idSelect = `select2-${input.id}-container`;
 				let selectSpan = document.getElementById(idSelect);
-				selectSpan.animate(newspaperSpinning, newspaperTiming);
-				selectSpan.focus();
+				if(selectSpan == null) {
+					input.animate(newspaperSpinning, newspaperTiming);
+					input.focus();
+				}else{
+					selectSpan.animate(newspaperSpinning, newspaperTiming);
+					selectSpan.focus();
+				}
+				
 			} else {
 				input.animate(newspaperSpinning, newspaperTiming);
 				input.focus();

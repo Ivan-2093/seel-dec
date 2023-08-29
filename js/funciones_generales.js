@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadDatatable(id) {
 	$(`#${id}`).DataTable({
 		paging: true,
-		pageLength: -1,
+		pageLength: 5,
 		lengthChange: true,
 		lengthMenu: [
 			[-1, 10, 50, 100],
