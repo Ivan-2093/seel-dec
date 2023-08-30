@@ -40,4 +40,15 @@ class ProductosModel extends CI_Model
         return $this->db->get('tela_tipo_medida');
     }
 
+    public function getProductoByWhere($array_where)
+    {
+        $this->db->where($array_where);
+        return $this->db->get('productos');
+    }
+
+    public function insertProducto($array_insert)
+    {
+        return $this->db->insert('productos',$array_insert);
+    }
+
 }
