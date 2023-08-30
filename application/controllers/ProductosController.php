@@ -71,11 +71,13 @@ class ProductosController extends CI_Controller
     {
         $data_proveedores = $this->ProveedoresModel->getProveedores()->result();
         $data_categoria = $this->ProductosModel->getTipoCategoria()->result();
+        $data_medidas = $this->ProductosModel->getTipoMedida()->result();
 
         $data_vista = array(
             'data_menus' => $this->html_menus,
             'data_proveedores' => $data_proveedores,
             'data_categoria' => $data_categoria,
+            'data_medidas' => $data_medidas,
             'name_page' => 'CREAR CLIENTE'
         );
         $this->load->view('header', $data_vista);

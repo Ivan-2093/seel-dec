@@ -4,6 +4,23 @@ const inputIdCategoria = document.getElementById("inputIdCategoria");
 const inputIdTipoProducto = document.getElementById("inputIdTipoProducto");
 const btnSubmitCreateProducto = document.getElementById("btnSubmitCreateProducto");
 
+
+const inputReferenciaProducto = document.getElementById('inputReferenciaProducto');
+const inputDescripcionProducto = document.getElementById('inputDescripcionProducto');
+const inputCostoElite = document.getElementById('inputCostoElite');
+const inputCostoPremium = document.getElementById('inputCostoPremium');
+const inputPerPrecio = document.getElementById('inputPerPrecio');
+const inputAnchoTela = document.getElementById('inputAnchoTela');
+const inputUndMedida = document.getElementById('inputUndMedida');
+const inputFactorApertura = document.getElementById('inputFactorApertura');
+const inputPasadores = document.getElementById('inputPasadores');
+const inputCerradura = document.getElementById('inputCerradura');
+const inputLlaves = document.getElementById('inputLlaves');
+const inputTipoSegurity = document.getElementById('inputTipoSegurity');
+
+const isDeco = document.getElementById('isDeco');
+const isSegurity = document.getElementById('isSegurity');
+
 /* ARRAY DE INPUTS */
 const arrayInputsProduct = [
 	inputIdProveedor,
@@ -14,7 +31,7 @@ const arrayInputsProduct = [
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
 	$(".js-select2-tercero").select2({
-		placeholder: "Seleccione un tercero",
+		placeholder: "Seleccione un proveedor",
 		width: "resolve",
 	});
 	$(".js-select2-categoria").select2({
@@ -25,6 +42,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 $(".js-select2-categoria").on("change", function (e) {
 	load_tipo_producto_by_categoria(inputIdCategoria.value);
+
+	if(inputIdCategoria.value == 1){
+		isDeco.hidden = false;
+		isSegurity.hidden = true;
+	}else {
+		isSegurity.hidden = false;
+		isDeco.hidden = true;
+	}
+
 });
 
 btnSubmitCreateProducto.addEventListener("click", function () {
@@ -88,7 +114,7 @@ function createCliente(data_form_cliente) {
 		});
 }
 function load_tipo_producto_by_categoria(id_categoria) {
-	showLoading(cargando);
+	
 	const form_categoria = new FormData();
 	form_categoria.append("id_categoria", id_categoria);
 	fetch(`${base_url}ProductosController/load_tipo_producto_by_categoria`, {
@@ -110,10 +136,10 @@ function load_tipo_producto_by_categoria(id_categoria) {
 				placeholder: "Seleccione un tipo",
 				width: "resolve",
 			});
-			hiddenLoading(cargando);
+			
 		})
 		.catch(function (error) {
 			reportError(error);
-			hiddenLoading(cargando);
+			
 		});
 }
