@@ -31,7 +31,7 @@ function createSubmenuByMenuByPerfil($data_submenus)
         if ($data_submenus->num_rows() > 0) {
             $submenu_html .= '<div class="submenu-content">';
             foreach ($data_submenus->result() as $row2) {
-                $submenu_html .= '<a href="' . base_url() . $row2->path . '" class="menu-item"><i class="' . $row2->icono . '"></i>' . $row2->submenu . '</a>';
+                $submenu_html .= '<a style="display: flex;" href="' . base_url() . $row2->path . '" class="menu-item"><i class="' . $row2->icono . '"></i><p style="text-wrap: wrap;">' . $row2->submenu . '</p></a>';
             }
             $submenu_html .= '</div>';
         }

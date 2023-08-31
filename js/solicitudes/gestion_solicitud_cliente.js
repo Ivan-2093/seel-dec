@@ -57,17 +57,19 @@ function createCotizacion(id_solicitud) {
 	})
 		.then(function (response) {
 			// Transforma la respuesta. En este caso lo convierte a JSON
-			return response.json();
+			/* return response.json(); */
 		})
 		.then(function (json) {
+			/*
 			if (json["response"] === "error") {
-				Swal.fire({
+			 	Swal.fire({
 					icon: "error",
 					title: "Error",
 					text: "La solicitud del cliente no se encontro!",
 					confirmButtonText: "Ok",
 				});
-			}
+			} 
+			*/
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
