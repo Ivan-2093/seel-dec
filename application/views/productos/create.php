@@ -20,27 +20,6 @@
             <h5 class="card-header">FORMULARIO PARA CREAR PRODUCTO</h5>
             <form id="formCreateProducto" name="formCreateProducto">
                 <div class="card-body" style="background-color: #90ee9073 ;">
-                    <!--
-                `id_producto`, 
-                `referencia`, 
-                `descripcion`,
-                --cortinas
-                `anchos_tela_metro`,
-                `unidad_medida`, 
-                `factor_apertura`, 
-
-                `costo_elite`, 
-                `costo_premium`, 
-
-                `id_tipo_p`, 
-                `proveedor_id`, 
-                `porce_precio`,
-                --puertas y cerraduras
-                `pasadores`, 
-                `cerradura`, 
-                `llaves`, 
-                `tipo_seguridad`
-                -->
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputIdProveedor">PROVEEDOR</label>

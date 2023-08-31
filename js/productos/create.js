@@ -12,9 +12,15 @@ const inputPasadores = document.getElementById("inputPasadores");
 const inputCerradura = document.getElementById("inputCerradura");
 const inputLlaves = document.getElementById("inputLlaves");
 const inputTipoSegurity = document.getElementById("inputTipoSegurity");
-const btnSubmitCreateProducto = document.getElementById("btnSubmitCreateProducto");
-const inputReferenciaProducto = document.getElementById("inputReferenciaProducto");
-const inputDescripcionProducto = document.getElementById("inputDescripcionProducto");
+const btnSubmitCreateProducto = document.getElementById(
+	"btnSubmitCreateProducto"
+);
+const inputReferenciaProducto = document.getElementById(
+	"inputReferenciaProducto"
+);
+const inputDescripcionProducto = document.getElementById(
+	"inputDescripcionProducto"
+);
 const isDeco = document.getElementById("isDeco");
 const isSegurity = document.getElementById("isSegurity");
 
@@ -23,24 +29,45 @@ const arrayInputsProduct = [
 	inputIdProveedor,
 	inputIdCategoria,
 	inputIdTipoProducto,
+	inputCostoElite,
 	inputCostoPremium,
 	inputPerPrecio,
+	inputReferenciaProducto,
+	inputDescripcionProducto,
+];
+
+/* ARRAY DE INPUTS ALLS */
+const arrayInputsProductAll = [
+	inputIdProveedor,
+	inputIdCategoria,
+	inputIdTipoProducto,
+	inputCostoPremium,
+	inputPerPrecio,
+	inputReferenciaProducto,
+	inputDescripcionProducto,
+	inputAnchoTela,
+	inputUndMedida,
+	inputFactorApertura,
+	inputPasadores,
+	inputCerradura,
+	inputLlaves,
+	inputTipoSegurity,
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
 	$(".js-select2-tercero").select2({
-		with: '100%',
+		with: "100%",
 		placeholder: "Seleccione un proveedor",
 		width: "resolve",
 	});
 	$(".js-select2-categoria").select2({
-		with: '100%',
+		with: "100%",
 		placeholder: "Seleccione una categoria",
 		width: "resolve",
 	});
 	$(".js-select2-medida").select2({
-		with: '100%',
+		with: "100%",
 		placeholder: "Seleccione una medida",
 		width: "resolve",
 	});
@@ -60,9 +87,7 @@ $(".js-select2-categoria").on("change", function (e) {
 
 btnSubmitCreateProducto.addEventListener("click", function () {
 	const inputsVoid = arrayInputsProduct.filter(function (input) {
-		if (input.tagName != "TEXTAREA") {
-			return input.value == "";
-		}
+		return input.value == "";
 	});
 	if (inputsVoid.length == 0) {
 		const data_form_producto = new FormData(formCreateProducto);
@@ -76,7 +101,7 @@ btnSubmitCreateProducto.addEventListener("click", function () {
 
 		Swal.fire({
 			title: "Advertencia",
-			html: `Para cargar la información del mantenimiento, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
+			html: `Para cargar la información, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
 			icon: "warning",
 			confirmButtonText: "Ok",
 			willClose: () => {
@@ -120,8 +145,10 @@ function createProducto(data_form_producto) {
 				allowOutsideClick: false,
 				showCloseButton: true,
 			}).then((result) => {
-				if(json["response"] == 'success') {
+				if (json["response"] == "success") {
 					location.reload();
+				} else {
+					campos_vacios_formulario();
 				}
 			});
 
@@ -158,4 +185,27 @@ function load_tipo_producto_by_categoria(id_categoria) {
 		.catch(function (error) {
 			reportError(error);
 		});
+}
+
+function campos_vacios_formulario() {
+	const inputsVoid = arrayInputsProductAll.filter(function (input) {
+		return input.value == "";
+	});
+	if (inputsVoid.length != 0) {
+		const nameInput = inputsVoid
+			.map(function (input) {
+				return input.previousElementSibling.innerText;
+			})
+			.join(", ");
+
+		Swal.fire({
+			title: "Advertencia",
+			html: `Para cargar la información, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
+			icon: "warning",
+			confirmButtonText: "Ok",
+			willClose: () => {
+				alertFieldsVoidsSelect(inputsVoid);
+			},
+		});
+	}
 }
