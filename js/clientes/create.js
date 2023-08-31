@@ -33,7 +33,7 @@ btnSubmitCreateEmpleado.addEventListener("click", function () {
 
 		Swal.fire({
 			title: "Advertencia",
-			html: `Para cargar la información del mantenimiento, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
+			html: `Para cargar la información, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
 			icon: "warning",
 			confirmButtonText: "Ok",
 			willClose: () => {

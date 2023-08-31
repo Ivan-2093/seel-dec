@@ -34,8 +34,17 @@ class ProductosController extends CI_Controller
 
     public function index()
     {
+
+        $data_proveedores = $this->ProveedoresModel->getProveedores()->result();
+        $data_categoria = $this->ProductosModel->getTipoCategoria()->result();
+        $data_medidas = $this->ProductosModel->getTipoMedida()->result();
+
+
         $data_vista = array(
             'data_menus' => $this->html_menus,
+            'data_proveedores' => $data_proveedores,
+            'data_categoria' => $data_categoria,
+            'data_medidas' => $data_medidas,
             'name_page' => 'PRODUCTOS'
         );
         $this->load->view('header', $data_vista);
@@ -49,15 +58,16 @@ class ProductosController extends CI_Controller
         if ($data_productos->num_rows() > 0) {
             foreach ($data_productos->result() as $key) {
                 $tbody .= '<tr>
-                <td>' . $key->id_producto . '</td>
+                <td class="text-center">' . $key->id_producto . '</td>
                 <td>' . $key->referencia . '</td>
                 <td>' . $key->descripcion . '</td>
-                <td>' . $key->costo_elite . '</td>
-                <td>' . $key->costo_premium . '</td>
-                <td>' . $key->porce_precio . '%</td>
+                <td class="text-right">$' . number_format($key->costo_elite, 0, '.', ',') . '</td>
+                <td class="text-right">$' . number_format($key->costo_premium, 0, '.', ',') . '</td>
+                <td class="text-center">' . $key->porce_precio . '%</td>
                 <td>' . $key->tipo . '</td>
-                <td>' . $key->categoria . '</td>
+                <td class="text-center">' . $key->categoria . '</td>
                 <td>' . $key->primer_nombre . ' ' . $key->segundo_nombre . ' ' . $key->primer_apellido . ' ' . $key->segundo_apellido . '</td>
+                <td class="text-center"><button type="button" class="btn btn-warning ik ik-edit" onclick="editar_producto(' . $key->id_producto . ');"></button></td>
                 </tr>';
             }
         }
@@ -155,5 +165,189 @@ class ProductosController extends CI_Controller
             $seletc_html .= '<option value="' . $key->id_tipo . '">' . $key->tipo . '</option>';
         }
         return $seletc_html;
+    }
+
+    public function createProducto()
+    {
+        $inputIdProveedor = $this->input->POST('inputIdProveedor');
+        $inputIdCategoria = $this->input->POST('inputIdCategoria');
+        $inputIdTipoProducto = $this->input->POST('inputIdTipoProducto');
+        $inputReferenciaProducto = $this->input->POST('inputReferenciaProducto');
+        $inputDescripcionProducto = $this->input->POST('inputDescripcionProducto');
+        $inputCostoElite = $this->input->POST('inputCostoElite');
+        $inputCostoPremium = $this->input->POST('inputCostoPremium');
+        $inputPerPrecio = $this->input->POST('inputPerPrecio');
+        $inputAnchoTela = $this->input->POST('inputAnchoTela');
+        $inputUndMedida = $this->input->POST('inputUndMedida');
+        $inputFactorApertura = $this->input->POST('inputFactorApertura');
+        $inputPasadores = $this->input->POST('inputPasadores');
+        $inputCerradura = $this->input->POST('inputCerradura');
+        $inputLlaves = $this->input->POST('inputLlaves');
+        $inputTipoSegurity = $this->input->POST('inputTipoSegurity');
+
+        $array_insert = array(
+            'referencia' => $inputReferenciaProducto,
+            'descripcion' => $inputDescripcionProducto,
+            'anchos_tela_metro' => $inputAnchoTela,
+            'unidad_medida' => $inputUndMedida == "" ? 2 : $inputUndMedida,
+            'factor_apertura' => $inputFactorApertura,
+            'costo_elite' => str_replace('.', '', $inputCostoElite),
+            'costo_premium' => str_replace('.', '', $inputCostoPremium),
+            'id_tipo_p' => $inputIdTipoProducto,
+            'proveedor_id' => $inputIdProveedor,
+            'porce_precio' => $inputPerPrecio,
+            'pasadores' => $inputPasadores,
+            'cerradura' => $inputCerradura,
+            'llaves' => $inputLlaves,
+            'tipo_seguridad' => $inputTipoSegurity
+        );
+
+        $array_where = array(
+            'referencia' => $inputReferenciaProducto
+        );
+
+        if ($this->ProductosModel->getProductoById($array_where)->num_rows() > 0) {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'ERROR!',
+                'sms' => 'El producto que esta intentando guardar ya existe en la base de datos!'
+            );
+            echo json_encode($array_response);
+            exit;
+        }
+
+        if ($inputIdCategoria == 1) {
+            if (($inputIdProveedor == '' || $inputCostoElite == '' || $inputIdTipoProducto == '' || $inputIdProveedor == '' || $inputIdCategoria == '' || $inputUndMedida == '' || $inputFactorApertura == '' || $inputAnchoTela == '')) {
+                $array_response = array(
+                    'response' => 'warning',
+                    'title' => 'CAMPOS VACIOS',
+                    'sms' => 'Se encontraron campos vacios en el formulario!'
+                );
+                echo json_encode($array_response);
+                exit;
+            }
+        } else {
+
+            if (($inputIdProveedor == '' || $inputCostoElite == '' || $inputIdTipoProducto == '' || $inputIdProveedor == '' || $inputIdCategoria == '' || $inputTipoSegurity == '' || $inputLlaves == '' || $inputCerradura == '' || $inputPasadores == '')) {
+                $array_response = array(
+                    'response' => 'warning',
+                    'title' => 'CAMPOS VACIOS',
+                    'sms' => 'Se encontraron campos vacios en el formulario!'
+                );
+                echo json_encode($array_response);
+                exit;
+            }
+        }
+
+        $this->insert_product($array_insert);
+    }
+
+    public function insert_product($array_insert)
+    {
+
+        if ($this->ProductosModel->insertProducto($array_insert)) {
+            $array_response = array(
+                'response' => 'success',
+                'title' => 'EXITO!',
+                'sms' => 'Se ha realizado con exito el registro del producto!'
+            );
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'ERROR!',
+                'sms' => 'Ha ocurrido un error al intentar registrar el producto. Intente nuevamente!'
+            );
+        }
+        echo json_encode($array_response);
+        exit;
+    }
+
+
+    public function load_producto_by_id()
+    {
+        $id_producto = $this->input->POST('id_producto');
+        $array_where = array('id_producto' => $id_producto);
+        $data_producto = $this->ProductosModel->getProductosByWhere($array_where);
+
+        if ($data_producto->num_rows() > 0) {
+            $array_response = array(
+                'response' => 'success',
+                'msm' => 'Se ha cargado la información del producto correctamente',
+                'title' => 'Exito!',
+                'data' => $data_producto->result_array(),
+            );
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'msm' => 'No se ha encontrado información del producto',
+                'title' => 'Error!',
+                'data' => '',
+            );
+        }
+
+        echo json_encode($array_response);
+    }
+
+
+    public function editProducto()
+    {
+        $inputIdProveedor = $this->input->POST('inputIdProveedor');
+        $inputIdTipoProducto = $this->input->POST('inputIdTipoProducto');
+        $inputDescripcionProducto = $this->input->POST('inputDescripcionProducto');
+        $inputCostoElite = $this->input->POST('inputCostoElite');
+        $inputCostoPremium = $this->input->POST('inputCostoPremium');
+        $inputPerPrecio = $this->input->POST('inputPerPrecio');
+        $inputAnchoTela = $this->input->POST('inputAnchoTela');
+        $inputUndMedida = $this->input->POST('inputUndMedida');
+        $inputFactorApertura = $this->input->POST('inputFactorApertura');
+        $inputPasadores = $this->input->POST('inputPasadores');
+        $inputCerradura = $this->input->POST('inputCerradura');
+        $inputLlaves = $this->input->POST('inputLlaves');
+        $inputTipoSegurity = $this->input->POST('inputTipoSegurity');
+        $id_producto_edit = $this->input->POST('id_producto_edit');
+
+        $array_where = array('id_producto' => $id_producto_edit);
+
+        $array_update = array(
+            'descripcion' => $inputDescripcionProducto,
+            'anchos_tela_metro' => $inputAnchoTela,
+            'unidad_medida' => $inputUndMedida == "" ? 2 : $inputUndMedida,
+            'factor_apertura' => $inputFactorApertura,
+            'costo_elite' => str_replace('.', '', $inputCostoElite),
+            'costo_premium' => str_replace('.', '', $inputCostoPremium),
+            'id_tipo_p' => $inputIdTipoProducto,
+            'proveedor_id' => $inputIdProveedor,
+            'porce_precio' => $inputPerPrecio,
+            'pasadores' => $inputPasadores,
+            'cerradura' => $inputCerradura,
+            'llaves' => $inputLlaves,
+            'tipo_seguridad' => $inputTipoSegurity
+        );
+
+        if ($this->ProductosModel->getProductoById($array_where)->num_rows() == 0) {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'Error!',
+                'sms' => 'El producto no se ha encontrado en la base de datos!',
+            );
+            echo json_encode($array_response);
+            exit;
+        }
+
+        if ($this->ProductosModel->updateProducto($array_update, $array_where)) {
+            $array_response = array(
+                'response' => 'success',
+                'title' => 'Exito!',
+                'sms' => 'Se ha realizado con exito la actualización del producto',
+            );
+        } else {
+            $array_response = array(
+                'response' => 'warning',
+                'title' => 'Advertencia!',
+                'sms' => 'No se ha realizado con exito la actualización del producto',
+            );
+        }
+
+        echo json_encode($array_response);
     }
 }

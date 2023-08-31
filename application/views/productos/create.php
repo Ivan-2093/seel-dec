@@ -20,27 +20,6 @@
             <h5 class="card-header">FORMULARIO PARA CREAR PRODUCTO</h5>
             <form id="formCreateProducto" name="formCreateProducto">
                 <div class="card-body" style="background-color: #90ee9073 ;">
-                    <!--
-                `id_producto`, 
-                `referencia`, 
-                `descripcion`,
-                --cortinas
-                `anchos_tela_metro`,
-                `unidad_medida`, 
-                `factor_apertura`, 
-
-                `costo_elite`, 
-                `costo_premium`, 
-
-                `id_tipo_p`, 
-                `proveedor_id`, 
-                `porce_precio`,
-                --puertas y cerraduras
-                `pasadores`, 
-                `cerradura`, 
-                `llaves`, 
-                `tipo_seguridad`
-                -->
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputIdProveedor">PROVEEDOR</label>
@@ -74,29 +53,36 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputReferenciaProducto">REFERENCIA</label>
-                            <input type="text" class="form-control " id="inputReferenciaProducto" name="inputReferenciaProducto" placeholder="Referencia del producto"/>
+                            <input type="text" class="form-control " id="inputReferenciaProducto" name="inputReferenciaProducto" placeholder="Referencia del producto" />
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
                             <label class="d-block" for="inputDescripcionProducto">DESCRIPCIÓN</label>
-                            <textarea class="form-control" id="inputDescripcionProducto" name="inputReferenciaProducto" placeholder="Escriba la descripción del producto aquí!"></textarea>
+                            <textarea class="form-control" id="inputDescripcionProducto" name="inputDescripcionProducto" placeholder="Escriba la descripción del producto aquí!"></textarea>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-                            <label class="d-block" for="inputCostoElite">COSTO ELITE</label>
-                            <input type="number" class="form-control " id="inputCostoElite" name="inputCostoElite" placeholder="Costo Elite del producto"/>
+                        <label class="d-block" for="inputCostoElite">COSTO ELITE</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend"><label class="input-group-text">$</label></span>
+                                <input value="0" onfocus="borrarCeros(this)" type="text" class="form-control " id="inputCostoElite" name="inputCostoElite" placeholder="Costo Elite del producto" />
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputCostoPremium">COSTO PREMIUM</label>
-                            <input type="number" class="form-control " id="inputCostoPremium" name="inputCostoPremium" placeholder="Costo Premium del producto" />
+                            <div class="input-group">
+                                <span class="input-group-prepend"><label class="input-group-text">$</label></span>
+                                <input value="0" onfocus="borrarCeros(this)" type="text" class="form-control " id="inputCostoPremium" name="inputCostoPremium" placeholder="Costo Premium del producto" />
+                            </div>
+                            
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputPerPrecio">PORCENTAJE PRECIO</label>
-                            <input type="number" class="form-control " id="inputPerPrecio" name="inputPerPrecio" placeholder="Porcentage precio del producto"/>
+                            <input type="number" class="form-control " id="inputPerPrecio" name="inputPerPrecio" placeholder="Porcentage precio del producto" />
                         </div>
                     </div>
                     <div class="row" id="isDeco" hidden>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputAnchoTela">ANCHO DE TELA</label>
-                            <input type="text" class="form-control " id="inputAnchoTela" name="inputAnchoTela" placeholder="Ancho de Tela"/>
+                            <input type="text" class="form-control " id="inputAnchoTela" name="inputAnchoTela" placeholder="Ancho de Tela" />
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputUndMedida">UNIDAD DE MEDIDA</label>
@@ -126,10 +112,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                             <label class="d-block" for="inputLlaves">LLAVES</label>
-                            <textarea type="text" class="form-control " id="inputLlaves" name="inputLlaves" ></textarea>
+                            <textarea type="text" class="form-control " id="inputLlaves" name="inputLlaves"></textarea>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                            <label class="d-block" for="inputTipoSegurity">LLAVES</label>
+                            <label class="d-block" for="inputTipoSegurity">TIPO DE SEGURIDAD</label>
                             <textarea type="text" class="form-control " id="inputTipoSegurity" name="inputTipoSegurity"></textarea>
                         </div>
                     </div>

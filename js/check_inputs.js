@@ -113,3 +113,43 @@ function isAddress() {
 		e.preventDefault();
 	}
 }
+
+function aplicarNuberFormat(elemento) {
+    var id = elemento.id;
+    $("#"+id).map(function(){
+        return this.value = number_format(this.value.replace(/[^0-9]/g, ''));
+    });
+}
+// necesarios para aplicar el formato
+function number_format(numero) {
+    var numParseado = null;
+    if (numero != 0) {
+        var cant = customRound(numero.length/3);
+        var exp = '';
+        var variables = '';
+        for (let i = 1; i <= cant; i++) {
+            if (i == cant) {
+                variables = variables +'$'+i ;
+            } else {            
+                exp = '(\\d{3})' + exp;
+                variables = variables + '$'+ i + '.'
+            }
+        }
+        numParseado = numero.replace(RegExp('(\\d+)'+exp),variables);
+    } else {
+        numParseado = 0;
+    }
+    return numParseado;
+}
+function customRound(n) {
+    var h = (n * 100) % 10;
+    return h >= 1
+        ? parseInt(n.toString().charAt(0)) + 1
+        : parseInt(n.toString().charAt(0));
+};
+
+function borrarCeros(x) {
+    if(x.value == "0"){
+        x.value = '';
+    }
+}
