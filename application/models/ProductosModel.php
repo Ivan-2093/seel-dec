@@ -62,4 +62,9 @@ class ProductosModel extends CI_Model
         return $this->db->insert('productos',$array_insert);
     }
 
+    public function updateProducto($array_update,$array_where)
+    {
+        return $this->db->update('productos',$array_update,$array_where);
+    }
+
 }
