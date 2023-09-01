@@ -43,38 +43,6 @@ function load_data() {
 		});
 }
 
-function createCotizacion(id_solicitud) {
-	showLoading(cargando);
-	const formCotizacon = new FormData();
-	formCotizacon.append('id_solicitud',id_solicitud);
-	fetch(`${base_url}CotizacionController/`, {
-		headers: {
-			"Content-type": "application/json",
-		},
-		mode: "no-cors",
-		method: "POST",
-		body: formCotizacon,
-	})
-		.then(function (response) {
-			// Transforma la respuesta. En este caso lo convierte a JSON
-			return response.json();
-		})
-		.then(function (json) {
-			if (json["response"] === "error") {
-				Swal.fire({
-					icon: "error",
-					title: "Error",
-					text: "La solicitud del cliente no se encontro!",
-					confirmButtonText: "Ok",
-				});
-			}
-			hiddenLoading(cargando);
-		})
-		.catch(function (error) {
-			reportError(error);
-			hiddenLoading(cargando);
-		});
-}
 
 btnGenerarFiltro.addEventListener("click", () => {
 	load_data();

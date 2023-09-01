@@ -29,16 +29,27 @@ class CotizacionController extends CI_Controller
         $data_menus = $this->MenusModel->getMenusByPerfil($data_where_menus);
         $this->html_menus = createMenuByPerfil($data_menus);
     }
-    
+
     public function index()
     {
-
-        print_r($this->input->post('id_solicitud'));
-
-        $array_response = array(
-            'response' => 'error',
+        $data_vista = array(
+            'data_menus' => $this->html_menus,
+            'name_page' => 'COTIZADOR'
         );
 
-        echo json_encode($array_response);
+        $id_solicitud = $this->input->post('id_solicitud');
+
+        if ($id_solicitud != "") {
+            $where = array('id_solicitud' => $id_solicitud);
+            $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
+            $data_vista['data_solicitudes'] = $data_solicitudes->row(0);
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('cotizador/solicitud');
+        } else {
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('cotizador/solicitud');
+        }
     }
 }

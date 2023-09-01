@@ -70,3 +70,4 @@
 			<?php $this->load->view('menu'); ?>
 			<div class="main-content">
 				<div class="loader" id="cargando"></div>
+				<div class="container-fluid">
