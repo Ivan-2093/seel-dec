@@ -32,24 +32,24 @@ class CotizacionController extends CI_Controller
 
     public function index()
     {
-
-        $id_solicitud = $this->input->post('id_solicitud');
-        if ($id_solicitud == "") {
-
-        } else {
-            header('Refresh:5; url=' . base_url() . "CotizacionController/load_cotizador/" . $id_solicitud);
-            die;
-        }
-    }
-
-    public function load_cotizador($id_solicitud = "")
-    {
         $data_vista = array(
             'data_menus' => $this->html_menus,
-            'name_page' => 'HOME'
+            'name_page' => 'COTIZADOR'
         );
 
-        $this->load->view('header', $data_vista);
-        $this->load->view('dashboard');
+        $id_solicitud = $this->input->post('id_solicitud');
+
+        if ($id_solicitud != "") {
+            $where = array('id_solicitud' => $id_solicitud);
+            $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
+            $data_vista['data_solicitudes'] = $data_solicitudes->row(0);
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('cotizador/solicitud');
+        } else {
+
+            $this->load->view('header', $data_vista);
+            $this->load->view('cotizador/solicitud');
+        }
     }
 }

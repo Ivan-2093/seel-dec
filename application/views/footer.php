@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="alert alert-primary" role="alert">
-                            <i class="ik ik-alert-circle"></i> La contraseña debe ser mayor a 8 caracteres y menor a 16 caracteres, debe ser alfanumerica.
+                                <i class="ik ik-alert-circle"></i> La contraseña debe ser mayor a 8 caracteres y menor a 16 caracteres, debe ser alfanumerica.
                             </div>
                         </div>
                     </div>
@@ -46,6 +46,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 <footer class="footer">

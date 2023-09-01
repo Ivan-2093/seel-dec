@@ -134,7 +134,7 @@ class SolicitudController extends CI_Controller
         if ($data_solicitudes->num_rows() > 0) {
             foreach ($data_solicitudes->result() as $row) {
                 $tbody .=
-                    '<tr>
+                '<tr>
                     <td>' . $row->id_solicitud . '</td>
                     <td>' . $row->prospecto . '</td>
                     <td>' . $row->telefono . '</td>
@@ -145,7 +145,14 @@ class SolicitudController extends CI_Controller
                     <td>' . $row->tipo_solicitud . '</td>
                     <td>' . $row->primer_nombre . ' ' . $row->primer_apellido . '</td>
                     <td>' . $row->fecha_creado . '</td>
-                    <td class="text-center"><button onclick="createCotizacion(' . $row->id_solicitud . ');" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="COTIZAR"><i class="ik ik-external-link"></i></button></td>
+                    <td class="text-center">
+                        <form action="'.base_url().'CotizacionController" method="post" target="_blank">
+                            <input type="hidden" name="id_solicitud" value="'.$row->id_solicitud.'" />
+                            <button type="submit" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="COTIZAR">
+                                <i class="ik ik-external-link"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>';
             }
         }
