@@ -19,6 +19,7 @@ class CotizacionController extends CI_Controller
         $this->load->library('session');
         $this->load->model('UsuariosModel');
         $this->load->model('ProspectosModel');
+        $this->load->model('ProductosModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
 
@@ -43,13 +44,32 @@ class CotizacionController extends CI_Controller
             $where = array('id_solicitud' => $id_solicitud);
             $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
             $data_vista['data_solicitudes'] = $data_solicitudes->row(0);
-
-            $this->load->view('header', $data_vista);
-            $this->load->view('cotizador/solicitud');
-        } else {
-
-            $this->load->view('header', $data_vista);
-            $this->load->view('cotizador/solicitud');
         }
+
+        $this->load->view('header', $data_vista);
+        $this->load->view('cotizador/solicitud');
+    }
+
+    public function load_productos()
+    {
+        $data_productos = $this->ProductosModel->getProductos();
+        $tbody = '';
+        if ($data_productos->num_rows() > 0) {
+            foreach ($data_productos->result() as $key) {
+                $tbody .= '<tr>
+                <td class="text-center">' . $key->id_producto . '</td>
+                <td>' . $key->referencia . '</td>
+                <td class="text-right">$' . number_format(($key->costo_elite * ($key->porce_precio / 100)), 0, '.', ',') . '</td>
+                <td class="text-right">$' . number_format(($key->costo_premium * ($key->porce_precio / 100)), 0, '.', ',') . '</td>
+                <td>' . $key->tipo . '</td>
+                <td class="text-center">' . $key->categoria . '</td>
+                <td class="text-center"><button type="button" class="btn btn-warning ik ik-edit" onclick="editar_producto(' . $key->id_producto . ');"></button></td>
+                </tr>';
+            }
+        }
+        $array_response = array(
+            'tbody' => $tbody
+        );
+        echo json_encode($array_response);
     }
 }

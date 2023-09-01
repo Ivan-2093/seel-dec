@@ -86,4 +86,5 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/solicitudes/solicitud_cliente.js"></script>
+
 <?php $this->load->view('footer'); ?>
