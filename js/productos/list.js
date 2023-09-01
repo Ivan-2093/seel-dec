@@ -60,6 +60,9 @@ function loadTableProductos() {
 		.then(function (json) {
 			$(`#${tableProductos.id}`).dataTable().fnDestroy();
 			tableProductos.tBodies[0].innerHTML = json["tbody"];
+			return json;
+		})
+		.then(function (json) {
 			loadDatatable(tableProductos.id);
 			hiddenLoading(cargando);
 		})
@@ -119,10 +122,10 @@ function editar_producto(id_producto) {
 					isDeco.hidden = true;
 				}
 
-				return json;
-			} else {
-				return json;
+
 			}
+			return json;
+
 		})
 		.then(function (json) {
 			Swal.fire({
@@ -187,7 +190,7 @@ $(".js-select2-categoria").on("change", function (e) {
 
 btnSubmitEditarProducto.addEventListener("click", function () {
 	const inputsVoid = arrayInputsProduct.filter(function (input) {
-			return input.value == "";
+		return input.value == "";
 	});
 	if (inputsVoid.length == 0) {
 		const data_form_producto = new FormData(formEditProducto);
@@ -237,6 +240,15 @@ function editarProducto(data_form_producto) {
 			return response.json();
 		})
 		.then(function (json) {
+			if (json["response"] == 'success') {
+				loadTableProductos();
+				$("#modal_editar_producto").modal('hide');
+			}
+
+			return json;
+		})
+		.then(function (json) {
+
 			Swal.fire({
 				title: json["title"],
 				html: `${json["sms"]}`,
@@ -244,10 +256,6 @@ function editarProducto(data_form_producto) {
 				confirmButtonText: "Ok",
 				allowOutsideClick: false,
 				showCloseButton: true,
-			}).then((result) => {
-				if(json["response"] == 'success') {
-					location.reload();
-				}
 			});
 
 			hiddenLoading(cargando);
