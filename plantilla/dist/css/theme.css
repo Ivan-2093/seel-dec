@@ -1319,7 +1319,7 @@ a:hover, a:focus, a:active { outline: 0; text-decoration: none; color: #212121; 
 
 .card .card-body .dataTables_wrapper .dataTables_scroll { margin-left: -20px; width: calc(100% + 40px); }
 .card .card-body .dataTables_wrapper .dataTables_scroll .dataTable { margin-left: 0px; width: 100%; }
-.card .card-body .dataTables_wrapper .dataTable { margin-left: -20px; width: calc(100% + 40px); }
+.card .card-body .dataTables_wrapper .dataTable { margin-left: 0px; width: calc(100% + 40px); }
 .card .card-body .dataTables_wrapper .form-control { border: none; min-height: 30px; background-color: #f4f4f4; }
 .card .card-body .dataTables_wrapper select.form-control { height: 30px !important; }
 .card .card-body .dataTables_wrapper .dataTables_paginate .pagination .page-item .page-link { margin-left: 5px; min-width: 30px; height: 30px; padding: 0; text-align: center; line-height: 30px; border: none; background-color: #f4f4f4; color: #212121; border-radius: 30px; -webkit-border-radius: 30px; -moz-border-radius: 30px; }

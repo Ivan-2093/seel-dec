@@ -38,6 +38,7 @@ function loadDatatable(id) {
 			[-1, 10, 50, 100],
 			["Todos", 10, 50, 100],
 		],
+		pagingType: "simple",
 		searching: true,
 		ordering: false,
 		info: true,
