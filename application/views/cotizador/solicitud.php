@@ -88,40 +88,44 @@
     </div>
   </div>
 </div>
-<div class="modal fade bd-example-modal-xl" id="modal_productos" tabindex="-1" role="dialog" aria-labelledby="modal_productos" aria-hidden="true">
+<div class="modal fade" id="modal_productos" tabindex="-1" role="dialog" aria-labelledby="modal_productos" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="card">
         <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <table style="width:100% ;" id="tableProductos" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>REFERENCIA</th>
-                    <th>VALOR ELITE</th>
-                    <th>VALOR PREMIUM</th>
-                    <th>TIPO PRODUCTO</th>
-                    <th>CATEGORIA</th>
-                    <th>OPCIÓN</th>
-                  </tr>
-                </thead>
-                <tbody>
+          <div class="table-responsive">
+            <table id="tableProductos" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>REFERENCIA</th>
+                  <th>VALOR ELITE</th>
+                  <th>VALOR PREMIUM</th>
+                  <th>TIPO PRODUCTO</th>
+                  <th>CATEGORIA</th>
+                  <th>OPCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
 
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<style>
+  div.dataTables_wrapper div.dataTables_info {
+    padding-top: 0.85em;
+    white-space:normal;
+}
+</style>
 
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/cotizador/create.js"></script>
-<?php $this->load->view('footer');
+<?php $this->load->view('footer'); ?>
