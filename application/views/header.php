@@ -27,8 +27,8 @@
 	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/c3/c3.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
-	<!-- <link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
-	<!-- <link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/mohithg-switchery/dist/switchery.min.css"> -->
+	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+	<link rel="stylesheet" href="<?= base_url() ?>plantilla/plugins/mohithg-switchery/dist/switchery.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>plantilla/dist/css/theme.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css"><!-- datetimepicker -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -44,7 +44,6 @@
 	<script>
 		window.jQuery || document.write('<script src="src/js/vendor/jquery-3.3.1.min.js"><\/script>')
 	</script>
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" /> -->
 	<?php $this->load->helper('estilos_helper'); ?>
 </head>
 

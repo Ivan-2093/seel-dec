@@ -50,6 +50,7 @@ class ProductosModel extends CI_Model
         $this->db->select();
         $this->db->from('productos as p');
         $this->db->join('tipos_productos as tp', 'p.id_tipo_p = tp.id_tipo');
+        $this->db->join('tela_tipo_medida as tm', 'p.unidad_medida = tm.id_medida');
         $this->db->join('categorias as c', 'tp.id_categoria_c = c.id_categoria');
         $this->db->join('proveedores as pr', 'p.proveedor_id = pr.id_proveedor');
         $this->db->join('terceros as t', 'pr.id_tercero = t.id');

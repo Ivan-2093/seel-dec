@@ -58,26 +58,23 @@
           <div class="col-12">
             <div class="table-responsive-xl">
               <table id="tabla_cotizacion" class="table table-bordered">
-                <thead>
+                <thead class="thead-dark">
                   <tr>
+                    <th class="d-none">ID</th>
                     <th>CANTIDAD</th>
                     <th>REFERENCIA</th>
                     <th>VALOR UNIDAD</th>
                     <th>VALOR TOTAL</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th>1</th>
-                    <th>PANEL JAPONES</th>
-                    <th>2700000</th>
-                    <th>2700000</th>
-                  </tr>
                 </tbody>
                 <tfoot>
-                  <tr class="table-dark">
+                  <tr class="table-success">
                     <th class="text-right" colspan="3">TOTAL</th>
-                    <td>2700000</td>
+                    <td class="text-right" id="totalCotizacion"></td>
+                    <td></td>
                   </tr>
                 </tfoot>
               </table>
@@ -92,17 +89,75 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-info p-2" id="btnActivePersianaT" name="btnActivePersianaT">CORTINAS</button>
+              <button type="button" class="btn btn-info p-2" id="btnActivePuertaT" name="btnActivePuertaT">PUERTAS</button>
+              <button type="button" class="btn btn-info p-2" id="btnActiveCerraduraT" name="btnActiveCerraduraT">CERRADURAS</button>
+            </div>
+          </div>
+        </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table id="tableProductos" class="table table-bordered">
+          <div class="table-responsive" id="tablaPersianas">
+            <table id="tableProductosC1" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-center">ID</th>
+                  <th class="text-center">REFERENCIA</th>
+                  <th class="text-center">DESCRIPCIÓN</th>
+                 <!--  <th>UNIDAD DE MEDIDA</th>
+                  <th>ANCHO TELA</th> 
+                  <th>FACTOR APERTURA</th>-->
+                  <th class="text-center">VALOR ELITE</th>
+                  <th class="text-center">VALOR PREMIUM</th>
+                  <th class="text-center">TIPO PRODUCTO</th>
+                  <th class="text-center">OPCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive" id="tablaPuertas" hidden>
+            <table id="tableProductosC2" class="table table-bordered">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>REFERENCIA</th>
+                  <th>DESCRIPCIÓN</th>
+                  <th>PASADORES</th>
+                  <th>CERRADURA</th>
+                  <th>LLAVES</th>
+                  <th>TIPO SEGURIDAD</th>
                   <th>VALOR ELITE</th>
                   <th>VALOR PREMIUM</th>
                   <th>TIPO PRODUCTO</th>
-                  <th>CATEGORIA</th>
+                  <th>OPCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive" id="tablaCerraduras" hidden>
+            <table id="tableProductosC3" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>REFERENCIA</th>
+                  <th>DESCRIPCIÓN</th>
+                  <th>PASADORES</th>
+                  <th>CERRADURA</th>
+                  <th>LLAVES</th>
+                  <th>TIPO SEGURIDAD</th>
+                  <th>VALOR ELITE</th>
+                  <th>VALOR PREMIUM</th>
+                  <th>TIPO PRODUCTO</th>
                   <th>OPCIÓN</th>
                 </tr>
               </thead>
@@ -120,8 +175,8 @@
 <style>
   div.dataTables_wrapper div.dataTables_info {
     padding-top: 0.85em;
-    white-space:normal;
-}
+    white-space: normal;
+  }
 </style>
 
 <script type="text/javascript">

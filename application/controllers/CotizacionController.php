@@ -52,23 +52,91 @@ class CotizacionController extends CI_Controller
 
     public function load_productos()
     {
-        $data_productos = $this->ProductosModel->getProductos();
-        $tbody = '';
-        if ($data_productos->num_rows() > 0) {
-            foreach ($data_productos->result() as $key) {
-                $tbody .= '<tr>
+        $where1 = array('id_categoria' => 1);
+        $where2 = array('id_categoria' => 2);
+        $where3 = array('id_categoria' => 3);
+
+        $data_productosC1 = $this->ProductosModel->getProductosByWhere($where1);
+        $data_productosC2 = $this->ProductosModel->getProductosByWhere($where2);
+        $data_productosC3 = $this->ProductosModel->getProductosByWhere($where3);
+
+        $tbodyC1 = '';
+        $tbodyC2 = '';
+        $tbodyC3 = '';
+
+       /*  <td>' . $key->medidad . '</td>
+        <td>' . $key->anchos_tela_metro . '</td>
+        <td>' . $key->factor_apertura . '</td> */
+
+        
+
+        if ($data_productosC1->num_rows() > 0) {
+            foreach ($data_productosC1->result() as $key) {
+
+                $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $tbodyC1 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
                 <td>' . $key->referencia . '</td>
-                <td class="text-right">$' . number_format(($key->costo_elite * ($key->porce_precio / 100)), 0, '.', ',') . '</td>
-                <td class="text-right">$' . number_format(($key->costo_premium * ($key->porce_precio / 100)), 0, '.', ',') . '</td>
+                <td>' . $key->descripcion . '</td>
+                <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
+                <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
                 <td>' . $key->tipo . '</td>
-                <td class="text-center">' . $key->categoria . '</td>
-                <td class="text-center"><button type="button" class="btn btn-warning ik ik-edit" onclick="editar_producto(' . $key->id_producto . ');"></button></td>
+                <td class="text-center">
+                    <button data=\'["' . $key->id_producto . '","' . $key->referencia . '","' . $costo_elite . '","' . $costo_premium . '"]\' data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button>
+                </td>
                 </tr>';
             }
         }
+
+        if ($data_productosC2->num_rows() > 0) {
+            foreach ($data_productosC2->result() as $key) {
+
+                $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $tbodyC2 .= '<tr>
+                <td class="text-center">' . $key->id_producto . '</td>
+                <td>' . $key->referencia . '</td>
+                <td>' . $key->descripcion . '</td>
+                <td>' . $key->pasadores . '</td>
+                <td>' . $key->cerradura . '</td>
+                <td>' . $key->llaves . '</td>
+                <td>' . $key->tipo_seguridad . '</td>
+                <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
+                <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
+                <td>' . $key->tipo . '</td>
+                <td class="text-center"><button data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
+                </tr>';
+            }
+        }
+
+        if ($data_productosC3->num_rows() > 0) {
+            foreach ($data_productosC3->result() as $key) {
+
+                $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $tbodyC3 .= '<tr>
+                <td class="text-center">' . $key->id_producto . '</td>
+                <td>' . $key->referencia . '</td>
+                <td>' . $key->descripcion . '</td>
+                <td>' . $key->pasadores . '</td>
+                <td>' . $key->cerradura . '</td>
+                <td>' . $key->llaves . '</td>
+                <td>' . $key->tipo_seguridad . '</td>
+                <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
+                <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
+                <td>' . $key->tipo . '</td>
+                <td class="text-center"><button data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
+                </tr>';
+            }
+        }
+
+
+
         $array_response = array(
-            'tbody' => $tbody
+            'tbodyC1' => $tbodyC1,
+            'tbodyC2' => $tbodyC2,
+            'tbodyC3' => $tbodyC3,
         );
         echo json_encode($array_response);
     }
