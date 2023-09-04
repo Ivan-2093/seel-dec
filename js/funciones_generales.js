@@ -35,8 +35,8 @@ function loadDatatable(id) {
 		pageLength: 5,
 		lengthChange: true,
 		lengthMenu: [
-			[-1, 10, 50, 100],
-			["Todos", 10, 50, 100],
+			[-1,5, 10, 50, 100],
+			["Todos",5, 10, 50, 100],
 		],
 		pagingType: "simple",
 		searching: true,
@@ -217,3 +217,12 @@ function reportError(error) {
 		},
 	});
 }
+
+function currencyFormatter({ currency, value}) {
+	const formatter = new Intl.NumberFormat('es-CO', {
+	  style: 'currency',
+	  minimumFractionDigits: 0,
+	  currency
+	}) 
+	return formatter.format(value)
+  }
