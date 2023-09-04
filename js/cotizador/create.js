@@ -16,6 +16,8 @@ const tablaPuertas = document.getElementById("tablaPuertas");
 const tablaCerraduras = document.getElementById("tablaCerraduras");
 const totalCotizacion = document.getElementById("totalCotizacion");
 const tabla_cotizacion = document.getElementById("tabla_cotizacion");
+
+const formCreateCotizacion = document.getElementById("formCreateCotizacion");
 /* ARRAY DE INPUTS */
 const arrayInputs = [];
 
@@ -109,31 +111,35 @@ function add_producto(data) {
 			}).then((result) => {
 				/* Read more about isConfirmed, isDenied below */
 				if (result.isConfirmed) {
-					elementHtml = `<tr class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_elite}</td><td class="text-right valorTotalTdProducts">${precio_elite}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
+					elementHtml = `<tr id="${data_producto[0]}" class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_elite}</td><td class="text-right valorTotalTdProducts">${precio_elite}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
 					tabla_cotizacion.tBodies[0].insertAdjacentHTML(
 						"beforeend",
 						elementHtml
 					);
+					Swal.fire('Producto agregado!', '', 'success')
 					sumValoresTotales();
 				} else if (result.isDenied) {
-					elementHtml = `<tr class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_premium}</td><td class="text-right valorTotalTdProducts">${precio_premium}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
+					elementHtml = `<tr id="${data_producto[0]}" class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_premium}</td><td class="text-right valorTotalTdProducts">${precio_premium}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
 					tabla_cotizacion.tBodies[0].insertAdjacentHTML(
 						"beforeend",
 						elementHtml
 					);
+					Swal.fire('Producto agregado!', '', 'success')
 					sumValoresTotales();
 				} else {
 				}
 			});
 			break;
 		case parseInt(data_producto[2]) > 0 && parseInt(data_producto[3]) == 0:
-			elementHtml = `<tr class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_elite}</td><td class="text-right valorTotalTdProducts">${precio_elite}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
+			elementHtml = `<tr id="${data_producto[0]}" class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_elite}</td><td class="text-right valorTotalTdProducts">${precio_elite}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
 			tabla_cotizacion.tBodies[0].insertAdjacentHTML("beforeend", elementHtml);
+			Swal.fire('Producto agregado!', '', 'success')
 			sumValoresTotales();
 			break;
 		default:
-			elementHtml = `<tr class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_premium}</td><td class="text-right valorTotalTdProducts">${precio_premium}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
+			elementHtml = `<tr id="${data_producto[0]}" class="filaCoti"><td class="d-none">${data_producto[0]}</td><td><input onchange="check_precio(this)" style="width: fit-content" type="number" class="form-control" value="1" min="1"/></td><td>${data_producto[1]}</td><td class="text-right">${precio_premium}</td><td class="text-right valorTotalTdProducts">${precio_premium}</td><td class="text-center"><button class="btn btn-danger ik ik-trash" onclick="eliminar_producto(this,\'${data_producto[1]}\')"></button></td></tr>`;
 			tabla_cotizacion.tBodies[0].insertAdjacentHTML("beforeend", elementHtml);
+			Swal.fire('Producto agregado!', '', 'success')
 			sumValoresTotales();
 			break;
 	}
@@ -175,17 +181,82 @@ function eliminar_producto(fila, producto) {
 }
 
 
-function getDataTablaCotizacion()
-{
-	const array_fila = $(".filaCoti").map(function () {
+function getDataTablaCotizacion() {
 
-		switch (true) {
-			case (this.childNodes[1].childNodes[0].tagName === 'INPUT'):
-				return this.childNodes[1].childNodes[0].value;
-				break;
-			default:
-				return this.childNodes[1].innerText;
-				break;
+	if (tabla_cotizacion.tBodies[0].childElementCount > 0) {
+
+		const datos = new FormData(formCreateCotizacion);
+		const idTrR = Object.values(tabla_cotizacion.tBodies[0].childNodes).map(function (nodes) {
+			if (nodes.tagName == 'TR') {
+				return nodes.id;
+			}
+		});
+		datos.append('cantidadFilas', idTrR.length);
+		const datosProductos = [];
+		for (let index = 0; index < idTrR.length; index++) {
+			datosProductos.push($(`#${idTrR[index]} td`).map(function () {
+
+				if (this.childElementCount > 0) {
+					return this.children[0].value;
+				} else {
+					return this.innerText.replace(/[$.]/g, "");
+				}
+
+			}).get());
+			datos.append('fila' + index, datosProductos[index]);
 		}
+
+		insertCotizacion(datos);
+
+	} else {
+		Swal.fire({
+			title: "Cotización vacia!",
+			icon: "warning",
+			html: "Agregue productos a la cotización!",
+		});
+	}
+}
+
+function insertCotizacion(datos) {
+	fetch(base_url + "CotizacionController/saveInfoCotizacion", {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: 'no-cors',
+		method: "POST",
+		body: datos,
+	})
+		.then(function (response) {
+			// Transforma la respuesta. En este caso lo convierte a JSON
+			return response.json();
+		})
+		.then(function (json) {
+
+		})
+		.catch(function (error) {
+			swal.fire({
+				icon: 'error',
+				title: 'Error',
+				html: 'Ha ocurrido un error en la api de la intranet de postventa, intente nuevamente.',
+				confirmButtonText: 'OK',
+			});
+		});
+}
+
+
+function check_precio(data) {
+	data.value = (data.value) > 1 ? parseInt(data.value) : 1;
+	const cant_product = parseInt(data.value);
+	const v_product = parseInt(data.parentNode.parentNode.childNodes[3].innerText.replace(/[$.]/g, ""));
+
+	let v_product_cant = (cant_product * v_product);
+
+	let v_total_product = currencyFormatter({
+		currency: "COP",
+		value: parseInt(v_product_cant),
 	});
+
+	data.parentNode.parentNode.childNodes[4].innerText = v_total_product;
+	sumValoresTotales();
+
 }
