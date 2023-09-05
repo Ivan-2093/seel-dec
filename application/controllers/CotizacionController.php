@@ -269,7 +269,7 @@ class CotizacionController extends CI_Controller
             $correo->Username = "developer@aftersalesassistance.com";
             $correo->Password = "kA0&!7cQ(ws(";
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); 
+            $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC");
             $correo->addAddress('sergioivangalvisesteban@gmail.com');
             /* $correo->addAddress('jjairo0813@gmail.com'); */
             $correo->Subject = "Cotización";
@@ -283,7 +283,7 @@ class CotizacionController extends CI_Controller
             );
 
             $mensaje = $this->load->view('mails/cotizacion', $data_usuario, true);
-            
+
 
             $correo->MsgHTML($mensaje);
 
@@ -320,7 +320,29 @@ class CotizacionController extends CI_Controller
                 'orientation' => 'P'    // L - landscape, P - portrait
             );
             $mpdf = new \Mpdf\Mpdf($mpdfConfig);
-            $mpdf->SetHTMLHeader('<div style="position:absolute;" class=""><img src="plantilla/img/icons/logo-seeldec.jpeg" height="50px" /></div>');
+
+
+            $html_header = 
+            '<table>
+                <tr>
+                    <td>
+                        <img src="plantilla/img/icons/logo-seeldec.jpeg" height="50px"/>
+                    </td>
+                    <td>
+                        <table class="infCodiesel">
+                            <tr>
+                                <td>SEGURIDAD ELECTRONICA Y DECORACIÓN</td>
+                            </tr>
+                            <tr>
+                                <td>Telf: 3017493524</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>';
+
+
+            $mpdf->SetHTMLHeader($html_header);
             $mpdf->SetHTMLFooter('<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>');
             $mpdf->SetHTMLFooter('<table width="100%">
                                     <tr>
@@ -339,10 +361,10 @@ class CotizacionController extends CI_Controller
 
             $mpdf->WriteHTML($stylesheet, 1);
             $mpdf->WriteHTML($html, 2);
-            $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S');
-            /* $mpdf->Output( 'Cotizacion.pdf', 'I' ); */
+            /* $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S'); */
+            $mpdf->Output( 'Cotizacion.pdf', 'I' );
 
-            return $pdfEmail;
+            /* return $pdfEmail; */
         }
     }
 }

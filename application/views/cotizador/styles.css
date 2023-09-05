@@ -39,4 +39,11 @@ table {
     text-align: center;
     font-size: 13px;
 }
+.trColor {
+    background-color: #a6a6a6;
+}
+
+.tdColor {
+    background-color: #dbdbdb;
+}
 
