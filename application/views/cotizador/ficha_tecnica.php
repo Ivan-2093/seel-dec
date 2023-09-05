@@ -7,80 +7,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
-    <table class="infCodiesel">
 
-        <tr>
-            <td>COMPAÑIA AUTOMOTRIZ DIESEL S.A.</td>
-            <td class="derecha" style="width:30%;">Tercero: <strong>REQ-</strong></td>
-        </tr>
-        <tr>
-            <td>Dirección: Km 7 vía Girón  Junto al Palenque</td>
-            <td class="derecha" style="width:30%;">Fecha cotización: <span></span></td>
-        </tr>
-        <tr>
-            <td>Telf: 607 6380123</td>
-        </tr>
+<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
+	<tr>
+		<td align="left">
+			<table style="font-size: 14px ;">
+				<tr>
+					<td>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>Dirección:
+						
+					</td>
+				</tr>
+				<tr>
+					<td>Telf: 607
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td align="right">
+			<table style="font-size: 12px ;">
+				<tr>
+					<td align="right"><span align="left">Número cotización: </span>
+						
+					</td>
+				</tr>
+				<tr>
+					<td align="right"><span align="left">Fecha cotización: </span>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
+	<tr>
+		<td width="100%" colspan="2" align="center">
+			<table width="100%" border="1" style="border-collapse:collapse; font-size: 12px ;">
+				<tr>
+					<td width="100%" colspan="7" align="center" class="trColor">Información del asesor</td>
+				</tr>
+				<tr class="tdColor">
+					<td width="35%" colspan="2" align="center">Asesor</td>
+					<td width="35%" colspan="3" align="center">Correo asesor</td>
+					<td width="15%" align="center" colspan="2">Telefono</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						
+					</td>
+					<td align="center" colspan="3">
+						
+					</td>
+					<td border="0" align="center" colspan="1">
+						
+					</td>
+					<td border="0" align="center" colspan="1">
+						
+					</td>
 
-    </table>
-    <table border="1" class="bordered_2">
-        <tr class="title">
-            <td colspan="4">Información general</td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <table class="bordered " border="1">
-                    <tr>
-                        <td class="subtitle">Cliente</td>
-                        <td></td>
-                    <tr>
-                        <td class="subtitle">Modelo vehículo</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="subtitle">Plan MPC</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+				</tr>
 
-    </table>
-    <div style="vertical-align:buttom; text-align:justify; font-size:12px">
-        <h3>BENEFICIOS</h3>
-        <ul>
-            <li>Congelamiento del precio de los repuestos y tarifas de mano de obra por la vigencia del programa.</li>
+			</table>
+		</td>
+	</tr>
 
-            <li>Agenda preferencial para realizar los mantenimientos preventivos programados.</li>
+</table>
+<br />
+<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
+	<tr>
+		<td width="100%" colspan="2" align="center">
+			<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+				<tr>
+					<td width="100%" colspan="6" align="center" class="trColor">Vehículo / Cliente</td>
+				</tr>
+				<tr class="tdColor">
+					<td width="35%" align="center">CC o Nit</td>
+					<td width="35%" align="center">Cliente</td>
+					<td width="10%" align="center">Placa</td>
+					<!-- <td  width="30%" align="center" >Descripción</td> -->
+					<td colspan="2" width="35%" align="center">Modelo</td>
+					<!-- <td  width="10%" align="center" >Kilometraje</td> -->
+					<td width="10%" align="center">Revisión</td>
+				</tr>
+				<tr>
+					<td align="center">
+						
+					</td>
+					<td align="center">
+						
+					</td>
+					<td align="center">
+						
+					</td>
+					<td align="center" colspan="2">
+						
+					</td>
+					<td align="center">
+					</td>
+				</tr>
 
-            <li>Posibilidad de financiación junto con la cuota del vehículo.</li>
+			</table>
+		</td>
+	</tr>
+</table>
+<br />
+<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+	<tr>
+		<td width="100%" colspan="7" align="center" class="trColor">Repuestos</td>
+	</tr>
+	<tr class="tdColor">
+		<td width="" colspan="2" align="center">Descripcion</td>
+		<td width="20%" colspan="2" align="center">Categoria</td>
+		<td width="25%" colspan="3" align="center">Estado</td>
+		<!-- <td width="15%" colspan="3" align="center">Valor</td> -->
+	</tr>
+		<tr>
+			<td align="left" colspan="2">
+			</td>
+			<td align="center" colspan="2">
+			</td>
+			<td align="center" colspan="3">
+			</td>
+		</tr>
+</table>
+<br />
+<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+	<tr>
+		<td width="100%" colspan="7" align="center" class="trColor">Mantenimiento</td>
+	</tr>
+	<tr class="tdColor">
 
-            <li>Al adquirir el programa y asistiendo a todas las revisiones ayuda a mantener la garantía de fábrica por
-                los
-                componentes originales y manejo profesional de su vehículo.</li>
+		<td width="50%" colspan="3" align="center">Descripcion</td>
+		<td width="25%" colspan="4" align="center">Estado</td>
+		<!-- <td width="25%" colspan="3" align="center">Valor</td> -->
+	</tr>
+		<tr>
+			<td colspan="3" align="left">
+			</td>
+			<td colspan="4" align="center">
+			</td>
+		</tr>
+</table>
+<br />
+<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+	<tr bgcolor="#999999" align="right">
+		<td colspan="4" align="right">Tiempo estimado en el taller:</td>
+		<td colspan="3" align="right"> horas </td>
+	</tr>
+	<tr bgcolor="#999999" align="right">
+		<td colspan="4" align="right">Total cotización</td>
+		<td colspan="3" align="right">$
+		</td>
+	</tr>
+</table>
 
-            <li>Seguridad y tranquilidad el propietario del vehículo y el conductor al prepagar los mantenimientos y no
-                incurrir gastos futuros.</li>
-
-            <li>Es un valor agregado en caso de venderel vehículo.</li>
-
-        </ul>
-        <h3>NO INCLUYE:</h3>
-        <ul>
-            <li>Repuestos de desgaste como embrague, plumillas limpiaparabrisas, baterías, llantas, pastillas, bandas de
-                frenos, correa de accesorios, etc.</li>
-            <li>Elementos de mantenimiento correctivo por daño o cambios por falla de componentes, como reparaciones de
-                motor, caja y similares, para lo cual aplicará la atención por garantía cuando el diagnóstico técnico
-                así lo
-                justifique, o amortiguadores, terminales de dirección, etc.</li>
-            <li>Elementos u operaciones relacionadas con colisión y hurtos.</li>
-        </ul>
-
-
-    </div>
-    <div>
-        <img src="http://localhost:8080/seel-dec/media/imagenes/empleados/1097304902.png" width="50px"/>
-    </div>
+<p style="font-size: 12px ;"><strong>Observaciones: </strong>
+</p>
 
 </body>
 
