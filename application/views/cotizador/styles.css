@@ -1,0 +1,42 @@
+table {
+    width: 100%;
+}
+
+.infCodiesel td{
+    font-size: 12px;
+    margin: 0px;
+}
+
+.bordered {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.title {
+    background-color: #a9a9a9ed;
+}
+
+.subtitle {
+    background-color: #dadada;
+}
+
+.fichatecnica {
+    font-size: 10pt;
+}
+.infCliente {
+    font-size: 12pt;
+    margin: 0px;
+}
+.derecha {
+    text-align: right;
+}
+
+.bordered_2 {
+    border-collapse: collapse;
+    border: none !important;
+    vertical-align: top;
+    text-align: center;
+    font-size: 13px;
+}
+
