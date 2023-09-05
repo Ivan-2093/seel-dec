@@ -19,5 +19,11 @@ class ProspectosModel extends CI_Model
         return $this->db->get();
     }
 
+    public function getSolcitudByWhere($data_where)
+    {
+        $this->db->where($data_where);
+        return $this->db->get('solicitudes_prospecto');
+    }
+
 
 }

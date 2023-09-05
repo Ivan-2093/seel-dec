@@ -1655,3 +1655,34 @@ INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unida
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad 2','4+1','','2','','2000000','','55','1','30','4+1','4','Digital','Clave, huella,app y tarjeta');
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad 3','4+1','','2','','2100000','','55','1','30','4+1','4','Digital','Clave, huella,app y cámara');
 INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`,`pasadores`, `cerradura`, `llaves`, `tipo_seguridad`) VALUES ('Seguridad total','4+1','','2','','2400000','','55','1','30','4+1','6','Digital','Clave, huella,app, cámara, tarjeta y llave');
+
+
+-------------------------------------------------------
+
+CREATE TABLE cotizacion (
+	id_cotizacion bigint AUTO_INCREMENT PRIMARY KEY,
+    solicitud_id bigint not null,
+    usuario_id bigint not null,
+    fecha_registro datetime not null,
+    FOREIGN KEY (solicitud_id) REFERENCES solicitudes_prospecto(id_solicitud),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
+);
+
+CREATE TABLE cotizacion_detalle(
+	id_cotizacion_detalle bigint AUTO_INCREMENT PRIMARY KEY,
+    cotizacion_id bigint not null,
+	producto_id bigint not null,
+    cant_producto int not null,
+    precio_producto bigint not null,
+    FOREIGN KEY (cotizacion_id) REFERENCES cotizacion(id_cotizacion),
+    FOREIGN KEY (producto_id) REFERENCES productos(id_producto)
+);
+
+create table correo_notificacion_cotizacion(
+	id_notificacion bigint AUTO_INCREMENT PRIMARY KEY,
+    cotizacion_id bigint not null,
+    usuario_id bigint not null,
+    fecha_envio datetime not null,
+    FOREIGN KEY (cotizacion_id) REFERENCES cotizacion(id_cotizacion),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
+);
