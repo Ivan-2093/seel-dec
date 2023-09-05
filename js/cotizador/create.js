@@ -276,3 +276,4 @@ function check_precio(data) {
 	data.parentNode.parentNode.childNodes[4].innerText = v_total_product;
 	sumValoresTotales();
 }
+

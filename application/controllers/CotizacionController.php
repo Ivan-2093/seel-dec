@@ -1,4 +1,9 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+use Mpdf\Writer\BackgroundWriter;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageMargins;
+
 class CotizacionController extends CI_Controller
 {
 
@@ -95,12 +100,14 @@ class CotizacionController extends CI_Controller
 
         if ($data_productosC2->num_rows() > 0) {
             foreach ($data_productosC2->result() as $key) {
-
+                $referencia = str_replace(',', '.', $key->referencia);
+                $referencia = str_replace('"', ' pulgada', $referencia);
+                $referencia = preg_replace("[\n|\r|\n\r]", "", $referencia);
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
                 $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100) + 1) : 'N/A';
                 $tbodyC2 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . str_replace(',', '.', $key->referencia) . '</td>
+                <td>' . $referencia . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -109,19 +116,21 @@ class CotizacionController extends CI_Controller
                 <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
                 <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
                 <td>' . $key->tipo . '</td>
-                <td class="text-center"><button data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
+                <td class="text-center"><button data=\'["' . $key->id_producto . '","' . $referencia . '","' . $costo_elite . '","' . $costo_premium . '"]\' data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
                 </tr>';
             }
         }
 
         if ($data_productosC3->num_rows() > 0) {
             foreach ($data_productosC3->result() as $key) {
-
+                $referencia = str_replace(',', '.', $key->referencia);
+                $referencia = str_replace('"', ' pulgada', $referencia);
+                $referencia = preg_replace("[\n|\r|\n\r]", "", $referencia);
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
                 $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100) + 1) : 'N/A';
                 $tbodyC3 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . str_replace(',', '.', $key->referencia) . '</td>
+                <td>' . $referencia . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -130,7 +139,7 @@ class CotizacionController extends CI_Controller
                 <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
                 <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
                 <td>' . $key->tipo . '</td>
-                <td class="text-center"><button data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
+                <td class="text-center"><button data=\'["' . $key->id_producto . '","' . $referencia . '","' . $costo_elite . '","' . $costo_premium . '"]\' data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button></td>
                 </tr>';
             }
         }
@@ -173,7 +182,7 @@ class CotizacionController extends CI_Controller
 
                         $dataFilas[$i] = $this->input->POST('fila' . $i);
                         $fila = explode(",", $dataFilas[$i]);
-                    
+
                         $array_insert_detalle = array(
                             'cotizacion_id' => $id_cotizacion,
                             'producto_id' => $fila[0],
@@ -181,7 +190,7 @@ class CotizacionController extends CI_Controller
                             'precio_producto' => $fila[3]
                         );
 
-                        if($this->CotizacionModel->insert_cotizacion_detalle($array_insert_detalle)){
+                        if ($this->CotizacionModel->insert_cotizacion_detalle($array_insert_detalle)) {
                             $insert_detalle++;
                         }
                     }
@@ -219,6 +228,121 @@ class CotizacionController extends CI_Controller
             );
             echo json_encode($array_response);
             exit;
+        }
+    }
+
+    public function sendEmailCotizacion($id_cotizacion = null)
+    {
+
+        if (isset($id_cotizacion) && $id_cotizacion != "") {
+            $array_where = array('id_cotizacion' => $id_cotizacion);
+            $array_where_detalle = array('cotizacion_id' => $id_cotizacion);
+
+            $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
+
+            if ($data_cotizacion->num_rows() == 0) {
+                echo 'No se ha encontrado información con la identificación de la cotización';
+                exit();
+            }
+
+            $data_cotizacion_detalle = $this->CotizacionModel->get_cotizacion_detalle_by_where($array_where_detalle);
+
+            $pdfEmail = $this->createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle);
+
+
+            $correo = $this->phpmailer_lib->load();
+            // SMTP configuration
+            $correo->IsSMTP();
+            /* $correo->SMTPDebug = 1; */
+            $correo->SMTPAuth = true;
+            $correo->SMTPSecure = 'tls';
+            $correo->Host = "mail.aftersalesassistance.com";
+            $correo->Port = 587;
+            $correo->IsHTML(true);
+            $correo->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $correo->Username = "developer@aftersalesassistance.com";
+            $correo->Password = "kA0&!7cQ(ws(";
+            // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+            $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); 
+            $correo->addAddress('sergioivangalvisesteban@gmail.com');
+            /* $correo->addAddress('jjairo0813@gmail.com'); */
+            $correo->Subject = "Cotización";
+            $correo->CharSet = 'UTF-8';
+
+            $correo->AddStringAttachment($pdfEmail, 'Cotizacion.pdf', 'base64', 'pdf');
+
+            $data_usuario = array(
+                'name_user' => $data_cotizacion->row(0)->prospecto,
+                'page' => 'Cotización'
+            );
+
+            $mensaje = $this->load->view('mails/cotizacion', $data_usuario, true);
+            
+
+            $correo->MsgHTML($mensaje);
+
+
+            if (!$correo->Send()) {
+                echo 'Hubo un error: ' . $correo->ErrorInfo;
+            } else {
+                echo $id_cotizacion;
+            }
+        }
+    }
+    public function createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle)
+    {
+        if ($data_cotizacion->num_rows() > 0) {
+
+            //Parametros
+            $data = array(
+                'dataCotizacion' => $data_cotizacion,
+                'dataCotizacionDetalle' => $data_cotizacion_detalle,
+            );
+
+            // Cargar libreria de PDF
+            $mpdfConfig = array(
+                'mode' => 'utf-8',
+                'format' => 'A4',    // format - A4, for example, default ''
+                //'default_font_size' => 0,     // font size - default 0
+                //'default_font' => 'Helveltica',    // default font family
+                'margin_left' => 5,      // 15 margin_left
+                'margin_right' => 5,      // 15 margin right
+                'margin_top' =>  22,   // 16 margin top
+                'margin_bottom' => 22,    // margin bottom contra el footer
+                'margin_header' => 5,     // 9 margin header-
+                'margin_footer' => 3,     // 9 margin footer
+                'orientation' => 'P'    // L - landscape, P - portrait
+            );
+            $mpdf = new \Mpdf\Mpdf($mpdfConfig);
+            $mpdf->SetHTMLHeader('<div style="position:absolute;" class=""><img src="plantilla/img/icons/logo-seeldec.jpeg" height="50px" /></div>');
+            $mpdf->SetHTMLFooter('<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>');
+            $mpdf->SetHTMLFooter('<table width="100%">
+                                    <tr>
+                                        <td width="33%"></td>
+                                        <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+                                        <td width="33%" style="text-align: right;"></td>
+                                    </tr>
+            </table>');
+
+            $stylesheet = file_get_contents('application\views\cotizador\styles.css');
+
+            $html = $this->load->view('cotizador/ficha_tecnica', $data, true);
+
+            $mpdf->SetWatermarkImage('plantilla/img/icons/logo-seeldec.jpeg', 0.1, 'F');
+            $mpdf->showWatermarkImage = true;
+
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->WriteHTML($html, 2);
+            $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S');
+            /* $mpdf->Output( 'Cotizacion.pdf', 'I' ); */
+
+            return $pdfEmail;
         }
     }
 }
