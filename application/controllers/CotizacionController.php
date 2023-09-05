@@ -73,17 +73,20 @@ class CotizacionController extends CI_Controller
         if ($data_productosC1->num_rows() > 0) {
             foreach ($data_productosC1->result() as $key) {
 
+                $referencia = str_replace(',','.',$key->referencia);
+                $referencia = str_replace('"',' pulgada',$referencia);
+                $referencia = preg_replace("[\n|\r|\n\r]", "",$referencia);
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
                 $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
                 $tbodyC1 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . $key->referencia . '</td>
+                <td>' . $referencia . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td class="text-right">$' . number_format(($costo_elite), 0, '.', ',') . '</td>
                 <td class="text-right">$' . number_format(($costo_premium), 0, '.', ',') . '</td>
                 <td>' . $key->tipo . '</td>
                 <td class="text-center">
-                    <button data=\'["' . $key->id_producto . '","' . $key->referencia . '","' . $costo_elite . '","' . $costo_premium . '"]\' data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button>
+                    <button data=\'["' . $key->id_producto . '","' . $referencia . '","' . $costo_elite . '","' . $costo_premium . '"]\' data-toggle="tooltip" data-placement="top" title="AGREGAR" type="button" class="btn btn-primary ik ik-file-plus" onclick="add_producto(this);"></button>
                 </td>
                 </tr>';
             }
@@ -96,7 +99,7 @@ class CotizacionController extends CI_Controller
                 $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
                 $tbodyC2 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . $key->referencia . '</td>
+                <td>' . str_replace(',','.',$key->referencia) . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -117,7 +120,7 @@ class CotizacionController extends CI_Controller
                 $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
                 $tbodyC3 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . $key->referencia . '</td>
+                <td>' . str_replace(',','.',$key->referencia) . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -139,5 +142,10 @@ class CotizacionController extends CI_Controller
             'tbodyC3' => $tbodyC3,
         );
         echo json_encode($array_response);
+    }
+
+    public function saveInfoCotizacion()
+    {
+        print_r(explode(',',$this->input->POST('fila0')));
     }
 }

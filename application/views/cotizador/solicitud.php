@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <h5 class="card-header">DATOS DE CONTACTO</h5>
-      <form id="formCreateTercero" name="formCreateTercero">
+      <form id="formCreateCotizacion" name="formCreateCotizacion">
         <div class="card-body" style="background:#90ee9073;">
           <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -68,8 +68,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
                 <tfoot>
                   <tr class="table-success">
                     <th class="text-right" colspan="3">TOTAL</th>
@@ -79,6 +78,13 @@
                 </tfoot>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-12">
+            <button data-toggle="tooltip" data-placement="top" title="GUARDAR COTIZACIÓN" type="button" class="btn-success btn-lg ik ik-save" onclick="getDataTablaCotizacion()"></button>
           </div>
         </div>
       </div>
