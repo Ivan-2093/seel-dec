@@ -330,7 +330,7 @@ class CotizacionController extends CI_Controller
                                     </tr>
             </table>');
 
-            $stylesheet = file_get_contents('application\views\cotizador\styles.css');
+            $stylesheet = file_get_contents('application/views/cotizador/styles.css');
 
             $html = $this->load->view('cotizador/ficha_tecnica', $data, true);
 
