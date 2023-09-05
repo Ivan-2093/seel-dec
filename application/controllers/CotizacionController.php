@@ -20,6 +20,7 @@ class CotizacionController extends CI_Controller
         $this->load->model('UsuariosModel');
         $this->load->model('ProspectosModel');
         $this->load->model('ProductosModel');
+        $this->load->model('CotizacionModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
 
@@ -64,20 +65,20 @@ class CotizacionController extends CI_Controller
         $tbodyC2 = '';
         $tbodyC3 = '';
 
-       /*  <td>' . $key->medidad . '</td>
+        /*  <td>' . $key->medidad . '</td>
         <td>' . $key->anchos_tela_metro . '</td>
         <td>' . $key->factor_apertura . '</td> */
 
-        
+
 
         if ($data_productosC1->num_rows() > 0) {
             foreach ($data_productosC1->result() as $key) {
 
-                $referencia = str_replace(',','.',$key->referencia);
-                $referencia = str_replace('"',' pulgada',$referencia);
-                $referencia = preg_replace("[\n|\r|\n\r]", "",$referencia);
+                $referencia = str_replace(',', '.', $key->referencia);
+                $referencia = str_replace('"', ' pulgada', $referencia);
+                $referencia = preg_replace("[\n|\r|\n\r]", "", $referencia);
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
-                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100) + 1) : 'N/A';
                 $tbodyC1 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
                 <td>' . $referencia . '</td>
@@ -96,10 +97,10 @@ class CotizacionController extends CI_Controller
             foreach ($data_productosC2->result() as $key) {
 
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
-                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100) + 1) : 'N/A';
                 $tbodyC2 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . str_replace(',','.',$key->referencia) . '</td>
+                <td>' . str_replace(',', '.', $key->referencia) . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -117,10 +118,10 @@ class CotizacionController extends CI_Controller
             foreach ($data_productosC3->result() as $key) {
 
                 $costo_elite = $key->costo_elite != "" ? $key->costo_elite * (($key->porce_precio / 100) + 1) : 'N/A';
-                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100)+1) : 'N/A';
+                $costo_premium = $key->costo_premium != "" ? $key->costo_premium * (($key->porce_precio / 100) + 1) : 'N/A';
                 $tbodyC3 .= '<tr>
                 <td class="text-center">' . $key->id_producto . '</td>
-                <td>' . str_replace(',','.',$key->referencia) . '</td>
+                <td>' . str_replace(',', '.', $key->referencia) . '</td>
                 <td>' . $key->descripcion . '</td>
                 <td>' . $key->pasadores . '</td>
                 <td>' . $key->cerradura . '</td>
@@ -146,6 +147,78 @@ class CotizacionController extends CI_Controller
 
     public function saveInfoCotizacion()
     {
-        print_r(explode(',',$this->input->POST('fila0')));
+        $idSolicitud = $this->input->POST('idSolicitud');
+        $cantidadFilas = $this->input->POST('cantidadFilas');
+
+        if ($idSolicitud != "") {
+            $array_where_pros = array(
+                'id_solicitud' => $idSolicitud
+            );
+            $solicitud_prospecto = $this->ProspectosModel->getSolcitudByWhere($array_where_pros);
+
+            if ($solicitud_prospecto->num_rows() > 0) {
+                $array_insert_cotizacion = array(
+                    'solicitud_id' => $idSolicitud,
+                    'usuario_id' => $this->session->userdata('id_user'),
+                    'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                );
+
+                if ($this->CotizacionModel->insert_cotizacion($array_insert_cotizacion)) {
+
+                    $id_cotizacion = $this->db->insert_id();
+
+                    $dataFilas = [];
+                    $insert_detalle = 0;
+                    for ($i = 0; $i < $cantidadFilas; $i++) {
+
+                        $dataFilas[$i] = $this->input->POST('fila' . $i);
+                        $fila = explode(",", $dataFilas[$i]);
+                    
+                        $array_insert_detalle = array(
+                            'cotizacion_id' => $id_cotizacion,
+                            'producto_id' => $fila[0],
+                            'cant_producto' => $fila[1],
+                            'precio_producto' => $fila[3]
+                        );
+
+                        if($this->CotizacionModel->insert_cotizacion_detalle($array_insert_detalle)){
+                            $insert_detalle++;
+                        }
+                    }
+
+                    $array_response = array(
+                        'response' => 'success',
+                        'title' => 'Exito!',
+                        'html' => 'Se ha realizado con exito el registro de la cotización',
+                    );
+                    echo json_encode($array_response);
+                    exit;
+                } else {
+                    $array_response = array(
+                        'response' => 'error',
+                        'title' => 'Error!',
+                        'html' => 'Ha ocurrido un error al intentar realizar el registro de la cotización',
+                    );
+                    echo json_encode($array_response);
+                    exit;
+                }
+            } else {
+                $array_response = array(
+                    'response' => 'warning',
+                    'title' => 'Advertencia!',
+                    'html' => 'La solicitud del cliente no se encuentra registrada en la base de datos',
+                );
+                echo json_encode($array_response);
+                exit;
+            }
+        } else {
+            $array_response = array(
+                'response' => 'warning',
+                'title' => 'Advertencia!',
+                'html' => 'No se ha encontrado la identificacion de la solicitud del cliente.',
+            );
+            echo json_encode($array_response);
+            exit;
+        }
     }
 }
