@@ -195,13 +195,19 @@ class CotizacionController extends CI_Controller
                         }
                     }
 
-                    $array_response = array(
-                        'response' => 'success',
-                        'title' => 'Exito!',
-                        'html' => 'Se ha realizado con exito el registro de la cotización',
-                    );
-                    echo json_encode($array_response);
-                    exit;
+                    $sendEmail = $this->sendEmailCotizacion($id_cotizacion);
+
+                    if($id_cotizacion == $sendEmail){
+                        $array_response = array(
+                            'response' => 'success',
+                            'title' => 'Exito!',
+                            'html' => 'Se ha realizado con exito el registro de la cotización',
+                        );
+                        echo json_encode($array_response);
+                        exit;
+                    }
+
+                   
                 } else {
                     $array_response = array(
                         'response' => 'error',
@@ -269,8 +275,9 @@ class CotizacionController extends CI_Controller
             $correo->Username = "developer@aftersalesassistance.com";
             $correo->Password = "kA0&!7cQ(ws(";
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC");
-            $correo->addAddress('sergioivangalvisesteban@gmail.com');
+            $correo->SetFrom($data_cotizacion->row(0)->email_emp, "SEELDEC");
+            $correo->addAddress($data_cotizacion->row(0)->email_emp);
+            $correo->addAddress($data_cotizacion->row(0)->correo_cli);
             /* $correo->addAddress('jjairo0813@gmail.com'); */
             $correo->Subject = "Cotización";
             $correo->CharSet = 'UTF-8';
@@ -291,7 +298,16 @@ class CotizacionController extends CI_Controller
             if (!$correo->Send()) {
                 echo 'Hubo un error: ' . $correo->ErrorInfo;
             } else {
-                echo $id_cotizacion;
+
+                $array_insert_correo = array(
+                    'cotizacion_id' => $id_cotizacion,
+                    'usuario_id' => $this->session->userdata('id_user'),
+                    'fecha_envio' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                );
+
+                $this->CotizacionModel->insert_correo_noti_cotizacion($array_insert_correo);
+
+                return $id_cotizacion;
             }
         }
     }
@@ -313,7 +329,7 @@ class CotizacionController extends CI_Controller
                 //'default_font' => 'Helveltica',    // default font family
                 'margin_left' => 5,      // 15 margin_left
                 'margin_right' => 5,      // 15 margin right
-                'margin_top' =>  22,   // 16 margin top
+                'margin_top' =>  30,   // 16 margin top
                 'margin_bottom' => 22,    // margin bottom contra el footer
                 'margin_header' => 5,     // 9 margin header-
                 'margin_footer' => 3,     // 9 margin footer
@@ -322,35 +338,41 @@ class CotizacionController extends CI_Controller
             $mpdf = new \Mpdf\Mpdf($mpdfConfig);
 
 
-            $html_header = 
-            '<table>
+            $html_header =
+                '<table>
                 <tr>
                     <td>
-                        <img src="plantilla/img/icons/logo-seeldec.jpeg" height="50px"/>
+                        <img src="plantilla/img/icons/logo-seeldec.jpeg" height="80px"/>
                     </td>
-                    <td>
-                        <table class="infCodiesel">
+                    <td style="text-align: center">
+                        <table>
                             <tr>
                                 <td>SEGURIDAD ELECTRONICA Y DECORACIÓN</td>
                             </tr>
                             <tr>
-                                <td>Telf: 3017493524</td>
+                                <td>NIT: 28070225-1</td>
+                            </tr>
+                            <tr>
+                                <td>CORITNAS - PUERTAS DE SEGURIDAD</td>
                             </tr>
                         </table>
                     </td>
+                    <td></td>
                 </tr>
             </table>';
 
-
-            $mpdf->SetHTMLHeader($html_header);
-            $mpdf->SetHTMLFooter('<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>');
-            $mpdf->SetHTMLFooter('<table width="100%">
+            $html_footer = '<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>
+            <table width="100%">
                                     <tr>
                                         <td width="33%"></td>
                                         <td width="33%" align="center">{PAGENO}/{nbpg}</td>
                                         <td width="33%" style="text-align: right;"></td>
                                     </tr>
-            </table>');
+            </table>';
+
+
+            $mpdf->SetHTMLHeader($html_header);
+            $mpdf->SetHTMLFooter($html_footer);
 
             $stylesheet = file_get_contents('application/views/cotizador/styles.css');
 
@@ -361,10 +383,10 @@ class CotizacionController extends CI_Controller
 
             $mpdf->WriteHTML($stylesheet, 1);
             $mpdf->WriteHTML($html, 2);
-            /* $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S'); */
-            $mpdf->Output( 'Cotizacion.pdf', 'I' );
+            $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S');
+            /* $mpdf->Output('Cotizacion.pdf', 'I'); */
 
-            /* return $pdfEmail; */
+            return $pdfEmail;
         }
     }
 }

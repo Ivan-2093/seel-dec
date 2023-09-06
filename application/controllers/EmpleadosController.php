@@ -63,8 +63,9 @@ class EmpleadosController extends CI_Controller
                 <td class="text-center">' . $row->cargo . '</td>
                 <td class="text-center">' . $row->sede . '</td>             
                 <td class="text-center">' . $row->correo . '</td>
+                <td class="text-center">' . $row->telefono . '</td>
                 <td class="text-center">
-                    <button data=\'["' . $row->id_tercero . '","' . $row->id_cargo . '","' . $row->id_sede . '","' . $row->correo . '","' . $row->foto_perfil . '","' . $row->id_empleado . '"]\' type="button" class="btn btn-warning btn-sm ik ik-edit" data-toggle="tooltip" data-placement="top" title="Editar Empleados" onclick="editarEmpleado(this);"></button>
+                    <button data=\'["' . $row->id_tercero . '","' . $row->id_cargo . '","' . $row->id_sede . '","' . $row->correo . '","' . $row->foto_perfil . '","' . $row->id_empleado . '","' . $row->telefono . '"]\' type="button" class="btn btn-warning btn-sm ik ik-edit" data-toggle="tooltip" data-placement="top" title="Editar Empleados" onclick="editarEmpleado(this);"></button>
                 </td>
                 </tr>';
             }
@@ -100,6 +101,7 @@ class EmpleadosController extends CI_Controller
         $inputIdSedeEmp = $this->input->POST('inputIdSedeEmp');
         /* $inputFileImgEmp = $this->input->POST('inputFileImgEmp'); */
         $inputEmailEmp = $this->input->POST('inputEmailEmp');
+        $inputTelefonoEmp = $this->input->POST('inputTelefonoEmp');
         $data_tercero = $this->TercerosModel->getTerceroById($inputIdTercero);
         $data_empleado = $this->EmpleadosModel->getEmpleadosByIdTercero($inputIdTercero);
         switch (true) {
@@ -138,7 +140,8 @@ class EmpleadosController extends CI_Controller
                         'id_cargo' => $inputIdCargoEmp,
                         'id_sede' => $inputIdSedeEmp,
                         'foto_perfil' =>  $data['upload_data']['file_name'],
-                        'email' => $inputEmailEmp
+                        'email' => $inputEmailEmp,
+                        'telefono' => $inputTelefonoEmp
                     );
 
                     if ($this->EmpleadosModel->createEmpleado($data_insert)) {
@@ -164,6 +167,7 @@ class EmpleadosController extends CI_Controller
         $inputIdCargoEmp = $this->input->POST('inputIdCargoEmp');
         $inputIdSedeEmp = $this->input->POST('inputIdSedeEmp');
         $inputEmailEmp = $this->input->POST('inputEmailEmp');
+        $inputTelefonoEmp = $this->input->POST('inputTelefonoEmp');
         $data_tercero = $this->TercerosModel->getTerceroById($inputIdTercero);
         $data_empleado = $this->EmpleadosModel->getEmpleadosByIdTercero($inputIdTercero);
         switch (true) {
@@ -204,7 +208,8 @@ class EmpleadosController extends CI_Controller
                     'id_cargo' => $inputIdCargoEmp,
                     'id_sede' => $inputIdSedeEmp,
                     'foto_perfil' =>  $foto_perfil,
-                    'email' => $inputEmailEmp
+                    'email' => $inputEmailEmp,
+                    'telefono' => $inputTelefonoEmp
                 );
                 $data_where = array(
                     'id_tercero' => $inputIdTercero

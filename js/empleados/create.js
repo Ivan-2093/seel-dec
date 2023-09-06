@@ -4,6 +4,7 @@ const inputIdCargoEmp = document.getElementById("inputIdCargoEmp");
 const inputIdSedeEmp = document.getElementById("inputIdSedeEmp");
 const inputFileImgEmp = document.getElementById("inputFileImgEmp");
 const inputEmailEmp = document.getElementById("inputEmailEmp");
+const inputTelefonoEmp = document.getElementById("inputTelefonoEmp");
 
 /* ARRAY DE INPUTS */
 const arrayInputs = [
@@ -11,6 +12,7 @@ const arrayInputs = [
 	inputIdCargoEmp,
 	inputIdSedeEmp,
 	inputFileImgEmp,
+	inputTelefonoEmp,
 ];
 
 const btnSubmitCreateEmpleado = document.getElementById(
@@ -117,4 +119,8 @@ function createEmpleado(data_formEmpleado) {
 
 inputEmailEmp.addEventListener("blur", function () {
 	validarEmail(inputEmailEmp);
+});
+
+inputTelefonoEmp.addEventListener("keypress", function () {
+	isOnlyNumber();
 });
