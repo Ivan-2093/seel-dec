@@ -4,6 +4,7 @@ const inputIdCargoEmp = document.getElementById("inputIdCargoEmp");
 const inputIdSedeEmp = document.getElementById("inputIdSedeEmp");
 const inputFileImgEmp = document.getElementById("inputFileImgEmp");
 const inputEmailEmp = document.getElementById("inputEmailEmp");
+const inputTelefonoEmp = document.getElementById("inputTelefonoEmp");
 const btnSubmitEditEmpleado = document.getElementById("btnSubmitEditEmpleado");
 const inputIdTerceroHidden = document.getElementById("inputIdTerceroHidden");
 
@@ -45,6 +46,10 @@ function loadTableEmpleados() {
 		});
 }
 
+inputTelefonoEmp.addEventListener("keypress", function () {
+	isOnlyNumber();
+});
+
 function editarEmpleado(data) {
 	const data_empleado = JSON.parse(data.getAttribute("data"));
     inputIdTerceroHidden.value = data_empleado[0];
@@ -53,6 +58,7 @@ function editarEmpleado(data) {
 	$("#inputIdSedeEmp").val(data_empleado[2]);
 	imagenPrevisualizacion.src = base_url + "/media/imagenes/empleados/" + data_empleado[4];
 	inputEmailEmp.value = data_empleado[3];
+	inputTelefonoEmp.value = data_empleado[6];
 
 	$(".js-select2-tercero").select2({
 		placeholder: "Seleccione un tercero",

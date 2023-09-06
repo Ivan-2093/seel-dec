@@ -37,6 +37,10 @@
                             <label class="d-block" for="inputEmailEmp">Correo Corporativo:</label>
                             <input id="inputEmailEmp" name="inputEmailEmp" type="mail" class="form-control" placeholder="ejemplo@seeldec.com">
                         </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                            <label class="d-block" for="inputTelefonoEmp">Telefono Corporativo:</label>
+                            <input id="inputTelefonoEmp" name="inputTelefonoEmp" type="number" class="form-control" placeholder="">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">

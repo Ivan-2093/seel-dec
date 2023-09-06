@@ -2,175 +2,111 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
-
-<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
-	<tr>
-		<td align="left">
-			<table style="font-size: 14px ;">
-				<tr>
-					<td>
-						
-					</td>
-				</tr>
-				<tr>
-					<td>Dirección:
-						
-					</td>
-				</tr>
-				<tr>
-					<td>Telf: 607
-						
-					</td>
-				</tr>
-			</table>
-		</td>
-		<td align="right">
-			<table style="font-size: 12px ;">
-				<tr>
-					<td align="right"><span align="left">Número cotización: </span>
-						
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><span align="left">Fecha cotización: </span>
-						
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
-	<tr>
-		<td width="100%" colspan="2" align="center">
-			<table width="100%" border="1" style="border-collapse:collapse; font-size: 12px ;">
-				<tr>
-					<td width="100%" colspan="7" align="center" class="trColor">Información del asesor</td>
-				</tr>
-				<tr class="tdColor">
-					<td width="35%" colspan="2" align="center">Asesor</td>
-					<td width="35%" colspan="3" align="center">Correo asesor</td>
-					<td width="15%" align="center" colspan="2">Telefono</td>
-				</tr>
-				<tr>
-					<td align="center" colspan="2">
-						
-					</td>
-					<td align="center" colspan="3">
-						
-					</td>
-					<td border="0" align="center" colspan="1">
-						
-					</td>
-					<td border="0" align="center" colspan="1">
-						
-					</td>
-
-				</tr>
-
-			</table>
-		</td>
-	</tr>
-
-</table>
-<br />
-<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
-	<tr>
-		<td width="100%" colspan="2" align="center">
-			<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
-				<tr>
-					<td width="100%" colspan="6" align="center" class="trColor">Vehículo / Cliente</td>
-				</tr>
-				<tr class="tdColor">
-					<td width="35%" align="center">CC o Nit</td>
-					<td width="35%" align="center">Cliente</td>
-					<td width="10%" align="center">Placa</td>
-					<!-- <td  width="30%" align="center" >Descripción</td> -->
-					<td colspan="2" width="35%" align="center">Modelo</td>
-					<!-- <td  width="10%" align="center" >Kilometraje</td> -->
-					<td width="10%" align="center">Revisión</td>
-				</tr>
-				<tr>
-					<td align="center">
-						
-					</td>
-					<td align="center">
-						
-					</td>
-					<td align="center">
-						
-					</td>
-					<td align="center" colspan="2">
-						
-					</td>
-					<td align="center">
-					</td>
-				</tr>
-
-			</table>
-		</td>
-	</tr>
-</table>
-<br />
-<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
-	<tr>
-		<td width="100%" colspan="7" align="center" class="trColor">Repuestos</td>
-	</tr>
-	<tr class="tdColor">
-		<td width="" colspan="2" align="center">Descripcion</td>
-		<td width="20%" colspan="2" align="center">Categoria</td>
-		<td width="25%" colspan="3" align="center">Estado</td>
-		<!-- <td width="15%" colspan="3" align="center">Valor</td> -->
-	</tr>
+<?php
+$dataC = $dataCotizacion->row(0);
+$nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $dataC->primer_apellido . ' ' . $dataC->segundo_apellido;
+?>
+<body>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
 		<tr>
-			<td align="left" colspan="2">
+			<td align="left">
 			</td>
-			<td align="center" colspan="2">
-			</td>
-			<td align="center" colspan="3">
+			<td align="right">
+				<table style="font-size: 12px ;">
+					<tr>
+						<td align="right"><span align="left">Número cotización: <?= $dataCotizacion->row(0)->id_cotizacion ?></span>
+
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span align="left">Fecha cotización: <?=Date('Y-m-d') ?> </span>
+
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
-</table>
-<br />
-<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
-	<tr>
-		<td width="100%" colspan="7" align="center" class="trColor">Mantenimiento</td>
-	</tr>
-	<tr class="tdColor">
-
-		<td width="50%" colspan="3" align="center">Descripcion</td>
-		<td width="25%" colspan="4" align="center">Estado</td>
-		<!-- <td width="25%" colspan="3" align="center">Valor</td> -->
-	</tr>
+	</table>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
 		<tr>
-			<td colspan="3" align="left">
-			</td>
-			<td colspan="4" align="center">
+			<td width="100%" colspan="2" align="center">
+				<table width="100%" border="1" style="border-collapse:collapse; font-size: 12px ;">
+					<tr>
+						<td width="100%" colspan="3" align="center" class="trColor">Información del asesor</td>
+					</tr>
+					<tr class="tdColor">
+						<td width="45%" align="center">Asesor</td>
+						<td width="45%" align="center">Correo</td>
+						<td width="10%" align="center">Telefono</td>
+					</tr>
+					<tr>
+						<td width="45%" align="center"><?=$nombreAsesor?></td>
+						<td width="45%" align="center"><?=$dataC->email_emp?></td>
+						<td width="10%" align="center"><?=$dataC->telefono_emp?></td>
+					</tr>
+				</table>
 			</td>
 		</tr>
-</table>
-<br />
-<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
-	<tr bgcolor="#999999" align="right">
-		<td colspan="4" align="right">Tiempo estimado en el taller:</td>
-		<td colspan="3" align="right"> horas </td>
-	</tr>
-	<tr bgcolor="#999999" align="right">
-		<td colspan="4" align="right">Total cotización</td>
-		<td colspan="3" align="right">$
-		</td>
-	</tr>
-</table>
+	</table>
+	<br />
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
+		<tr>
+			<td width="100%" colspan="2" align="center">
+				<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+					<tr>
+						<td width="100%" colspan="3" align="center" class="trColor">Datos del cliente</td>
+					</tr>
+					<tr class="tdColor">
+						<td width="45%" align="center">Cliente</td>
+						<td width="45%" align="center">Correo</td>
+						<td width="10%" align="center">Telefono</td>
+					</tr>
+					<tr>
+						<td width="45%" align="center"><?=$dataC->prospecto?></td>
+						<td width="45%" align="center"><?=$dataC->correo_cli?></td>
+						<td width="10%" align="center"><?=$dataC->telefono_cli?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+		<tr>
+			<td width="100%" colspan="3" align="center" class="trColor">PRODUCTOS</td>
+		</tr>
+		<tr class="tdColor">
+			<td width="10%" align="center">CANT</td>
+			<td width="60%" align="center">PRODUCTO</td>
+			<td width="30%" align="center">VALOR</td>
+		</tr>
+		<?php
+		if($dataCotizacionDetalle->num_rows() > 0) {
+			$suma_total = 0;
+			foreach($dataCotizacionDetalle->result() as $row) {
 
-<p style="font-size: 12px ;"><strong>Observaciones: </strong>
-</p>
-
+				$valor_product = $row->cant_producto * $row->precio_producto;
+				$suma_total+=$valor_product;
+				echo '<tr>
+					<td width="10%" align="center">'.$row->cant_producto.'</td>
+					<td width="60%" align="left">'.$row->referencia.'</td>
+					<td width="30%" align="right">$'. number_format($valor_product,0,'.',',').'</td>
+				</tr>';
+			}
+		}
+		?>
+	</table>
+	<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
+		<tr bgcolor="#999999" align="right">
+			<td width="70%" colspan="2" align="right">Valor total cotización</td>
+			<td width="30%" align="right">$<?=number_format($suma_total,0,'.',',') ?></td>
+		</tr>
+	</table>
+	<p style="font-size: 12px ;"><strong>Observaciones: </strong><?=$dataC->observacion?></p>
 </body>
-
 
 </html>
