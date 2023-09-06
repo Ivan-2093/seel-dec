@@ -353,12 +353,13 @@ class CotizacionController extends CI_Controller
                                 <td>NIT: 28070225-1</td>
                             </tr>
                             <tr>
-                                <td>CORITNAS - PUERTAS DE SEGURIDAD</td>
+                                <td></td>
                             </tr>
                         </table>
                     </td>
                     <td></td>
                 </tr>
+                <tr><td style="text-align: center" colspan="3">COTIZACIÓN</td></tr>
             </table>';
 
             $html_footer = '<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>

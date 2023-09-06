@@ -13,9 +13,8 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 <body>
 	<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
 		<tr>
-			<td align="left">
-			</td>
-			<td align="right">
+			<td width="50%" align="center"></td>
+			<td width="50%" align="right">
 				<table style="font-size: 12px ;">
 					<tr>
 						<td align="right"><span align="left">Número cotización: <?= $dataCotizacion->row(0)->id_cotizacion ?></span>
