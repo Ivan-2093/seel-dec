@@ -1686,3 +1686,17 @@ create table correo_notificacion_cotizacion(
     FOREIGN KEY (cotizacion_id) REFERENCES cotizacion(id_cotizacion),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
 );
+
+----------------------------------------------------------
+
+CREATE TABLE negocios (
+	id_negocio bigint AUTO_INCREMENT PRIMARY KEY,
+    solicitud_id bigint not null,
+    cliente_id bigint null,
+    fecha_registro datetime not null,
+    user_crea bigint not null,
+    estado tinyint null,
+    FOREIGN KEY (solicitud_id) REFERENCES solicitudes_prospecto(id_solicitud),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id_cliente),
+	FOREIGN KEY (user_crea) REFERENCES usuarios(id_user)
+);
