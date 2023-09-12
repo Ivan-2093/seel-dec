@@ -131,8 +131,17 @@ class SolicitudController extends CI_Controller
         $tbody = '';
 
         $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
+
+
         if ($data_solicitudes->num_rows() > 0) {
             foreach ($data_solicitudes->result() as $row) {
+                $btnTitle = "CREAR NEGOCIO";
+                $icono_ik = 'ik ik-share';
+                if($row->id_negocio != ""){
+                    $btnTitle = "VER NEGOCIO";
+                    $icono_ik = 'ik ik-eye';
+                }
+
                 $tbody .=
                 '<tr>
                     <td>' . $row->id_solicitud . '</td>
@@ -140,16 +149,15 @@ class SolicitudController extends CI_Controller
                     <td>' . $row->telefono . '</td>
                     <td>' . $row->correo . '</td>
                     <td>' . $row->municipio . '</td>
-                    <td>' . $row->direccion . '</td>
                     <td>' . $row->observacion . '</td>
                     <td>' . $row->tipo_solicitud . '</td>
-                    <td>' . $row->primer_nombre . ' ' . $row->primer_apellido . '</td>
+                    <td>' . $row->usuario . '</td>
                     <td>' . $row->fecha_creado . '</td>
                     <td class="text-center">
-                        <form action="'.base_url().'CotizacionController" method="post" target="_blank">
+                        <form action="'.base_url().'NegociosController" method="post" target="_blank">
                             <input type="hidden" name="id_solicitud" value="'.$row->id_solicitud.'" />
-                            <button type="submit" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="COTIZAR">
-                                <i class="ik ik-external-link"></i>
+                            <button type="submit" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="'.$btnTitle.'">
+                                <i class="'.$icono_ik.'"></i>
                             </button>
                         </form>
                     </td>

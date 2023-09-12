@@ -1700,3 +1700,16 @@ CREATE TABLE negocios (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id_cliente),
 	FOREIGN KEY (user_crea) REFERENCES usuarios(id_user)
 );
+
+create table etapas_negocio
+(
+	id_etapa int AUTO_INCREMENT PRIMARY KEY,
+    etapa varchar(100) not null
+);
+
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Información Cliente');
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Solicitud Cliente');
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Cotización');
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Agendamiento Instalación');
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Terminación de Negocio');
+INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Encuesta de Satisfacción');
