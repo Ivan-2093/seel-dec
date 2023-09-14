@@ -5,7 +5,7 @@
                 <h1 class="title">NEGOCIO</h1>
                 <div class="row">
                     <div class="col-md-1">
-                        <img id="imgTemperatura" src="http://localhost/seel-dec/plantilla/img/icons/logo-seeldec.jpeg" width="auto" height="60">
+                        <img id="imgTemperatura" src="<?= base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" width="auto" height="60">
                     </div>
                     <div class="col-md-9">
                         <p class="m-0 p-0 font-weight-bold"><?= $data_negocio['cliente'] ?>
@@ -50,8 +50,9 @@
 
             <div class="card">
                 <h5 class="card-header">FORMULARIO PARA CREAR TERCEROS</h5>
-                <input hidden id="inputIdTercero" name="inputIdTercero" type="hidden" class="form-control">
                 <form id="formCreateTercero" name="formCreateTercero">
+                    <input hidden id="inputIdTercero" name="inputIdTercero" type="hidden" class="form-control">
+                    <input hidden id="inputIdCliente" name="inputIdCliente" type="hidden" class="form-control">
                     <div class="card-body" style="background:#90ee9073;">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -144,7 +145,7 @@
                                         <option value="">SELECCIONE UN PAIS</option>
                                         <?php
                                         foreach ($data_paises as $pais) {
-                                            echo '<option value="' . $pais->id . '">' . $pais->pais . '</option>';
+                                            echo '<option selected value="' . $pais->id . '">' . $pais->pais . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -184,7 +185,8 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button id="btnSubmitCreateTercero" name="btnSubmitCreateTercero" type="button" class="btn btn-success">CREAR</button>
+                        <button id="btnSubmitReset" name="btnSubmitReset" type="button" class="btn btn-warning">LIMPIAR</button>
+                        <button id="btnSubmitCreateTercero" name="btnSubmitCreateTercero" type="button" class="btn btn-success">AGREGAR</button>
                     </div>
                 </form>
             </div>
@@ -197,5 +199,4 @@
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/flujo_trabajo.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/terceros/create.js"></script>
 <?php $this->load->view('footer'); ?>

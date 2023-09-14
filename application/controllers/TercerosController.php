@@ -15,6 +15,7 @@ class TercerosController extends CI_Controller
         }
 
         $this->load->model('TercerosModel');
+        $this->load->model('ClientesModel');
         $this->load->model('PaisesModel');
         $this->load->model('MenusModel');
         $this->load->helper('menu_helper');
@@ -199,10 +200,17 @@ class TercerosController extends CI_Controller
             if ($data_terceros->num_rows() > 0) {
                 foreach ($data_terceros->result() as $key) {
                     $array_data = [$key->id_tipo_doc, $key->descripcion, $key->nit, $key->primer_nombre, $key->segundo_nombre, $key->primer_apellido, $key->segundo_apellido, $key->email, $key->telefono_1, $key->telefono_2, $key->id_genero, $key->id_pais, $key->id_dpto, $key->id_municipio, $key->barrio, $key->direccion, $key->id_tercero];
+                    //Consultamos si existe como cliente XD
+                    $data_cliente = $this->ClientesModel->getClienteById($key->id_tercero);
+                }
+                $id_cliente = "";
+                if($data_cliente->num_rows() > 0){
+                    $id_cliente = $data_cliente->row(0)->id_cliente;
                 }
                 $array_response = array(
                     'response' => 'success',
-                    'data' => $array_data
+                    'data' => $array_data,
+                    'id_cliente' => $id_cliente
                 );
             } else {
                 $array_response = array(

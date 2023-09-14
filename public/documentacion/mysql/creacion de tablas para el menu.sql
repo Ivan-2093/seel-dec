@@ -100,9 +100,10 @@ CREATE TABLE clientes
 (
    id_cliente bigint AUTO_INCREMENT PRIMARY KEY, 
    id_tercero bigint not null UNIQUE,
-   usuario_registro varchar(100) not null,
+   usuario_registro bigint not null,
    fecha_registro datetime not null,
-   FOREIGN KEY (id_tercero) REFERENCES terceros(id)
+   FOREIGN KEY (id_tercero) REFERENCES terceros(id),
+    FOREIGN KEY (usuario_registro) REFERENCES usuarios(id_user)
 );
 
 CREATE TABLE proveedores

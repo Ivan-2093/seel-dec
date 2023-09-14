@@ -34,6 +34,10 @@ const arrayInputs = [
 ];
 
 comboPais.addEventListener("change", () => {
+	LoadPais();
+});
+
+function LoadPais() {
 	if (comboPais.value !== "") {
 		const data_pais = new FormData();
 		data_pais.append("id_pais", comboPais.value);
@@ -56,9 +60,14 @@ comboPais.addEventListener("change", () => {
 				reportError(error);
 			});
 	}
+}
+comboDepto.addEventListener("change", () => {
+	LoadDepto();
+
+
 });
 
-comboDepto.addEventListener("change", () => {
+function LoadDepto() {
 	if (comboDepto.value !== "") {
 		const data_dpto = new FormData();
 		data_dpto.append("id_depto", comboDepto.value);
@@ -81,18 +90,18 @@ comboDepto.addEventListener("change", () => {
 				reportError(error);
 			});
 	}
-});
+}
 
 btnSubmitCreateTercero.addEventListener("click", function () {
 
-    const inputsVoid = arrayInputs.filter(function (input) {
+	const inputsVoid = arrayInputs.filter(function (input) {
 		if (input.tagName != "TEXTAREA") {
 			return input.value == "";
 		}
 	});
 	if (inputsVoid.length == 0) {
-        const data_formTercero = new FormData(formTercero);
-        createTercero(data_formTercero);
+		const data_formTercero = new FormData(formTercero);
+		createTercero(data_formTercero);
 	} else {
 		const nameInput = inputsVoid
 			.map(function (input) {
@@ -130,7 +139,7 @@ function createTercero(data_insert) {
 			return response.json();
 		})
 		.then(function (json) {
-			if(json['response'] === 'success'){
+			if (json['response'] === 'success') {
 				Swal.fire({
 					title: "EXITO",
 					html: `Se ha realizado el registro del tercero exitosamente`,
@@ -139,10 +148,10 @@ function createTercero(data_insert) {
 					allowOutsideClick: false,
 					showCloseButton: true,
 					willClose: () => {
-						location.href = base_url+"TercerosController";
+						location.href = base_url + "TercerosController";
 					},
 				});
-			}else if (json['response'] === 'error'){
+			} else if (json['response'] === 'error') {
 				Swal.fire({
 					title: "ERROR",
 					html: `Ha ocurrido un error al realizar el registro, intente nuevamente.`,
@@ -151,10 +160,10 @@ function createTercero(data_insert) {
 					allowOutsideClick: false,
 					showCloseButton: true,
 					willClose: () => {
-						
+
 					},
 				});
-			}else if (json['response'] === 'warning'){
+			} else if (json['response'] === 'warning') {
 				Swal.fire({
 					title: "ADVERTENCIA",
 					html: `El tercero que esta intentando registrar, ya se encuentra registrado.`,
@@ -163,7 +172,7 @@ function createTercero(data_insert) {
 					allowOutsideClick: false,
 					showCloseButton: true,
 					willClose: () => {
-						
+
 					},
 				});
 			}
