@@ -9,7 +9,7 @@ class TercerosModel extends CI_Model
         return $this->db->get('generos');
     }
 
-    public function getTerceros(){
+    public function getTerceros($where=""){
         $this->db->select();
         $this->db->select('t.id as id_tercero');
         $this->db->from('terceros as t');
@@ -18,6 +18,7 @@ class TercerosModel extends CI_Model
         $this->db->join('municipios as m', 't.id_municipio = m.id');
         $this->db->join('departamentos as d', 'm.id_dpto = d.id');
         $this->db->join('paises as p', 'd.id_pais = p.id');
+        $this->db->where($where);
         return $this->db->get();
     }
 

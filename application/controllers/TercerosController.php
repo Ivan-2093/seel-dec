@@ -189,4 +189,34 @@ class TercerosController extends CI_Controller
         }
         echo json_encode($array_response);
     }
+
+    public function searchTercero()
+    {
+        $nit = $this->input->POST('nit');
+        if ($nit != "" && $nit != NULL) {
+            $where_tercero = array('nit' => $nit);
+            $data_terceros = $this->TercerosModel->getTerceros($where_tercero);
+            if ($data_terceros->num_rows() > 0) {
+                foreach ($data_terceros->result() as $key) {
+                    $array_data = [$key->id_tipo_doc, $key->descripcion, $key->nit, $key->primer_nombre, $key->segundo_nombre, $key->primer_apellido, $key->segundo_apellido, $key->email, $key->telefono_1, $key->telefono_2, $key->id_genero, $key->id_pais, $key->id_dpto, $key->id_municipio, $key->barrio, $key->direccion, $key->id_tercero];
+                }
+                $array_response = array(
+                    'response' => 'success',
+                    'data' => $array_data
+                );
+            } else {
+                $array_response = array(
+                    'response' => 'error',
+                    'data' => ''
+                );
+            }
+        } else {
+            $array_response = array(
+                'response' => 'warning',
+                'data' => ''
+            );
+        }
+
+        echo json_encode($array_response);
+    }
 }

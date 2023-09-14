@@ -60,7 +60,6 @@
                         <th>TELEFONO</th>
                         <th>CORREO</th>
                         <th>MUNICIPIO</th>
-                        <th>DIRECCIÓN</th>
                         <th>SOLICITUD</th>
                         <th>TIPO SOLICITUD</th>
                         <th>USUARIO</th>

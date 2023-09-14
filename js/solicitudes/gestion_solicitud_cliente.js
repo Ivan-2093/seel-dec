@@ -33,9 +33,9 @@ function load_data() {
 		.then(function (json) {
 			$(`#${tableGestionSolicitudes.id}`).dataTable().fnDestroy();
 			tableGestionSolicitudes.tBodies[0].innerHTML = json["tbody"];
+			$('[data-toggle="tooltip"]').tooltip(); //
 			loadDatatable(tableGestionSolicitudes.id);
 			hiddenLoading(cargando);
-			$('[data-toggle="tooltip"]').tooltip(); //
 		})
 		.catch(function (error) {
 			reportError(error);
