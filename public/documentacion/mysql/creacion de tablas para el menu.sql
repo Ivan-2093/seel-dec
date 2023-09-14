@@ -1713,3 +1713,15 @@ INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Cotización');
 INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Agendamiento Instalación');
 INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Terminación de Negocio');
 INSERT INTO `etapas_negocio`(`etapa`) VALUES ('Encuesta de Satisfacción');
+
+create table negocios_historial_etapas
+(
+	id_historial bigint AUTO_INCREMENT PRIMARY KEY,
+	negocio_id bigint not null,
+    etapa_id int not null,
+	user_id bigint not null,
+	fecha datetime not null,
+	FOREIGN KEY (etapa_id) REFERENCES etapas_negocio(id_etapa),
+    FOREIGN KEY (user_id) REFERENCES usuarios(id_user),
+	FOREIGN KEY (negocio_id) REFERENCES negocios(id_negocio)
+);

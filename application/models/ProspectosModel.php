@@ -7,7 +7,7 @@ class ProspectosModel extends CI_Model
     }
     public function getSolicitudes($data_where)
     {
-        $this->db->select('s.id_solicitud, s.prospecto, s.telefono, s.correo, m.municipio, s.direccion, s.observacion, u.usuario ,ts.tipo_solicitud, s.fecha_creado, n.id_negocio');
+        $this->db->select('s.id_solicitud, s.prospecto, s.telefono, s.correo, m.municipio, s.direccion, s.observacion, u.usuario ,ts.tipo_solicitud, s.fecha_creado, n.id_negocio, n.cliente_id, n.fecha_registro');
         $this->db->from('solicitudes_prospecto as s');
         $this->db->join('municipios as m', 's.id_municipio = m.id');
         $this->db->join('departamentos as d', 'm.id_dpto = d.id');

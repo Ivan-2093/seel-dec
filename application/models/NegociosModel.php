@@ -18,5 +18,11 @@ class NegociosModel extends CI_Model
         return $this->db->get('negocios');
     }
 
+    public function checkEtapa($where)
+    {
+        $this->db->where($where);
+        return $this->db->get('negocios_historial_etapas ');
+    }
+
 
 }
