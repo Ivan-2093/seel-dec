@@ -24,5 +24,15 @@ class NegociosModel extends CI_Model
         return $this->db->get('negocios_historial_etapas ');
     }
 
+    public function updateNegocio($data_update,$data_where)
+    {
+        $this->db->update('negocios',$data_update,$data_where);
+        return $this->db->affected_rows();
+    }
+    
+    public function insertHistorialEtapa($data)
+    {
+        return $this->db->insert('negocios_historial_etapas',$data);
+    }
 
 }

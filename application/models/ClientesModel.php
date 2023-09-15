@@ -11,7 +11,7 @@ class ClientesModel extends CI_Model
         return $this->db->get('clientes');
     }
 
-    public function getClientes(){
+    public function getClientes($where=""){
         $this->db->select();
         $this->db->from('clientes as c');
         $this->db->join('terceros as t', 'c.id_tercero = t.id');
@@ -20,7 +20,18 @@ class ClientesModel extends CI_Model
         $this->db->join('municipios as m', 't.id_municipio = m.id');
         $this->db->join('departamentos as d', 'm.id_dpto = d.id');
         $this->db->join('paises as p', 'd.id_pais = p.id');
+        if($where != ""){
+            $this->db->where($where);
+        }
         return $this->db->get();
     }
+
+    public function getClienteByIdCliente($id_cliente){
+        $this->db->where('id_cliente',$id_cliente);
+        return $this->db->get('clientes');
+    }
+
+    
+
 
 }
