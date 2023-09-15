@@ -193,38 +193,56 @@ class TercerosController extends CI_Controller
 
     public function searchTercero()
     {
-        $nit = $this->input->POST('nit');
-        if ($nit != "" && $nit != NULL) {
-            $where_tercero = array('nit' => $nit);
-            $data_terceros = $this->TercerosModel->getTerceros($where_tercero);
-            if ($data_terceros->num_rows() > 0) {
-                foreach ($data_terceros->result() as $key) {
-                    $array_data = [$key->id_tipo_doc, $key->descripcion, $key->nit, $key->primer_nombre, $key->segundo_nombre, $key->primer_apellido, $key->segundo_apellido, $key->email, $key->telefono_1, $key->telefono_2, $key->id_genero, $key->id_pais, $key->id_dpto, $key->id_municipio, $key->barrio, $key->direccion, $key->id_tercero];
-                    //Consultamos si existe como cliente XD
-                    $data_cliente = $this->ClientesModel->getClienteById($key->id_tercero);
-                }
-                $id_cliente = "";
-                if($data_cliente->num_rows() > 0){
-                    $id_cliente = $data_cliente->row(0)->id_cliente;
-                }
-                $array_response = array(
-                    'response' => 'success',
-                    'data' => $array_data,
-                    'id_cliente' => $id_cliente
-                );
+        $id_tercero_search = $this->input->POST('id_tercero');
+        if ($id_tercero_search != "" && $id_tercero_search != NULL) {
+            $where_tercero = array('t.id' => $id_tercero_search);
+            $array_response = $this->getDataTerceroByNegocio($where_tercero );
+        } else {
+            $nit = $this->input->POST('nit');
+            if ($nit != "" && $nit != NULL) {
+                $where_tercero = array('nit' => $nit);
+
+                $array_response = $this->getDataTerceroByNegocio($where_tercero );
             } else {
                 $array_response = array(
-                    'response' => 'error',
+                    'response' => 'warning',
                     'data' => ''
                 );
             }
+        }
+
+
+
+        echo json_encode($array_response);
+    }
+
+
+    public function getDataTerceroByNegocio($where_tercero)
+    {
+        $data_terceros = $this->TercerosModel->getTerceros($where_tercero);
+
+        if ($data_terceros->num_rows() > 0) {
+            foreach ($data_terceros->result() as $key) {
+                $array_data = [$key->id_tipo_doc, $key->descripcion, $key->nit, $key->primer_nombre, $key->segundo_nombre, $key->primer_apellido, $key->segundo_apellido, $key->email, $key->telefono_1, $key->telefono_2, $key->id_genero, $key->id_pais, $key->id_dpto, $key->id_municipio, $key->barrio, $key->direccion, $key->id_tercero];
+                //Consultamos si existe como cliente XD
+                $data_cliente = $this->ClientesModel->getClienteById($key->id_tercero);
+            }
+            $id_cliente = "";
+            if ($data_cliente->num_rows() > 0) {
+                $id_cliente = $data_cliente->row(0)->id_cliente;
+            }
+            $array_response = array(
+                'response' => 'success',
+                'data' => $array_data,
+                'id_cliente' => $id_cliente
+            );
         } else {
             $array_response = array(
-                'response' => 'warning',
+                'response' => 'error',
                 'data' => ''
             );
         }
 
-        echo json_encode($array_response);
+        return $array_response;
     }
 }

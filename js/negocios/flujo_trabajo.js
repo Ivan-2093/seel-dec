@@ -38,10 +38,15 @@ function obtenerData(etapa_id, opc) {
 			if (opc == 0) {
 				$("#Información_Cliente").modal("show");
 			} else {
+				const id_tercero_n = document.getElementById('id_tercero_n');
+				load_data_tercero(id_tercero_n.value);
+				btnSubmitCreateTercero.hidden = true;
+				btnSubmitReset.hidden = true;
+				$("#Información_Cliente").modal("show");
 			}
 			break;
 		case 2:
-			alert(etapa_id + "\n" + id_negocio.value);
+			$("#Solicitud_Cliente").modal("show");
 			break;
 		case 3:
 			alert(etapa_id + "\n" + id_negocio.value);
@@ -82,6 +87,9 @@ const comboDepto = document.getElementById("comboDepto");
 const comboMunicipio = document.getElementById("comboMunicipio");
 const inputDireccion = document.getElementById("inputDireccion");
 const inputBarrio = document.getElementById("inputBarrio");
+
+const inputIdTercero = document.getElementById('inputIdTercero');
+const inputIdCliente = document.getElementById('inputIdCliente');
 
 /* ARRAY DE INPUTS */
 const arrayInputs = [
@@ -182,15 +190,17 @@ inputEmail.addEventListener("blur", function () {
 	validarEmail(inputEmail);
 });
 
-
-
-const inputIdTercero = document.getElementById('inputIdTercero');
-const inputIdCliente = document.getElementById('inputIdCliente');
 inputNumeroDoc.addEventListener("change", () => {
-	if (inputNumeroDoc.value != "") {
+	load_data_tercero();
+});
+
+function load_data_tercero(id_ter="")
+{
+	if (inputNumeroDoc.value != "" || id_ter != "") {
 		showLoading(cargando);
 		const form_tercero_by_nit = new FormData();
 		form_tercero_by_nit.append("nit", inputNumeroDoc.value);
+		form_tercero_by_nit.append("id_tercero", id_ter);
 		fetch(`${base_url}TercerosController/searchTercero`, {
 			headers: {
 				"Content-type": "application/json",
@@ -221,7 +231,7 @@ inputNumeroDoc.addEventListener("change", () => {
 				hiddenLoading(cargando);
 			});
 	}
-});
+}
 
 function pintar_formulario(data_tercero) {
 
@@ -242,8 +252,6 @@ function pintar_formulario(data_tercero) {
 	inputIdTercero.value = data_tercero[16];
 
 }
-
-
 
 function LoadPais(depto="", muni="") {
 	if (comboPais.value !== "") {

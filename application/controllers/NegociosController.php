@@ -65,15 +65,17 @@ class NegociosController extends CI_Controller
         if ($data_solicitud->num_rows() > 0) {
             if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {
                 $cliente = $data_solicitud->row(0)->prospecto;
+                $id_tercero = "";
                 if($data_solicitud->row(0)->cliente_id != NULL  && $data_solicitud->row(0)->cliente_id != ""){
                     $where_cliente = array('id_cliente'=>$data_solicitud->row(0)->cliente_id);
                     $data_cliente = $this->ClientesModel->getClientes($where_cliente)->row(0);
                     $cliente = $data_cliente->primer_nombre . ' ' . $data_cliente->segundo_nombre . ' ' . $data_cliente->primer_apellido . ' ' . $data_cliente->segundo_apellido;
+                    $id_tercero = $data_cliente->id_tercero;
                 }  
                 
-
                 $data_negocio = array(
                     'id_negocio' => $data_solicitud->row(0)->id_negocio,
+                    'id_tercero' => $id_tercero,
                     'cliente' => $cliente,
                     'fecha_registro' => $data_solicitud->row(0)->fecha_registro
                 );
@@ -89,6 +91,7 @@ class NegociosController extends CI_Controller
 
                 $data_negocio = array(
                     'id_negocio' => $id_negocio,
+                    'id_tercero' => "",
                     'cliente' => $data_solicitud->row()->prospecto,
                     'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s')
                 );
