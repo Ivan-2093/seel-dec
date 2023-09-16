@@ -1726,3 +1726,13 @@ create table negocios_historial_etapas
     FOREIGN KEY (user_id) REFERENCES usuarios(id_user),
 	FOREIGN KEY (negocio_id) REFERENCES negocios(id_negocio)
 );
+
+CREATE TABLE negocios_solicitud_cliente (
+	id_solicitud_negocio bigint AUTO_INCREMENT PRIMARY KEY,
+    negocio_id bigint not null,
+    observacion varchar(2000)not null,
+    fecha_registro datetime not null,
+    user_crea bigint not null,
+    FOREIGN KEY (negocio_id) REFERENCES negocios(id_negocio),
+	FOREIGN KEY (user_crea) REFERENCES usuarios(id_user)
+);

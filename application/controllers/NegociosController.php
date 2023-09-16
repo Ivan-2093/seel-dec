@@ -66,13 +66,13 @@ class NegociosController extends CI_Controller
             if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {
                 $cliente = $data_solicitud->row(0)->prospecto;
                 $id_tercero = "";
-                if($data_solicitud->row(0)->cliente_id != NULL  && $data_solicitud->row(0)->cliente_id != ""){
-                    $where_cliente = array('id_cliente'=>$data_solicitud->row(0)->cliente_id);
+                if ($data_solicitud->row(0)->cliente_id != NULL  && $data_solicitud->row(0)->cliente_id != "") {
+                    $where_cliente = array('id_cliente' => $data_solicitud->row(0)->cliente_id);
                     $data_cliente = $this->ClientesModel->getClientes($where_cliente)->row(0);
                     $cliente = $data_cliente->primer_nombre . ' ' . $data_cliente->segundo_nombre . ' ' . $data_cliente->primer_apellido . ' ' . $data_cliente->segundo_apellido;
                     $id_tercero = $data_cliente->id_tercero;
-                }  
-                
+                }
+
                 $data_negocio = array(
                     'id_negocio' => $data_solicitud->row(0)->id_negocio,
                     'id_tercero' => $id_tercero,
@@ -111,12 +111,12 @@ class NegociosController extends CI_Controller
     {
 
         $id_negocio = $this->input->post('id_negocio');
-        
+
         $data_etapas_negocio = $this->NegociosModel->get_etapas_negocio();
         $html_flujo = "";
         if ($data_etapas_negocio->num_rows() > 0) {
             foreach ($data_etapas_negocio->result() as $row) {
-                $data_where = array('negocio_id' => $id_negocio,'etapa_id'=>$row->id_etapa);
+                $data_where = array('negocio_id' => $id_negocio, 'etapa_id' => $row->id_etapa);
                 $check_etapa = '<i class="font-weight-bold ik ik-alert-octagon"></i>';
                 $opcion = 0;
                 if ($this->NegociosModel->checkEtapa($data_where)->num_rows() > 0) {
@@ -298,13 +298,107 @@ class NegociosController extends CI_Controller
 
                     $array_response['response'] = 'success';
                     $array_response['title'] = 'Exito!';
-                    $array_response['html'] = 'Ha ocurrido un error al intentar agregar el cliente al negocio!';
+                    $array_response['html'] = 'Se ha agregado el cliente al negocio!';
 
                     echo json_encode($array_response);
                     exit;
                 }
             } else {
+                $array_response['response'] = 'success';
+                $array_response['title'] = 'Exito!';
+                $array_response['html'] = 'Ha ocurrido un error al intentar agregar el cliente al negocio!';
+
+                echo json_encode($array_response);
+                exit;
             }
         }
+    }
+
+    public function save_solicitud_cliente()
+    {
+        $text_solicitud_cliente = $this->input->POST('text_solicitud_cliente');
+        $id_negocio = $this->input->POST('id_negocio');
+
+        //Validar si el negocio existe! :XD
+        $where_negocio = array('id_negocio' => $id_negocio);
+        if ($this->NegociosModel->getNegocio($where_negocio)->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        }
+        //Validar si la soclicitud viene vacia
+        if ($text_solicitud_cliente == "" || $text_solicitud_cliente == NULL || strlen($text_solicitud_cliente) < 20) {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'Advertencia',
+                'html' => '<strong>La solicitud se encuentra vacia o es menor a 20 caracteres!</strong>'
+            );
+            echo json_encode($array_response);
+            exit;
+        }
+
+        $array_insert_solicitud = array(
+            'negocio_id' => $id_negocio,
+            'observacion' => $text_solicitud_cliente,
+            'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
+            'user_crea' => $this->user_id,
+        );
+
+        if ($this->NegociosModel->insertSolicitudCliente($array_insert_solicitud)) {
+            $data_array_negocio_historial_etapas = array(
+                'negocio_id' => $id_negocio,
+                'etapa_id' => 2, //Registro solicitud cliente XD
+                'user_id' => $this->user_id,
+                'fecha' => Date('Y-m-d') . 'T' . Date('H:i:s')
+            );
+
+            $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
+
+            $array_response = array(
+                'response' => 'success',
+                'title' => 'Exito',
+                'html' => '<strong>Se ha creado con exito la solicitud del cliente!</strong>'
+            );
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'Error!',
+                'html' => '<strong>Ha ocurrido un error al intentar crear la solicitud del cliente!</strong>'
+            );
+        }
+
+        echo json_encode($array_response);
+        exit;
+    }
+
+    public function load_solicitud_cliente()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+
+        //Validar si el negocio existe! :XD
+        $where_negocio = array('id_negocio' => $id_negocio);
+        if ($this->NegociosModel->getNegocio($where_negocio)->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        }
+
+        $array_where = array('negocio_id' => $id_negocio);
+        $data_solicitud = $this->NegociosModel->get_negocios_solicitud_cliente($array_where);
+        if ($data_solicitud->num_rows() > 0) {
+            $array_response = array(
+                'response' => 'success',
+                'title' => 'Exito!',
+                'html' => '<strong>Se ha cargado con exito la solicitud del cliente</strong>',
+                'observacion' => $data_solicitud->row(0)->observacion
+            );
+        } else {
+            $array_response = array(
+                'response' => 'error',
+                'title' => 'Error!',
+                'html' => '<strong>Ha ocurrido un error al intentar cargar la solicitud del cliente!</strong>'
+            );
+        }
+
+        echo json_encode($array_response);
+        exit;
     }
 }
