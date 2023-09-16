@@ -18,7 +18,9 @@ class TercerosModel extends CI_Model
         $this->db->join('municipios as m', 't.id_municipio = m.id');
         $this->db->join('departamentos as d', 'm.id_dpto = d.id');
         $this->db->join('paises as p', 'd.id_pais = p.id');
-        $this->db->where($where);
+        if($where != ""){
+            $this->db->where($where);
+        }
         return $this->db->get();
     }
 

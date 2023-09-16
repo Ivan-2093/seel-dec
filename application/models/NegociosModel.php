@@ -35,4 +35,15 @@ class NegociosModel extends CI_Model
         return $this->db->insert('negocios_historial_etapas',$data);
     }
 
+    public function insertSolicitudCliente($data)
+    {
+        return $this->db->insert('negocios_solicitud_cliente',$data);
+    }
+
+    public function get_negocios_solicitud_cliente($where)
+    {
+        $this->db->where($where);
+        return $this->db->get('negocios_solicitud_cliente');
+    }
+
 }
