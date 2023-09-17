@@ -9,6 +9,7 @@ class CotizacionController extends CI_Controller
 
     public $html_menus = NULL;
     public $perfil = NULL;
+    public $user_id = NULL;
 
     public function __construct()
     {
@@ -19,6 +20,7 @@ class CotizacionController extends CI_Controller
         }
         $this->load->helper('permisos_url_helper');
         $this->perfil = $this->session->userdata('perfil');
+        $this->user_id = $this->session->userdata('id_user');
         validate_url_permiso_perfil($this->perfil);
         $this->load->model('MenusModel');
         $this->load->library('session');
@@ -26,6 +28,8 @@ class CotizacionController extends CI_Controller
         $this->load->model('ProspectosModel');
         $this->load->model('ProductosModel');
         $this->load->model('CotizacionModel');
+        $this->load->model('NegociosModel');
+        $this->load->model('ClientesModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
 
@@ -45,12 +49,36 @@ class CotizacionController extends CI_Controller
         );
 
         $id_negocio = $this->input->post('id_negocio');
-
-        if ($id_negocio != "") {
-          /*   $where = array('id_negocio' => $id_negocio);
-            $data_vista['data_solicitudes'] = $data_solicitudes->row(0); */
+        //Validar si el negocio existe! :XD
+        $id_negocio = $this->input->POST('id_negocio');
+        if (!isset($id_negocio) && $id_negocio == "" || $id_negocio == NULL) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        }
+        //Validar si el negocio existe! :XD
+        $where_negocio = array('id_negocio' => $id_negocio);
+        $data_negocio = $this->NegociosModel->getNegocio($where_negocio);
+        if ($data_negocio->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
         }
 
+        $array_where_cliente = array('id_cliente' => $data_negocio->row(0)->cliente_id);
+        $array_data_cliente = $this->ClientesModel->getClientes($array_where_cliente);
+        if ($array_data_cliente->num_rows() > 0) {
+
+            $array_solicitud = array('negocio_id' => $id_negocio);
+            $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
+
+            $data_solicitud = array(
+                'nombres' => $array_data_cliente->row(0)->primer_nombre . ' ' . $array_data_cliente->row(0)->segundo_nombre . ' ' . $array_data_cliente->row(0)->primer_apellido . ' ' . $array_data_cliente->row(0)->segundo_apellido,
+                'correo' => $array_data_cliente->row(0)->email,
+                'observacion' => $solicitud_cliente->row(0)->observacion,
+                'negocio_id' => $id_negocio
+
+            );
+        }
+        $data_vista['data_solicitudes'] = $data_solicitud;
         $this->load->view('header', $data_vista);
         $this->load->view('cotizador/solicitud');
     }
@@ -155,96 +183,91 @@ class CotizacionController extends CI_Controller
 
     public function saveInfoCotizacion()
     {
-        $idSolicitud = $this->input->POST('idSolicitud');
+        $id_negocio = $this->input->POST('id_negocio');
         $cantidadFilas = $this->input->POST('cantidadFilas');
+        $observacion_asesor = $this->input->POST('observacion_asesor');
+        //Validar si el negocio existe! :XD
+        $where_negocio = array('id_negocio' => $id_negocio);
+        $data_negocio = $this->NegociosModel->getNegocio($where_negocio);
+        if ($data_negocio->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        }
 
-        if ($idSolicitud != "") {
-            $array_where_pros = array(
-                'id_solicitud' => $idSolicitud
-            );
-            $solicitud_prospecto = $this->ProspectosModel->getSolcitudByWhere($array_where_pros);
+        $array_insert_cotizacion = array(
+            'negocio_id' => $id_negocio,
+            'usuario_id' => $this->session->userdata('id_user'),
+            'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
+            'observacion' => $observacion_asesor
+        );
 
-            if ($solicitud_prospecto->num_rows() > 0) {
-                $array_insert_cotizacion = array(
-                    'solicitud_id' => $idSolicitud,
-                    'usuario_id' => $this->session->userdata('id_user'),
-                    'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s')
+        if ($this->CotizacionModel->insert_cotizacion($array_insert_cotizacion)) {
+
+            $id_cotizacion = $this->db->insert_id();
+
+            $dataFilas = [];
+            $insert_detalle = 0;
+            for ($i = 0; $i < $cantidadFilas; $i++) {
+
+                $dataFilas[$i] = $this->input->POST('fila' . $i);
+                $fila = explode(",", $dataFilas[$i]);
+
+                $array_insert_detalle = array(
+                    'cotizacion_id' => $id_cotizacion,
+                    'producto_id' => $fila[0],
+                    'cant_producto' => $fila[1],
+                    'precio_producto' => $fila[3]
                 );
 
-                if ($this->CotizacionModel->insert_cotizacion($array_insert_cotizacion)) {
-
-                    $id_cotizacion = $this->db->insert_id();
-
-                    $dataFilas = [];
-                    $insert_detalle = 0;
-                    for ($i = 0; $i < $cantidadFilas; $i++) {
-
-                        $dataFilas[$i] = $this->input->POST('fila' . $i);
-                        $fila = explode(",", $dataFilas[$i]);
-
-                        $array_insert_detalle = array(
-                            'cotizacion_id' => $id_cotizacion,
-                            'producto_id' => $fila[0],
-                            'cant_producto' => $fila[1],
-                            'precio_producto' => $fila[3]
-                        );
-
-                        if ($this->CotizacionModel->insert_cotizacion_detalle($array_insert_detalle)) {
-                            $insert_detalle++;
-                        }
-                    }
-
-                    $sendEmail = $this->sendEmailCotizacion($id_cotizacion);
-
-                    if($id_cotizacion == $sendEmail){
-                        $array_response = array(
-                            'response' => 'success',
-                            'title' => 'Exito!',
-                            'html' => 'Se ha realizado con exito el registro de la cotización',
-                        );
-                        echo json_encode($array_response);
-                        exit;
-                    }
-
-                   
-                } else {
-                    $array_response = array(
-                        'response' => 'error',
-                        'title' => 'Error!',
-                        'html' => 'Ha ocurrido un error al intentar realizar el registro de la cotización',
-                    );
-                    echo json_encode($array_response);
-                    exit;
+                if ($this->CotizacionModel->insert_cotizacion_detalle($array_insert_detalle)) {
+                    $insert_detalle++;
                 }
-            } else {
+            }
+
+            $sendEmail = $this->sendEmailCotizacion($id_cotizacion,$id_negocio);
+
+            if ($id_cotizacion == $sendEmail) {
+
+                $data_array_negocio_historial_etapas = array(
+                    'negocio_id' => $id_negocio,
+                    'etapa_id' => 3, //Registro solicitud cliente XD
+                    'user_id' => $this->user_id,
+                    'fecha' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                );
+    
+                $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
+
                 $array_response = array(
-                    'response' => 'warning',
-                    'title' => 'Advertencia!',
-                    'html' => 'La solicitud del cliente no se encuentra registrada en la base de datos',
+                    'response' => 'success',
+                    'title' => 'Exito!',
+                    'html' => 'Se ha realizado con exito el registro de la cotización',
                 );
                 echo json_encode($array_response);
                 exit;
             }
         } else {
             $array_response = array(
-                'response' => 'warning',
-                'title' => 'Advertencia!',
-                'html' => 'No se ha encontrado la identificacion de la solicitud del cliente.',
+                'response' => 'error',
+                'title' => 'Error!',
+                'html' => 'Ha ocurrido un error al intentar realizar el registro de la cotización',
             );
             echo json_encode($array_response);
             exit;
         }
     }
 
-    public function sendEmailCotizacion($id_cotizacion = null)
+    public function sendEmailCotizacion($id_cotizacion = null, $id_negocio=null)
     {
 
         if (isset($id_cotizacion) && $id_cotizacion != "") {
             $array_where = array('id_cotizacion' => $id_cotizacion);
             $array_where_detalle = array('cotizacion_id' => $id_cotizacion);
 
-            $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
+            $array_solicitud = array('negocio_id' => $id_negocio);
+            $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
 
+            $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
+            
             if ($data_cotizacion->num_rows() == 0) {
                 echo 'No se ha encontrado información con la identificación de la cotización';
                 exit();
@@ -252,7 +275,7 @@ class CotizacionController extends CI_Controller
 
             $data_cotizacion_detalle = $this->CotizacionModel->get_cotizacion_detalle_by_where($array_where_detalle);
 
-            $pdfEmail = $this->createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle);
+            $pdfEmail = $this->createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle, $solicitud_cliente);
 
 
             $correo = $this->phpmailer_lib->load();
@@ -284,7 +307,7 @@ class CotizacionController extends CI_Controller
             $correo->AddStringAttachment($pdfEmail, 'Cotizacion.pdf', 'base64', 'pdf');
 
             $data_usuario = array(
-                'name_user' => $data_cotizacion->row(0)->prospecto,
+                'name_user' => $data_cotizacion->row(0)->nombre_cliente,
                 'page' => 'Cotización'
             );
 
@@ -310,7 +333,7 @@ class CotizacionController extends CI_Controller
             }
         }
     }
-    public function createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle)
+    public function createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle, $solicitud_cliente)
     {
         if ($data_cotizacion->num_rows() > 0) {
 
@@ -318,6 +341,7 @@ class CotizacionController extends CI_Controller
             $data = array(
                 'dataCotizacion' => $data_cotizacion,
                 'dataCotizacionDetalle' => $data_cotizacion_detalle,
+                'observacion' => $solicitud_cliente->row(0)->observacion,
             );
 
             // Cargar libreria de PDF

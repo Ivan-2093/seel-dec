@@ -10,6 +10,7 @@
 $dataC = $dataCotizacion->row(0);
 $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $dataC->primer_apellido . ' ' . $dataC->segundo_apellido;
 ?>
+
 <body>
 	<table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size: 12px ;">
 		<tr>
@@ -22,7 +23,7 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 						</td>
 					</tr>
 					<tr>
-						<td align="right"><span align="left">Fecha cotización: <?=Date('Y-m-d') ?> </span>
+						<td align="right"><span align="left">Fecha cotización: <?= Date('Y-m-d') ?> </span>
 
 						</td>
 					</tr>
@@ -43,9 +44,9 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 						<td width="10%" align="center">Telefono</td>
 					</tr>
 					<tr>
-						<td width="45%" align="center"><?=$nombreAsesor?></td>
-						<td width="45%" align="center"><?=$dataC->email_emp?></td>
-						<td width="10%" align="center"><?=$dataC->telefono_emp?></td>
+						<td width="45%" align="center"><?= $nombreAsesor ?></td>
+						<td width="45%" align="center"><?= $dataC->email_emp ?></td>
+						<td width="10%" align="center"><?= $dataC->telefono_emp ?></td>
 					</tr>
 				</table>
 			</td>
@@ -65,9 +66,9 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 						<td width="10%" align="center">Telefono</td>
 					</tr>
 					<tr>
-						<td width="45%" align="center"><?=$dataC->prospecto?></td>
-						<td width="45%" align="center"><?=$dataC->correo_cli?></td>
-						<td width="10%" align="center"><?=$dataC->telefono_cli?></td>
+						<td width="45%" align="center"><?= $dataC->nombre_cliente ?></td>
+						<td width="45%" align="center"><?= $dataC->correo_cli ?></td>
+						<td width="10%" align="center"><?= $dataC->telefono_cli ?></td>
 					</tr>
 				</table>
 			</td>
@@ -84,16 +85,16 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 			<td width="30%" align="center">VALOR</td>
 		</tr>
 		<?php
-		if($dataCotizacionDetalle->num_rows() > 0) {
+		if ($dataCotizacionDetalle->num_rows() > 0) {
 			$suma_total = 0;
-			foreach($dataCotizacionDetalle->result() as $row) {
+			foreach ($dataCotizacionDetalle->result() as $row) {
 
 				$valor_product = $row->cant_producto * $row->precio_producto;
-				$suma_total+=$valor_product;
+				$suma_total += $valor_product;
 				echo '<tr>
-					<td width="10%" align="center">'.$row->cant_producto.'</td>
-					<td width="60%" align="left">'.$row->referencia.'</td>
-					<td width="30%" align="right">$'. number_format($valor_product,0,'.',',').'</td>
+					<td width="10%" align="center">' . $row->cant_producto . '</td>
+					<td width="60%" align="left">' . $row->referencia . '</td>
+					<td width="30%" align="right">$' . number_format($valor_product, 0, '.', ',') . '</td>
 				</tr>';
 			}
 		}
@@ -102,10 +103,12 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 	<table width="100%" border="1" style="border-collapse:collapse;font-size: 12px ;">
 		<tr bgcolor="#999999" align="right">
 			<td width="70%" colspan="2" align="right">Valor total cotización</td>
-			<td width="30%" align="right">$<?=number_format($suma_total,0,'.',',') ?></td>
+			<td width="30%" align="right">$<?= number_format($suma_total, 0, '.', ',') ?></td>
 		</tr>
 	</table>
-	<p style="font-size: 12px ;"><strong>Observaciones: </strong><?=$dataC->observacion?></p>
+	<p style="font-size: 12px ;"><strong>Solicitud cliente: </strong><?= $observacion ?></p>
+	<br>
+	<p style="font-size: 12px ;"><strong>Observación del asesor: </strong><?= $dataC->observacion ?></p>
 </body>
 
 </html>
