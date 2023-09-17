@@ -1,5 +1,4 @@
 /* SCRIPT PARA LA ETAPA 3 COTIZACIONES */
-
 function load_data_cotizacion()
 {
     showLoading(cargando);
@@ -18,7 +17,9 @@ function load_data_cotizacion()
 			return response.json();
 		})
 		.then(function (json) {
-			
+			if (json["response"] == "success") {
+                $('#htmlCotizaciones').html(json["body"]);
+            }
 			return json;
 		})
 		.then(function (json) {

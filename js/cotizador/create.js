@@ -243,7 +243,7 @@ function insertCotizacion(datos) {
 				/* Read more about isConfirmed, isDenied below */
 				if (result.isConfirmed) {
 					if(json["response"] === 'success'){
-						location.href =  base_url + 'SolicitudController/gestionSolicitud';
+						window.close();
 					}else if (json["response"] === 'error'){
 						location.reload()
 					}else {
