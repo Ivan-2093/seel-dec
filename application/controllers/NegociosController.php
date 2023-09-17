@@ -25,6 +25,7 @@ class NegociosController extends CI_Controller
         $this->load->model('TercerosModel');
         $this->load->model('ClientesModel');
         $this->load->model('PaisesModel');
+        $this->load->model('CotizacionModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
 
@@ -416,25 +417,39 @@ class NegociosController extends CI_Controller
         $array_where = array('negocio_id' => $id_negocio);
         $data_solicitud = $this->NegociosModel->get_negocios_solicitud_cliente($array_where);
         if ($data_solicitud->num_rows() > 0) {
-            $this->draw_cotizaciones_negocio($id_negocio);
-        }else {
+            $data = $this->draw_cotizaciones_negocio($id_negocio);
+
+            $array_response = array(
+                'response' => 'success',
+                'body' => $data,
+            );
+        } else {
             $array_response = array(
                 'response' => 'warning',
                 'title' => 'Advertencia!',
-                'html' => '<strong>Para realizar la cotización debe compleatar la solicitud del cliente!</strong>'
+                'html' => '<strong>Para realizar la cotización debe compleatar la solicitud del cliente!</strong>',
             );
         }
 
         echo json_encode($array_response);
         exit;
-
     }
 
     public function draw_cotizaciones_negocio($id)
     {
-        
+        $html_cotizaciones = '';
+        if ($id != "") {
+            $array_where = array('negocio_id' => $id);
+            $data_cotizaciones = $this->CotizacionModel->get_cotizaciones($array_where);
+            if ($data_cotizaciones->num_rows() > 0) {
+                foreach ($data_cotizaciones->result() as $row) {
+                    $html_cotizaciones .= '<button class="btn btn-lg btn-primary m-2 ik ik-eye">' . $row->id_cotizacion . '</button>';
+                }
+            } else {
+                $html_cotizaciones .= 'No se han encontrado cotizaciones!';
+            }
+        }
 
-
-        return $data_cotizaciones;
+        return $html_cotizaciones;
     }
 }
