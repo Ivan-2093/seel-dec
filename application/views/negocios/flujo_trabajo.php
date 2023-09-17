@@ -239,10 +239,42 @@
 
     </div>
 </div>
+
+<!-- MODAL PARA CREAR O VER COTIZACIONES -->
+<div class="modal fade bd-example-modal-lg" id="cotizaciones_negocio" tabindex="-1" role="dialog" aria-labelledby="cotizaciones_negocio" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">COTIZACIONES DEL NEGOCIO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" style="background:#90ee9073;">
+                                
+                            </div>
+                            <div class="card-footer">
+                                <button id="btnSubmitCreateCotizacion" name="btnSubmitCreateCotizacion" type="button" class="btn btn-success">NUEVA COTIZACIÓN</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/flujo_trabajo.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_1.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_2.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_3.js"></script>
 <?php $this->load->view('footer'); ?>

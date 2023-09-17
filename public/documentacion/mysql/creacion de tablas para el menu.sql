@@ -1662,10 +1662,10 @@ INSERT INTO `productos`(`referencia`, `descripcion`, `anchos_tela_metro`, `unida
 
 CREATE TABLE cotizacion (
 	id_cotizacion bigint AUTO_INCREMENT PRIMARY KEY,
-    solicitud_id bigint not null,
+    negocio_id bigint not null,
     usuario_id bigint not null,
     fecha_registro datetime not null,
-    FOREIGN KEY (solicitud_id) REFERENCES solicitudes_prospecto(id_solicitud),
+    FOREIGN KEY (negocio_id) REFERENCES negocios(id_negocio),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
 );
 

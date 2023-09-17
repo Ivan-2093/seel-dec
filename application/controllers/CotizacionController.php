@@ -44,12 +44,11 @@ class CotizacionController extends CI_Controller
             'name_page' => 'COTIZADOR'
         );
 
-        $id_solicitud = $this->input->post('id_solicitud');
+        $id_negocio = $this->input->post('id_negocio');
 
-        if ($id_solicitud != "") {
-            $where = array('id_solicitud' => $id_solicitud);
-            $data_solicitudes = $this->ProspectosModel->getSolicitudes($where);
-            $data_vista['data_solicitudes'] = $data_solicitudes->row(0);
+        if ($id_negocio != "") {
+          /*   $where = array('id_negocio' => $id_negocio);
+            $data_vista['data_solicitudes'] = $data_solicitudes->row(0); */
         }
 
         $this->load->view('header', $data_vista);

@@ -53,7 +53,11 @@ function obtenerData(etapa_id, opc) {
 			}
 			break;
 		case 3:
-			alert(etapa_id + "\n" + id_negocio.value);
+			if (opc == 0) {
+				load_data_cotizacion();
+			}else{
+				load_data_cotizacion();
+			}
 			break;
 		case 4:
 			alert(etapa_id + "\n" + id_negocio.value);
