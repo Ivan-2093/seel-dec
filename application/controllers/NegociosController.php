@@ -401,4 +401,40 @@ class NegociosController extends CI_Controller
         echo json_encode($array_response);
         exit;
     }
+
+    public function load_cotizacion_cliente()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+
+        //Validar si el negocio existe! :XD
+        $where_negocio = array('id_negocio' => $id_negocio);
+        if ($this->NegociosModel->getNegocio($where_negocio)->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        }
+
+        $array_where = array('negocio_id' => $id_negocio);
+        $data_solicitud = $this->NegociosModel->get_negocios_solicitud_cliente($array_where);
+        if ($data_solicitud->num_rows() > 0) {
+            $this->draw_cotizaciones_negocio($id_negocio);
+        }else {
+            $array_response = array(
+                'response' => 'warning',
+                'title' => 'Advertencia!',
+                'html' => '<strong>Para realizar la cotización debe compleatar la solicitud del cliente!</strong>'
+            );
+        }
+
+        echo json_encode($array_response);
+        exit;
+
+    }
+
+    public function draw_cotizaciones_negocio($id)
+    {
+        
+
+
+        return $data_cotizaciones;
+    }
 }
