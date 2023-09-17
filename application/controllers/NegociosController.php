@@ -554,6 +554,14 @@ class NegociosController extends CI_Controller
         $this->load->view('agenda/agenda');
     }
 
+    /*
+    ESTADOS CITA:
+    AGENDADA - 1
+    CANCELADA - 2
+    REPROGRAMADA - 3
+    CUMPLIDA - 4
+    */
+
     function crear_cita()
     {
         $response = array(

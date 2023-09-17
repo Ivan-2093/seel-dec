@@ -14,7 +14,6 @@ function load_calendar(data = null) {
             var d = new Date();
         },
         eventClick: function (arg) {
-            console.log(arg);
             get_info_citas(arg.event._def.extendedProps.id_cita);
         },
         headerToolbar: {
@@ -197,6 +196,6 @@ function crear_cita() {
                 }
             })
     } else {
-
+        
     }
 }
