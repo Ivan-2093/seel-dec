@@ -48,19 +48,20 @@ function obtenerData(etapa_id, opc) {
 		case 2:
 			if (opc == 0) {
 				$("#Solicitud_Cliente").modal("show");
-			}else{
+			} else {
 				load_data_solicitud_cliente();
 			}
 			break;
 		case 3:
 			if (opc == 0) {
 				load_data_cotizacion();
-			}else{
+			} else {
 				load_data_cotizacion();
 			}
 			break;
 		case 4:
 			alert(etapa_id + "\n" + id_negocio.value);
+			location.href = `${base_url}NegociosController/agenda_citas?id_neg=${id_negocio.value}`;
 			break;
 		case 5:
 			alert(etapa_id + "\n" + id_negocio.value);

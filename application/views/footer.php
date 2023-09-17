@@ -1,57 +1,65 @@
 <!-- MODAL PARA CAMBIAR DE CONTRASEÑA -->
-        <div class="modal fade" id="modal_change_pass" tabindex="-1" role="dialog" aria-labelledby="modal_change_pass" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal_change_pass">Es necesario que cambies tu contraseña</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form id="form_change_pass">
-                            <div class="row">
-                                <div class="col-sm-6 col-12">
-                                    <label for="new_pass">Nueva contraseña</label>
-                                    <div class="input-group mb-3">
-                                        <input hidden type="text" name="username" autocomplete="username" value="a_b">
-                                        <label class="d-none" for="new_pass">Nueva contraseña</label>
-                                        <input autocomplete="new-password" type="password" id="new_pass" name="new_pass" class="form-control" placeholder="Ingrese nueva contraseña">
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" id="verPassNew" class="input-group-text "><i class="ik ik-eye-off"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <label for="new_pass_check">Confirme la contraseña</label>
-                                    <div class="input-group mb-3">
-                                        <label class="d-none" for="new_pass_check">Confirme la contraseña</label>
-                                        <input disabled autocomplete="new-password" type="password" id="new_pass_check" name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" id="verPassCheck" class="input-group-text "><i class="ik ik-eye-off"></i></span>
-                                        </div>
-                                    </div>
+<div class="modal fade" id="modal_change_pass" tabindex="-1" role="dialog" aria-labelledby="modal_change_pass"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_change_pass">Es necesario que cambies tu contraseña</h5>
+            </div>
+            <div class="modal-body">
+                <form id="form_change_pass">
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <label for="new_pass">Nueva contraseña</label>
+                            <div class="input-group mb-3">
+                                <input hidden type="text" name="username" autocomplete="username" value="a_b">
+                                <label class="d-none" for="new_pass">Nueva contraseña</label>
+                                <input autocomplete="new-password" type="password" id="new_pass" name="new_pass"
+                                    class="form-control" placeholder="Ingrese nueva contraseña">
+                                <div class="input-group-append">
+                                    <span style="cursor: pointer;" id="verPassNew" class="input-group-text "><i
+                                            class="ik ik-eye-off"></i></span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-primary" role="alert">
-                                        <i class="ik ik-alert-circle"></i> La contraseña debe ser mayor a 8 caracteres y menor a 16 caracteres, debe ser alfanumerica.
-                                    </div>
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <label for="new_pass_check">Confirme la contraseña</label>
+                            <div class="input-group mb-3">
+                                <label class="d-none" for="new_pass_check">Confirme la contraseña</label>
+                                <input disabled autocomplete="new-password" type="password" id="new_pass_check"
+                                    name="new_pass_check" class="form-control" placeholder="Confirma la contraseña">
+                                <div class="input-group-append">
+                                    <span style="cursor: pointer;" id="verPassCheck" class="input-group-text "><i
+                                            class="ik ik-eye-off"></i></span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="<?php base_url() ?>LoginController/logout" class="btn btn-secondary">Cerrar</a>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-primary" role="alert">
+                                <i class="ik ik-alert-circle"></i> La contraseña debe ser mayor a 8 caracteres y menor a
+                                16 caracteres, debe ser alfanumerica.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="<?php base_url() ?>LoginController/logout" class="btn btn-secondary">Cerrar</a>
 
-                        <button type="button" id="btnChangePass" class="btn btn-primary">Cambiar</button>
-                    </div>
-                </div>
+                <button type="button" id="btnChangePass" class="btn btn-primary">Cambiar</button>
             </div>
         </div>
-    </div><!-- container-fluid -->
+    </div>
+</div>
+</div><!-- container-fluid -->
 </div><!-- main-content -->
 <footer class="footer">
     <div class="w-100 clearfix">
-        <span class="text-center text-sm-left d-md-inline-block">Copyright © <?php echo date('Y') ?> SeelDec Todos los derechos reservados.</span>
+        <span class="text-center text-sm-left d-md-inline-block">Copyright ©
+            <?php echo date('Y') ?> SeelDec Todos los derechos reservados.
+        </span>
         <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">Power by Sergio Galvis & Jhon Silva</span>
     </div>
 </footer>
@@ -70,7 +78,8 @@
 <script src="<?= base_url() ?>plantilla/plugins/jvectormap/jquery-jvectormap.min.js"></script>
 <script src="<?= base_url() ?>plantilla/plugins/jvectormap/test/assets/jquery-jvectormap-world-mill-en.js"></script>
 <script src="<?= base_url() ?>plantilla/plugins/moment/moment.js"></script>
-<script src="<?= base_url() ?>plantilla/plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+<script
+    src="<?= base_url() ?>plantilla/plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="<?= base_url() ?>plantilla/plugins/d3/dist/d3.min.js"></script>
 <!-- <script src="<?= base_url() ?>plantilla/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
 <script src="<?= base_url() ?>plantilla/plugins/jquery.repeater/jquery.repeater.min.js"></script>
@@ -109,6 +118,12 @@
 </script>
 <script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 <script src="<?php echo base_url() ?>js/check_inputs.js"></script>
+<script src="<?php echo base_url() ?>js/general.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+    });
+</script>
 
 </body>
 
