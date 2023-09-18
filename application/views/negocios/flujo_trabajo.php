@@ -5,8 +5,7 @@
                 <h1 class="title">NEGOCIO</h1>
                 <div class="row">
                     <div class="col-md-1">
-                        <img id="imgTemperatura" src="<?= base_url() ?>plantilla/img/icons/logo-seeldec.jpeg"
-                            width="auto" height="60">
+                        <img id="imgTemperatura" src="<?= base_url() ?>plantilla/img/icons/logo-seeldec.jpeg" width="auto" height="60">
                     </div>
                     <div class="col-md-9">
                         <p class="m-0 p-0 font-weight-bold">
@@ -16,10 +15,8 @@
                         <p class="m-0 p-0">Negocio #
                             <?= $data_negocio['id_negocio'] ?>
                         </p>
-                        <input hidden type="hidden" name="id_negocio" id="id_negocio"
-                            value="<?= $data_negocio['id_negocio'] ?>" />
-                        <input hidden type="hidden" name="id_tercero_n" id="id_tercero_n"
-                            value="<?= $data_negocio['id_tercero'] ?>" />
+                        <input hidden type="hidden" name="id_negocio" id="id_negocio" value="<?= $data_negocio['id_negocio'] ?>" />
+                        <input hidden type="hidden" name="id_tercero_n" id="id_tercero_n" value="<?= $data_negocio['id_tercero'] ?>" />
                     </div>
                     <div class="col-md-2">
                         <div class="row align-items-start">
@@ -48,8 +45,7 @@
     </div>
 </div>
 <!-- MODAL PARA CREAR EL TERCERO COMO CLIENTE XD -->
-<div class="modal fade bd-example-modal-lg" id="Información_Cliente" tabindex="-1" role="dialog"
-    aria-labelledby="Información_Cliente" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Información_Cliente" tabindex="-1" role="dialog" aria-labelledby="Información_Cliente" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,10 +60,8 @@
                         <div class="card">
                             <div class="card-body" style="background:#90ee9073;">
                                 <form id="formCreateTercero" name="formCreateTercero">
-                                    <input hidden id="inputIdTercero" name="inputIdTercero" type="hidden"
-                                        class="form-control">
-                                    <input hidden id="inputIdCliente" name="inputIdCliente" type="hidden"
-                                        class="form-control">
+                                    <input hidden id="inputIdTercero" name="inputIdTercero" type="hidden" class="form-control">
+                                    <input hidden id="inputIdCliente" name="inputIdCliente" type="hidden" class="form-control">
 
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -84,8 +78,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputNumeroDoc" name="inputNumeroDoc" type="number"
-                                                    class="form-control">
+                                                <input id="inputNumeroDoc" name="inputNumeroDoc" type="number" class="form-control">
                                                 <label for="inputNumeroDoc">NÚMERO DE DOCUMENTO:</label>
                                             </div>
                                         </div>
@@ -93,17 +86,13 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputFirstName" name="inputFirstName" type="text"
-                                                    class="form-control" oninput="this.value = this.value.toUpperCase()"
-                                                    pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                                <input id="inputFirstName" name="inputFirstName" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
                                                 <label for="inputFirstName">PRIMER NOMBRE:</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputSecondName" name="inputSecondName" type="text"
-                                                    class="form-control" oninput="this.value = this.value.toUpperCase()"
-                                                    pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                                <input id="inputSecondName" name="inputSecondName" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
                                                 <label for="inputSecondName">SEGUNDO NOMBRE:</label>
                                             </div>
                                         </div>
@@ -111,17 +100,13 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputFirstSurName" name="inputFirstSurName" type="text"
-                                                    class="form-control" oninput="this.value = this.value.toUpperCase()"
-                                                    pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                                <input id="inputFirstSurName" name="inputFirstSurName" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
                                                 <label for="inputFirstSurName">PRIMER APELLIDO:</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputSecondSurName" name="inputSecondSurName" type="text"
-                                                    class="form-control" oninput="this.value = this.value.toUpperCase()"
-                                                    pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
+                                                <input id="inputSecondSurName" name="inputSecondSurName" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales">
                                                 <label for="inputSecondSurName">SEGUNDO APELLIDO:</label>
                                             </div>
                                         </div>
@@ -142,9 +127,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input type="mail" id="inputEmail" name="inputEmail"
-                                                    class="form-control"
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                <input type="mail" id="inputEmail" name="inputEmail" class="form-control" oninput="this.value = this.value.toUpperCase()">
                                                 <label for="inputEmail">CORREO:</ñ>
                                             </div>
                                         </div>
@@ -153,17 +136,13 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputTelefono_1" name="inputTelefono_1" type="tel"
-                                                    class="form-control" pattern="[0-9]+10"
-                                                    title="No se admiten caracteres especiales">
+                                                <input id="inputTelefono_1" name="inputTelefono_1" type="tel" class="form-control" pattern="[0-9]+10" title="No se admiten caracteres especiales">
                                                 <label for="inputTelefono_1">TELEFONO PERSONAL:</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputTelefono_2" name="inputTelefono_2" type="tel"
-                                                    class="form-control" pattern="[0-9]+10"
-                                                    title="No se admiten caracteres especiales">
+                                                <input id="inputTelefono_2" name="inputTelefono_2" type="tel" class="form-control" pattern="[0-9]+10" title="No se admiten caracteres especiales">
                                                 <label for="inputTelefono_2">TELEFONO DE CONTACTO:</label>
                                             </div>
                                         </div>
@@ -202,17 +181,13 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputBarrio" name="inputBarrio" type="text"
-                                                    class="form-control"
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                <input id="inputBarrio" name="inputBarrio" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()">
                                                 <label for="inputBarrio">BARRIO:</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">
-                                                <input id="inputDireccion" name="inputDireccion" type="text"
-                                                    class="form-control"
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                <input id="inputDireccion" name="inputDireccion" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()">
                                                 <label for="inputDireccion">DIRECCIÓN:</label>
                                             </div>
                                         </div>
@@ -220,10 +195,8 @@
                                 </form>
                             </div>
                             <div class="card-footer text-right">
-                                <button id="btnSubmitReset" name="btnSubmitReset" type="button"
-                                    class="btn btn-warning">LIMPIAR</button>
-                                <button id="btnSubmitCreateTercero" name="btnSubmitCreateTercero" type="button"
-                                    class="btn btn-success">AGREGAR</button>
+                                <button id="btnSubmitReset" name="btnSubmitReset" type="button" class="btn btn-warning">LIMPIAR</button>
+                                <button id="btnSubmitCreateTercero" name="btnSubmitCreateTercero" type="button" class="btn btn-success">AGREGAR</button>
                             </div>
                         </div>
                     </div>
@@ -233,8 +206,7 @@
     </div>
 </div>
 <!-- MODAL PARA AGREGAR UNA SOLICITUD MÁS DETALLADA -->
-<div class="modal fade bd-example-modal-lg" id="Solicitud_Cliente" tabindex="-1" role="dialog"
-    aria-labelledby="Solicitud_Cliente" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Solicitud_Cliente" tabindex="-1" role="dialog" aria-labelledby="Solicitud_Cliente" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -251,22 +223,16 @@
                                 <form id="formCreateSolicitudCliente" name="formCreateSolicitudCliente">
                                     <div class="row">
                                         <div class="col-12">
-                                            <label for="text_solicitud_cliente">SOLICITUD: <span
-                                                    style="color:red;">*</span></label>
-                                            <textarea maxlength="2000" rows="5" id="text_solicitud_cliente"
-                                                name="text_solicitud_cliente"
-                                                placeholder="Escriba aquí detalladamente la solicitud del cliente"
-                                                class="form-control"></textarea>
-                                            <strong>Cantidad de caracteres: </strong><span style="color:red;"
-                                                id="cant_caracteres">2000</span>
+                                            <label for="text_solicitud_cliente">SOLICITUD: <span style="color:red;">*</span></label>
+                                            <textarea maxlength="2000" rows="5" id="text_solicitud_cliente" name="text_solicitud_cliente" placeholder="Escriba aquí detalladamente la solicitud del cliente" class="form-control"></textarea>
+                                            <strong>Cantidad de caracteres: </strong><span style="color:red;" id="cant_caracteres">2000</span>
                                         </div>
                                     </div>
 
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button id="btnSubmitCreateSolicitud" name="btnSubmitCreateSolicitud" type="button"
-                                    class="btn btn-success">GUARDAR</button>
+                                <button id="btnSubmitCreateSolicitud" name="btnSubmitCreateSolicitud" type="button" class="btn btn-success">GUARDAR</button>
                             </div>
 
                         </div>
@@ -278,8 +244,7 @@
 </div>
 
 <!-- MODAL PARA CREAR O VER COTIZACIONES -->
-<div class="modal fade bd-example-modal-lg" id="cotizaciones_negocio" tabindex="-1" role="dialog"
-    aria-labelledby="cotizaciones_negocio" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="cotizaciones_negocio" tabindex="-1" role="dialog" aria-labelledby="cotizaciones_negocio" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -301,8 +266,7 @@
 
                             </div>
                             <div class="card-footer">
-                                <button id="btnSubmitCreateCotizacion" name="btnSubmitCreateCotizacion" type="button"
-                                    class="btn btn-success">NUEVA COTIZACIÓN</button>
+                                <button id="btnSubmitCreateCotizacion" name="btnSubmitCreateCotizacion" type="button" class="btn btn-success">NUEVA COTIZACIÓN</button>
                             </div>
 
                         </div>
@@ -316,8 +280,7 @@
 </div>
 
 <!-- Modal Info agenda-->
-<div class="modal fade" id="modal_info_agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_info_agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,11 +290,50 @@
                 </button>
             </div>
             <div class="modal-body" id="info_agenda">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Terminación del Negocio-->
+<div class="modal fade" id="modal_terminar_negocio" tabindex="-1" role="dialog" aria-labelledby="modal_terminar_negocio" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_terminar_negocio_title">Terminación del Negocio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form_terminacion">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="id_tipo_terminancion">Tipo terminación:</label>
+                            <select class="form-control" name="id_tipo_terminancion" id="id_tipo_terminancion" required>
+                                <option value="">Seleccione un tipo</option>
+                                <option value="1">Finalizado no efectivo</option>
+                                <option value="2">Finalizado efectivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="obs_termina">Observación:</label>
+                            <textarea class="form-control" name="obs_termina" id="obs_termina" rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="btnSaveTerminacion" type="button" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -343,5 +345,7 @@
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_2.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_3.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_4.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_5.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_6.js"></script>
 
 <?php $this->load->view('footer'); ?>

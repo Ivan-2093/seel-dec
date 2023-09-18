@@ -424,7 +424,6 @@ class NegociosController extends CI_Controller
         $data_solicitud = $this->NegociosModel->get_negocios_solicitud_cliente($array_where);
         if ($data_solicitud->num_rows() > 0) {
             $data = $this->draw_cotizaciones_negocio($id_negocio);
-
             $array_response = array(
                 'response' => 'success',
                 'body' => $data,
@@ -482,8 +481,8 @@ class NegociosController extends CI_Controller
 
         $info_citas = $this->AgendaModel->getCitaByWhere($array_where_cita);
 
-        
-        if($info_citas->num_rows() > 0) {
+
+        if ($info_citas->num_rows() > 0) {
 
             $array_response = array(
                 'response' => 'success',
@@ -491,8 +490,7 @@ class NegociosController extends CI_Controller
                 'html' => '<strong>Se ha encontrado citas agendadas a este negocio!</strong>',
                 'id_cita' => $info_citas->row(0)->id_cita,
             );
-
-        }else {
+        } else {
             $array_response = array(
                 'response' => 'warning',
                 'title' => 'Advertencia!',
@@ -501,8 +499,88 @@ class NegociosController extends CI_Controller
             );
         }
 
-        
+
         echo json_encode($array_response);
         exit;
+    }
+
+    public function saveTerminacionNegocio()
+    {
+
+        $array_response = array(
+            'response' => 'error',
+            'html' => 'Ha ocurrido un error en el aplicativo, intente nuevamente!',
+            'title' => 'Error!'
+        );
+
+        $id_tipo_terminancion = $this->input->POST('id_tipo_terminancion');
+        $obs_termina = $this->input->POST('obs_termina');
+        $id_negocio = $this->input->POST('id_negocio');
+
+        if ($id_tipo_terminancion == "" || $obs_termina == "" || $id_negocio == "") {
+            $array_response['response'] = 'error';
+            $array_response['title'] = 'Campos vacios';
+            $array_response['html'] = 'Seleccione un tipo de terminacion de negocio y agregue una observación!';
+        } else {
+
+            $data_update = array(
+                'estado' => $id_tipo_terminancion,
+                'observacion' => $obs_termina,
+            );
+
+            $data_where = array('id_negocio' => $id_negocio);
+
+            if ($this->NegociosModel->updateNegocio($data_update, $data_where) > 0) {
+                $data_array_negocio_historial_etapas = array(
+                    'negocio_id' => $id_negocio,
+                    'etapa_id' => 5, //Finalización del Negocio!
+                    'user_id' => $this->user_id,
+                    'fecha' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                );
+
+                $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
+
+                $array_response['response'] = 'success';
+                $array_response['title'] = 'Exito!';
+                $array_response['html'] = 'Se ha realizado con exito el registro de la finalización del negocio!';
+            } else {
+                $array_response['response'] = 'warning';
+                $array_response['title'] = 'Error!';
+                $array_response['html'] = 'Ha ocurrido un error al realizar el registro de la finalización del negocio!';
+            }
+        }
+
+
+        echo json_encode($array_response);
+    }
+
+    public function loadTerminacionNegocio()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+        $array_response = array(
+            'response' => 'error',
+            'html' => 'Ha ocurrido un error en el aplicativo, intente nuevamente!',
+            'title' => 'Error!'
+        );
+        //Validar si el negocio existe! :XD
+        if (!isset($id_negocio) && $id_negocio == "" || $id_negocio == NULL) {
+            echo json_encode($array_response);
+            exit();
+        }
+        $where_negocio = array('id_negocio' => $id_negocio);
+        $data_negocio = $this->NegociosModel->getNegocio($where_negocio);
+        if ($data_negocio->num_rows() == 0) {
+            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            exit();
+        } else {
+            $array_response['response'] = 'success';
+            $array_response['title'] = 'Exito!';
+            $array_response['html'] = '';
+            $array_response['estado'] = $data_negocio->row(0)->estado;
+            $array_response['observacion'] = $data_negocio->row(0)->observacion;
+        }
+
+        echo json_encode($array_response);
+        exit();
     }
 }

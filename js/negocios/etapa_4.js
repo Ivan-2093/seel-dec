@@ -1,3 +1,39 @@
+function checkValidateCotizacion() {
+	showLoading(cargando);
+	const form_flujo_trabajo = new FormData();
+	form_flujo_trabajo.append("id_negocio", id_negocio.value);
+	fetch(`${base_url}NegociosController/load_cotizacion_cliente`, {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: "no-cors",
+		method: "POST",
+		body: form_flujo_trabajo,
+	})
+		.then(function (response) {
+			// Transforma la respuesta. En este caso lo convierte a JSON
+			return response.json();
+		})
+		.then(function (json) {
+			if (json['response'] == 'success') {
+				location.href = `${base_url}AgendaController/agenda_citas?id_neg=${id_negocio.value}`;
+			} else {
+				Swal.fire({
+					title: 'Advertencia!',
+					icon: json['response'],
+					html: `<strong>Para realizar el agendamiento debe tener una cotización enlazada con el negocio!</strong>`
+				});
+				
+			}
+			hiddenLoading(cargando);
+		})
+		.catch(function (error) {
+			reportError(error);
+			hiddenLoading(cargando);
+		});
+}
+
+
 function load_data_cita_agendada() {
 	showLoading(cargando);
 	const form_flujo_trabajo = new FormData();
@@ -17,9 +53,9 @@ function load_data_cita_agendada() {
 		.then(function (json) {
 			if (json["id_cita"] != "") {
 				get_info_citas(json["id_cita"]);
-			}else {
-                hiddenLoading(cargando);
-            }
+			} else {
+				hiddenLoading(cargando);
+			}
 		})
 		.catch(function (error) {
 			reportError(error);
@@ -84,11 +120,11 @@ const get_info_citas = async (id_cita) => {
 
 				insert_html(html_select, "info_agenda");
 				open_modal("modal_info_agenda");
-                hiddenLoading(cargando);
+				hiddenLoading(cargando);
 			});
 		} else {
 			console.log(resp);
-            hiddenLoading(cargando);
+			hiddenLoading(cargando);
 		}
 	});
 };

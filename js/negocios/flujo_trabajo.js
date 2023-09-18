@@ -57,17 +57,25 @@ function obtenerData(etapa_id, opc) {
 			break;
 		case 4:
 			if (opc == 0) {
-				location.href = `${base_url}AgendaController/agenda_citas?id_neg=${id_negocio.value}`;
+				checkValidateCotizacion();
 			} else {
 				load_data_cita_agendada();
 			}
 			break;
 		case 5:
-			alert(etapa_id + "\n" + id_negocio.value);
+			if (opc == 0) {
+				$("#modal_terminar_negocio").modal("show");
+			} else {
+				load_data_terminacion_negocio();
+			}
 			break;
 
 		case 6:
-			alert(etapa_id + "\n" + id_negocio.value);
+			if (opc == 0) {
+				$("#modal_terminar_negocio").modal("show");
+			} else {
+				load_data_terminacion_negocio();
+			}
 			break;
 	}
 }
