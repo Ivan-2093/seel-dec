@@ -314,6 +314,27 @@
 
     </div>
 </div>
+
+<!-- Modal Info agenda-->
+<div class="modal fade" id="modal_info_agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agenda de citas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="info_agenda">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
@@ -321,5 +342,6 @@
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_1.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_2.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_3.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_4.js"></script>
 
 <?php $this->load->view('footer'); ?>

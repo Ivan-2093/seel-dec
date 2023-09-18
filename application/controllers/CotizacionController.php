@@ -77,8 +77,10 @@ class CotizacionController extends CI_Controller
                 'negocio_id' => $id_negocio
 
             );
+
+            $data_vista['data_solicitudes'] = $data_solicitud;
         }
-        $data_vista['data_solicitudes'] = $data_solicitud;
+        
         $this->load->view('header', $data_vista);
         $this->load->view('cotizador/solicitud');
     }
