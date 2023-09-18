@@ -2,22 +2,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">GESTION SOLICITUDES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>SolicitudController/">CREAR SOLICITUD</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
                 <form id="formFiltroSolicitudes" class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12">

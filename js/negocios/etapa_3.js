@@ -19,11 +19,12 @@ function load_data_cotizacion()
 		.then(function (json) {
 			if (json["response"] == "success") {
                 $('#htmlCotizaciones').html(json["body"]);
+				$("#cotizaciones_negocio").modal("show");
             }
 			return json;
 		})
 		.then(function (json) {
-			if (json["response"] == "error") {
+			if (json["response"] == "warning") {
 				Swal.fire({
 					title: json["title"],
 					html: json["html"],
@@ -37,7 +38,6 @@ function load_data_cotizacion()
 			hiddenLoading(cargando);
 		});
 
-    $("#cotizaciones_negocio").modal("show");
 }
 
 const btnSubmitCreateCotizacion = document.getElementById('btnSubmitCreateCotizacion');

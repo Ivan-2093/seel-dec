@@ -56,15 +56,26 @@ function obtenerData(etapa_id, opc) {
 				load_data_cotizacion();
 			break;
 		case 4:
-			alert(etapa_id + "\n" + id_negocio.value);
-			location.href = `${base_url}NegociosController/agenda_citas?id_neg=${id_negocio.value}`;
+			if (opc == 0) {
+				checkValidateCotizacion();
+			} else {
+				load_data_cita_agendada();
+			}
 			break;
 		case 5:
-			alert(etapa_id + "\n" + id_negocio.value);
+			if (opc == 0) {
+				$("#modal_terminar_negocio").modal("show");
+			} else {
+				load_data_terminacion_negocio();
+			}
 			break;
 
 		case 6:
-			alert(etapa_id + "\n" + id_negocio.value);
+			if (opc == 0) {
+				$("#modal_terminar_negocio").modal("show");
+			} else {
+				load_data_terminacion_negocio();
+			}
 			break;
 	}
 }

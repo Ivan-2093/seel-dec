@@ -43,7 +43,7 @@ class HomeController extends CI_Controller
             );
 
             $this->load->view('header', $data_vista);
-            /* $this->load->view('dashboard'); */
-            $this->load->view('pages/ui/icons');
+            $this->load->view('dashboard');
+            /* $this->load->view('pages/ui/icons'); */
     }
 }

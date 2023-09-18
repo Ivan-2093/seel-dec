@@ -90,5 +90,5 @@
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/negocios/etapa_4.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/agenda/etapa_4.js"></script>
 <?php $this->load->view('footer');
