@@ -48,6 +48,7 @@ btnSubmitCreateTercero.addEventListener("click", function () {
 		}
 	});
 	if (inputsVoid.length == 0) {
+		disabledFormulario(false);
 		const data_formTercero = new FormData(formTercero);
 		data_formTercero.append("id_negocio", id_negocio.value);
 		createTercero(data_formTercero);
@@ -81,16 +82,30 @@ function createTercero(data_insert) {
 		body: data_insert,
 	})
 		.then(function (response) {
+			disabledFormulario(true);
 			// Transforma la respuesta. En este caso lo convierte a JSON
 			return response.json();
 		})
 		.then(function (json) {
+			$("#Información_Cliente").modal("hide");
+			Swal.fire({
+				icon: json["response"],
+				title: json["title"],
+				html: json["html"],
+				willClose: () => {
+					if(json["response"] === "success") {
+						load_flujo_trabajo();
+					}
+				},
+			});
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
 			reportError(error);
 			hiddenLoading(cargando);
 		});
+
+	
 }
 
 inputFirstName.addEventListener("keypress", function () {
@@ -126,6 +141,7 @@ inputNumeroDoc.addEventListener("change", () => {
 
 function load_data_tercero(id_ter = "") {
 	if (inputNumeroDoc.value != "" || id_ter != "") {
+		const documentBandera = inputNumeroDoc.value;
 		showLoading(cargando);
 		const form_tercero_by_nit = new FormData();
 		form_tercero_by_nit.append("nit", inputNumeroDoc.value);
@@ -148,8 +164,16 @@ function load_data_tercero(id_ter = "") {
 					pintar_formulario(data_tercero);
 					inputIdCliente.value = json["id_cliente"];
 				} else {
+					Swal.fire({
+						title: "Advertencia",
+						icon: "warning",
+						html: "<strong>El número de documento ingresado no se encuentra registrado en la base de datos, agregue la información para crear el cliente!</strong>",
+					});
+
 					formTercero.reset();
-					disabledFormulario("false");
+					disabledFormulario(false);
+
+					inputNumeroDoc.value = documentBandera;
 				}
 				setTimeout(() => {
 					hiddenLoading(cargando);
@@ -179,7 +203,7 @@ function pintar_formulario(data_tercero) {
 	inputBarrio.value = data_tercero[15];
 	inputIdTercero.value = data_tercero[16];
 
-	disabledFormulario("true");
+	disabledFormulario(true);
 }
 
 function disabledFormulario(opcion) {
@@ -228,6 +252,14 @@ function LoadPais(depto = "", muni = "") {
 	}
 }
 
+comboPais.addEventListener("change", () => {
+	LoadPais();
+});
+
+comboDepto.addEventListener("change", () => {
+	LoadDepto();
+});
+
 function LoadDepto(muni = "") {
 	if (comboDepto.value !== "") {
 		const data_dpto = new FormData();
@@ -256,4 +288,5 @@ function LoadDepto(muni = "") {
 
 btnSubmitReset.addEventListener("click", () => {
 	formTercero.reset();
+	disabledFormulario(false);
 });

@@ -53,6 +53,7 @@ function saveSolicitud() {
 		.then(function (json) {
 			if (json["response"] == "success") {
 				load_flujo_trabajo();
+				$("#Solicitud_Cliente").modal("hide");
 			}
 			hiddenLoading(cargando);
 		})

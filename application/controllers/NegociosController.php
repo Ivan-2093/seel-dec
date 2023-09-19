@@ -61,8 +61,8 @@ class NegociosController extends CI_Controller
             exit();
         }
         //Consultamos id_solicitud que existe en la base de datos
-        $where_solicitud = array('id_solicitud' => $id_solicitud);
-        $data_solicitud = $this->ProspectosModel->getSolicitudes($where_solicitud);
+        $where_solicitud = array('s.id_solicitud' => $id_solicitud);
+        $data_solicitud = $this->ProspectosModel->getSolicitudesByWhere($where_solicitud);
         //Consultamos si el id_solicitud ya existe como negocio que existe en la base de datos
         if ($data_solicitud->num_rows() > 0) {
             if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {
@@ -189,10 +189,10 @@ class NegociosController extends CI_Controller
         }
         //Validar si el tercero existe! :XD
         $inputIdTercero = $this->input->POST('inputIdTercero');
-        if (!isset($inputIdTercero) && $inputIdTercero == "" || $inputIdTercero == NULL) {
+        /*  if (!isset($inputIdTercero) && $inputIdTercero == "" || $inputIdTercero == NULL) {
             header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
             exit();
-        }
+        } */
 
         $inputTipoDoc = $this->input->POST('inputTipoDoc');
         $inputNumeroDoc = $this->input->POST('inputNumeroDoc');
@@ -210,8 +210,19 @@ class NegociosController extends CI_Controller
         $inputBarrio = $this->input->POST('inputBarrio');
         $inputDireccion = $this->input->POST('inputDireccion');
 
+/* 
+        $id_tercero_check = 0;
+        $data_tercero_check = $this->TercerosModel->getTerceroByNumeroDoc($inputNumeroDoc);
+        if ($data_tercero_check->num_rows() > 0) {
+            $id_tercero_check = $data_tercero_check->row(0)->id;
+        } */
+
+
         if ($this->TercerosModel->getTerceroById($inputIdTercero)->num_rows() == 0) {
             //Crear Tercero XD
+
+
+
             $array_inputs = array(
                 'id_tipo_doc' => $inputTipoDoc,
                 'nit' => $inputNumeroDoc,

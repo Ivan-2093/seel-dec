@@ -269,7 +269,7 @@ class CotizacionController extends CI_Controller
             $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
 
             $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
-
+            
             if ($data_cotizacion->num_rows() == 0) {
                 echo 'No se ha encontrado información con la identificación de la cotización';
                 exit();
@@ -410,8 +410,6 @@ class CotizacionController extends CI_Controller
             $mpdf->WriteHTML($stylesheet, 1);
             $mpdf->WriteHTML($html, 2);
             $pdfEmail = $mpdf->Output('Cotizacion.pdf', 'S');
-            /* $mpdf->Output('Cotizacion.pdf', 'I'); */
-
             return $pdfEmail;
         }
     }
