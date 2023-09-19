@@ -16,6 +16,7 @@ class ProspectosModel extends CI_Model
         $this->db->join('terceros as t', 'e.id_tercero = t.id');
         $this->db->join('tipo_solicitudes as ts', 's.id_tipo_solicitud = ts.id_tipo');
         $this->db->join('negocios as n', 's.id_solicitud = n.solicitud_id','left');
+        $this->db->where('n.estado = 0 or n.estado is null');
         $this->db->where($data_where);
         return $this->db->get();
 

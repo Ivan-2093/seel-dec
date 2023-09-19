@@ -448,7 +448,7 @@ class NegociosController extends CI_Controller
             $data_cotizaciones = $this->CotizacionModel->get_cotizaciones($array_where);
             if ($data_cotizaciones->num_rows() > 0) {
                 foreach ($data_cotizaciones->result() as $row) {
-                    $html_cotizaciones .= '<button class="btn btn-lg btn-primary m-2 ik ik-eye">' . $row->id_cotizacion . '</button>';
+                    $html_cotizaciones .= '<button class="btn btn-lg btn-primary m-2 ik ik-eye" onclick="verCotizacionPdf(' . $row->id_cotizacion . ')">' . $row->id_cotizacion . '</button>';
                 }
             } else {
                 $html_cotizaciones .= 'No se han encontrado cotizaciones!';
