@@ -53,7 +53,7 @@ function obtenerData(etapa_id, opc) {
 			}
 			break;
 		case 3:
-				load_data_cotizacion();
+			load_data_cotizacion();
 			break;
 		case 4:
 			if (opc == 0) {
@@ -72,11 +72,35 @@ function obtenerData(etapa_id, opc) {
 
 		case 6:
 			if (opc == 0) {
-				$("#modal_terminar_negocio").modal("show");
+				validateEncuesta();
 			} else {
-				load_data_terminacion_negocio();
+				loadEncuesta();
 			}
 			break;
 	}
 }
 
+function verCotizacionPdf(id) {
+	var mapFormD = document.createElement("form");
+	mapFormD.target = "COTIZACIÓN";
+	mapFormD.method = "POST";
+	mapFormD.action = `${base_url}CotizacionController/verCotizacionPdf`;
+
+	var varHn = document.createElement("input");
+	varHn.type = "hidden";
+	varHn.name = "id_cotizacion";
+	varHn.value = id;
+	mapFormD.appendChild(varHn);
+	/* Cargamos el formulario en el body */
+	document.body.appendChild(mapFormD);
+
+	mapD = window.open(
+		"",
+		"COTIZACIÓN",
+		"status=200,title=COTIZADOR,height=auto,width=100,scrollbars=1"
+	);
+
+	if (mapD) {
+		mapFormD.submit();
+	}
+}

@@ -80,7 +80,7 @@ class CotizacionController extends CI_Controller
 
             $data_vista['data_solicitudes'] = $data_solicitud;
         }
-        
+
         $this->load->view('header', $data_vista);
         $this->load->view('cotizador/solicitud');
     }
@@ -226,7 +226,7 @@ class CotizacionController extends CI_Controller
                 }
             }
 
-            $sendEmail = $this->sendEmailCotizacion($id_cotizacion,$id_negocio);
+            $sendEmail = $this->sendEmailCotizacion($id_cotizacion, $id_negocio);
 
             if ($id_cotizacion == $sendEmail) {
 
@@ -236,7 +236,7 @@ class CotizacionController extends CI_Controller
                     'user_id' => $this->user_id,
                     'fecha' => Date('Y-m-d') . 'T' . Date('H:i:s')
                 );
-    
+
                 $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
 
                 $array_response = array(
@@ -258,7 +258,7 @@ class CotizacionController extends CI_Controller
         }
     }
 
-    public function sendEmailCotizacion($id_cotizacion = null, $id_negocio=null)
+    public function sendEmailCotizacion($id_cotizacion = null, $id_negocio = null)
     {
 
         if (isset($id_cotizacion) && $id_cotizacion != "") {
@@ -269,7 +269,7 @@ class CotizacionController extends CI_Controller
             $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
 
             $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
-            
+
             if ($data_cotizacion->num_rows() == 0) {
                 echo 'No se ha encontrado información con la identificación de la cotización';
                 exit();
@@ -413,6 +413,103 @@ class CotizacionController extends CI_Controller
             /* $mpdf->Output('Cotizacion.pdf', 'I'); */
 
             return $pdfEmail;
+        }
+    }
+
+
+
+    public function verCotizacionPdf()
+    {
+        $response = array(
+            "status" => false,
+            "message" => 'Error al insertar el registro',
+        );
+        try {
+            $id_cotizacion = $this->input->post('id_cotizacion');
+
+            $array_where = array('id_cotizacion' => $id_cotizacion);
+            $array_where_detalle = array('cotizacion_id' => $id_cotizacion);
+
+
+            $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
+            $array_solicitud = array('negocio_id' => $data_cotizacion->row(0)->negocio_id);
+            $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
+            $data_cotizacion_detalle = $this->CotizacionModel->get_cotizacion_detalle_by_where($array_where_detalle);
+
+
+            //Parametros
+            $data = array(
+                'dataCotizacion' => $data_cotizacion,
+                'dataCotizacionDetalle' => $data_cotizacion_detalle,
+                'observacion' => $solicitud_cliente->row(0)->observacion,
+            );
+
+            // Cargar libreria de PDF
+            $mpdfConfig = array(
+                'mode' => 'utf-8',
+                'format' => 'A4',    // format - A4, for example, default ''
+                //'default_font_size' => 0,     // font size - default 0
+                //'default_font' => 'Helveltica',    // default font family
+                'margin_left' => 5,      // 15 margin_left
+                'margin_right' => 5,      // 15 margin right
+                'margin_top' =>  30,   // 16 margin top
+                'margin_bottom' => 22,    // margin bottom contra el footer
+                'margin_header' => 5,     // 9 margin header-
+                'margin_footer' => 3,     // 9 margin footer
+                'orientation' => 'P'    // L - landscape, P - portrait
+            );
+            $mpdf = new \Mpdf\Mpdf($mpdfConfig);
+
+
+            $html_header =
+                '<table>
+                <tr>
+                    <td>
+                        <img src="plantilla/img/icons/logo-seeldec.jpeg" height="80px"/>
+                    </td>
+                    <td style="text-align: center">
+                        <table>
+                            <tr>
+                                <td>SEGURIDAD ELECTRONICA Y DECORACIÓN</td>
+                            </tr>
+                            <tr>
+                                <td>NIT: 28070225-1</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr><td style="text-align: center" colspan="3">COTIZACIÓN</td></tr>
+            </table>';
+
+            $html_footer = '<p style="text-align:justify; font-size:12px"><b>*</b><i>Validez de la oferta 10 días.</i></p>
+            <table width="100%">
+                                    <tr>
+                                        <td width="33%"></td>
+                                        <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+                                        <td width="33%" style="text-align: right;"></td>
+                                    </tr>
+            </table>';
+
+
+            $mpdf->SetHTMLHeader($html_header);
+            $mpdf->SetHTMLFooter($html_footer);
+
+            $stylesheet = file_get_contents('application/views/cotizador/styles.css');
+
+            $html = $this->load->view('cotizador/ficha_tecnica', $data, true);
+
+            $mpdf->SetWatermarkImage('plantilla/img/icons/logo-seeldec.jpeg', 0.1, 'F');
+            $mpdf->showWatermarkImage = true;
+
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->WriteHTML($html, 2);
+            $mpdf->Output('Cotizacion.pdf', 'I');
+        } catch (Exception $th) {
+            $response["message"] = $th->getMessage();
         }
     }
 }

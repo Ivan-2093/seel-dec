@@ -12,11 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/* window.addEventListener('resize', start);
-
-function start() {
-    location.reload();
-} */
 
 /* VARIABLES */
 
