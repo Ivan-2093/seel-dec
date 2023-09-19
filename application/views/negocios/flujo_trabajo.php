@@ -154,7 +154,7 @@
                                                     <option value="">SELECCIONE UN PAIS</option>
                                                     <?php
                                                     foreach ($data_paises as $pais) {
-                                                        echo '<option selected value="' . $pais->id . '">' . $pais->pais . '</option>';
+                                                        echo '<option value="' . $pais->id . '">' . $pais->pais . '</option>';
                                                     }
                                                     ?>
                                                 </select>

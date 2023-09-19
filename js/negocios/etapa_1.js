@@ -237,6 +237,14 @@ function LoadPais(depto = "", muni = "") {
 	}
 }
 
+comboPais.addEventListener("change", () => {
+	LoadPais();
+});
+
+comboDepto.addEventListener("change", () => {
+	LoadDepto();
+});
+
 function LoadDepto(muni = "") {
 	if (comboDepto.value !== "") {
 		const data_dpto = new FormData();
@@ -266,5 +274,4 @@ function LoadDepto(muni = "") {
 btnSubmitReset.addEventListener("click", () => {
 	formTercero.reset();
 	disabledFormulario(false);
-
 });
