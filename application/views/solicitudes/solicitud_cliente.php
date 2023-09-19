@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-floating mb-3">
-                                    <label for="inputSolicitud">SOLICITUD O OBSERVACIONES:</label>
+                                    <label for="inputSolicitud">SOLICITUD</label>
                                     <textarea rows="10" id="inputSolicitud" name="inputSolicitud" type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" pattern="[a-zA-Z]+" title="No se admiten caracteres especiales"></textarea>
                                 </div>
                             </div>

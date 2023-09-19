@@ -207,7 +207,7 @@ verPassCheck.addEventListener("mousedown", () => {
 function reportError(error) {
 	Swal.fire({
 		title: "ERROR",
-		html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intentenuavamente.`,
+		html: `Ha ocurrido un error:( <strong>${error}</strong> ), contacte con el departamento de sistemas o intente nuavamente.`,
 		icon: "error",
 		confirmButtonText: "Ok",
 		allowOutsideClick: false,
