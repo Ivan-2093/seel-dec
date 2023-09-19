@@ -36,7 +36,7 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="fecha_cita">Fecha cita(*)</label>
-                            <input type="date" name="fecha_cita" id="fecha_cita" class="form-control" required>
+                            <input min="<?= DATE('Y-m-d') ?>" type="date" name="fecha_cita" id="fecha_cita" class="form-control" required>
                         </div>
                         <br>
                         <div class="col">
@@ -80,7 +80,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="crear_cita()">Crear Cita</button>
+                <!-- <button type="button" class="btn btn-primary" onclick="crear_cita()">Crear Cita</button> -->
             </div>
         </div>
     </div>

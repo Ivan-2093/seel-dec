@@ -80,19 +80,19 @@ class ClientesController extends CI_Controller
         $data_tercero = $this->TercerosModel->getTerceroById($id_tercero);
         $data_cliente = $this->ClientesModel->getClienteById($id_tercero);
         if ($data_tercero->num_rows() > 0) {
-            if($data_cliente->num_rows() > 0) {
+            if ($data_cliente->num_rows() > 0) {
                 $array_response = array(
                     'response' => 'warning',
                     'title' => 'Advertencia!',
                     'html' => 'El tercero <strong>' . $data_tercero->row(0)->primer_nombre . ' ' . $data_tercero->row(0)->primer_apellido . '</strong> ya se encuentra registrado en la base de datos como cliente.',
                 );
-            }else{
+            } else {
                 $array_insert = array(
                     'id_tercero' => $id_tercero,
                     'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
                     'usuario_registro' => $this->session->userdata('id_user'),
                 );
-    
+
                 if ($this->ClientesModel->insertCliente($array_insert)) {
                     $array_response = array(
                         'response' => 'success',
@@ -106,7 +106,7 @@ class ClientesController extends CI_Controller
                         'html' => 'No se ha realizado el registro del tercero: <strong>' . $data_tercero->row(0)->primer_nombre . ' ' . $data_tercero->row(0)->primer_apellido . '</strong><br> <strong>Intente nuevamente...</strong>',
                     );
                 }
-            }            
+            }
         } else {
             $array_response = array(
                 'response' => 'error',
@@ -114,6 +114,61 @@ class ClientesController extends CI_Controller
                 'html' => 'El tercero seleccionado no existe en la base de datos...',
             );
         }
+
+        echo json_encode($array_response);
+    }
+
+    public function loadTerceros()
+    {
+        $where = array();
+        if (count($this->input->POST()) > 0) {
+            if ($this->input->POST('inputNumeroDoc')) {
+                $where['nit'] = $this->input->POST('inputNumeroDoc');
+            }
+
+            if ($this->input->POST('inputNames_1')) {
+                $where['t.primer_nombre like'] = '%'.trim($this->input->POST('inputNames_1')).'%';
+            }
+            if ($this->input->POST('inputNames_2')) {
+                $where['t.segundo_nombre like'] = '%'.trim($this->input->POST('inputNames_2')).'%';
+            }
+            if ($this->input->POST('inputNames_3')) {
+                $where['t.primer_apellido like'] = '%'.trim($this->input->POST('inputNames_3')).'%';
+            }
+            if ($this->input->POST('inputNames_4')) {
+                $where['t.segundo_apellido like'] = '%'.trim($this->input->POST('inputNames_4')).'%';
+            }
+
+            if (($this->input->POST('inputPhone'))) {
+                $where['t.telefono_1'] = $this->input->POST('inputPhone');
+            }
+            if (($this->input->POST('inputPhone1'))) {
+                $where['t.telefono_2'] = $this->input->POST('inputPhone1');
+            }
+            if ($this->input->POST('inputEmail')) {
+                $where['t.email'] = $this->input->POST('inputEmail');
+            }
+        }
+
+
+        $data_terceros = $this->ClientesModel->getTercerosNotClientes($where);
+        $tbody = '';
+        foreach ($data_terceros->result() as $key) {
+            $tbody .= '<tr>
+                <td class="text-center">' . $key->nit . '</td>
+                <td class="text-center">' . $key->nombres . '</td>
+                <td class="text-center">' . $key->email . '</td>
+                <td class="text-center">' . $key->telefono_1 . '</td>
+                <td class="text-center">' . $key->telefono_2 . '</td>
+                <td class="text-center">' . $key->municipio . '</td>
+                <td class="text-center">' . $key->direccion . '</td>
+                <td class="text-center"><button data-toggle="tooltip" data-placement="top" title="CREAR CLIENTE"  class="btn btn-success ik ik-plus" onclick="createCliente('.$key->id_tercero.');"></button></td>
+            </tr>';
+        }
+
+        $array_response = array(
+            'tbody' => $tbody
+        );
 
         echo json_encode($array_response);
     }

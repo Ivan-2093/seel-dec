@@ -75,4 +75,41 @@ class TercerosModel extends CI_Model
         }
         return $this->db->get();
     }
+
+    public function getTercerosNotEmpleados($where = "")
+    {
+        $this->db->select();
+        $this->db->select('t.id as id_tercero');
+        $this->db->from('terceros as t');
+        $this->db->join('tipo_documentos as td', 't.id_tipo_doc = td.id');
+        $this->db->join('generos as g', 't.id_genero = g.id');
+        $this->db->join('municipios as m', 't.id_municipio = m.id');
+        $this->db->join('departamentos as d', 'm.id_dpto = d.id');
+        $this->db->join('paises as p', 'd.id_pais = p.id');
+        $this->db->join('empleados as e', 't.id = e.id_tercero','left');
+        $this->db->where('e.id_tercero is null');
+        if ($where != "") {
+            $this->db->where($where);
+        }
+        return $this->db->get();
+    }
+
+    public function getTercerosNotProveedores($where = "")
+    {
+        $this->db->select();
+        $this->db->select('t.id as id_tercero');
+        $this->db->from('terceros as t');
+        $this->db->join('tipo_documentos as td', 't.id_tipo_doc = td.id');
+        $this->db->join('generos as g', 't.id_genero = g.id');
+        $this->db->join('municipios as m', 't.id_municipio = m.id');
+        $this->db->join('departamentos as d', 'm.id_dpto = d.id');
+        $this->db->join('paises as p', 'd.id_pais = p.id');
+        $this->db->join('proveedores as pro', 't.id = pro.id_tercero','left');
+        $this->db->where('pro.id_tercero is null');
+        if ($where != "") {
+            $this->db->where($where);
+        }
+        return $this->db->get();
+    }
+
 }

@@ -1701,6 +1701,8 @@ CREATE TABLE negocios (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id_cliente),
 	FOREIGN KEY (user_crea) REFERENCES usuarios(id_user)
 );
+alter table negocios
+add observacion varchar(2000);
 
 create table etapas_negocio
 (
