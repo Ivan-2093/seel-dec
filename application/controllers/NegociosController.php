@@ -61,8 +61,8 @@ class NegociosController extends CI_Controller
             exit();
         }
         //Consultamos id_solicitud que existe en la base de datos
-        $where_solicitud = array('id_solicitud' => $id_solicitud);
-        $data_solicitud = $this->ProspectosModel->getSolicitudes($where_solicitud);
+        $where_solicitud = array('s.id_solicitud' => $id_solicitud);
+        $data_solicitud = $this->ProspectosModel->getSolicitudesByWhere($where_solicitud);
         //Consultamos si el id_solicitud ya existe como negocio que existe en la base de datos
         if ($data_solicitud->num_rows() > 0) {
             if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {

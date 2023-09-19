@@ -126,6 +126,7 @@ inputNumeroDoc.addEventListener("change", () => {
 
 function load_data_tercero(id_ter = "") {
 	if (inputNumeroDoc.value != "" || id_ter != "") {
+		const documentBandera = inputNumeroDoc.value;
 		showLoading(cargando);
 		const form_tercero_by_nit = new FormData();
 		form_tercero_by_nit.append("nit", inputNumeroDoc.value);
@@ -148,8 +149,16 @@ function load_data_tercero(id_ter = "") {
 					pintar_formulario(data_tercero);
 					inputIdCliente.value = json["id_cliente"];
 				} else {
+					Swal.fire({
+						title: "Advertencia",
+						icon: "warning",
+						html: "<strong>El número de documento ingresado no se encuentra registrado en la base de datos, agregue la información para crear el cliente!</strong>",
+					});
+
 					formTercero.reset();
-					disabledFormulario("false");
+					disabledFormulario(false);
+
+					inputNumeroDoc.value = documentBandera;
 				}
 				setTimeout(() => {
 					hiddenLoading(cargando);
@@ -179,7 +188,7 @@ function pintar_formulario(data_tercero) {
 	inputBarrio.value = data_tercero[15];
 	inputIdTercero.value = data_tercero[16];
 
-	disabledFormulario("true");
+	disabledFormulario(true);
 }
 
 function disabledFormulario(opcion) {
@@ -256,4 +265,6 @@ function LoadDepto(muni = "") {
 
 btnSubmitReset.addEventListener("click", () => {
 	formTercero.reset();
+	disabledFormulario(false);
+
 });
