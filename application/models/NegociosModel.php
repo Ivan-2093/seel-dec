@@ -45,4 +45,22 @@ class NegociosModel extends CI_Model
         $this->db->where($where);
         return $this->db->get('negocios_solicitud_cliente');
     }
+
+    public function getNegociosAll($data_where)
+    {
+        $this->db->select('*');
+        $this->db->from('negocios as n');
+        $this->db->join('solicitudes_prospecto as s', 's.id_solicitud = n.solicitud_id');
+        $this->db->join('tipo_solicitudes as ts', 's.id_tipo_solicitud = ts.id_tipo');
+        $this->db->join('clientes as cli', 'n.cliente_id = cli.id_cliente','left');
+        $this->db->join('terceros as t', 'cli.id_tercero = t.id','left');
+        $this->db->join('municipios as m', 't.id_municipio = m.id','left');
+        $this->db->join('departamentos as d', 'm.id_dpto = d.id','left');
+        $this->db->join('usuarios as u', 'n.user_crea= u.id_user');
+        $this->db->join('empleados as e', 'u.empleado_id = e.id');
+        $this->db->where($data_where);
+        return $this->db->get();
+    }
+
+
 }

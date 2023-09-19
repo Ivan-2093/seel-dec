@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Util\Json;
+
 class NegociosController extends CI_Controller
 {
 
@@ -593,5 +596,13 @@ class NegociosController extends CI_Controller
 
         echo json_encode($array_response);
         exit();
+    }
+
+
+    public function all()
+    {
+        $data_where = array();
+        var_export($this->NegociosModel->getNegociosAll($data_where)->result_object());
+
     }
 }
