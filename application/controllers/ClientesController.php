@@ -64,7 +64,7 @@ class ClientesController extends CI_Controller
 
     public function create()
     {
-        $data_terceros = $this->TercerosModel->getTerceros()->result();
+        $data_terceros = $this->TercerosModel->getTercerosNotClientes()->result();
 
         $data_vista = array(
             'data_menus' => $this->html_menus,
@@ -90,7 +90,7 @@ class ClientesController extends CI_Controller
                 $array_insert = array(
                     'id_tercero' => $id_tercero,
                     'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
-                    'usuario_registro' => $this->session->userdata('user'),
+                    'usuario_registro' => $this->session->userdata('id_user'),
                 );
     
                 if ($this->ClientesModel->insertCliente($array_insert)) {

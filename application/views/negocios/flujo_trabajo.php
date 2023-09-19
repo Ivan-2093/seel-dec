@@ -62,7 +62,6 @@
                                 <form id="formCreateTercero" name="formCreateTercero">
                                     <input hidden id="inputIdTercero" name="inputIdTercero" type="hidden" class="form-control">
                                     <input hidden id="inputIdCliente" name="inputIdCliente" type="hidden" class="form-control">
-
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-floating mb-3">

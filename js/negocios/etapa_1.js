@@ -48,6 +48,7 @@ btnSubmitCreateTercero.addEventListener("click", function () {
 		}
 	});
 	if (inputsVoid.length == 0) {
+		disabledFormulario(false);
 		const data_formTercero = new FormData(formTercero);
 		data_formTercero.append("id_negocio", id_negocio.value);
 		createTercero(data_formTercero);
@@ -81,16 +82,30 @@ function createTercero(data_insert) {
 		body: data_insert,
 	})
 		.then(function (response) {
+			disabledFormulario(true);
 			// Transforma la respuesta. En este caso lo convierte a JSON
 			return response.json();
 		})
 		.then(function (json) {
+			$("#Información_Cliente").modal("hide");
+			Swal.fire({
+				icon: json["response"],
+				title: json["title"],
+				html: json["html"],
+				willClose: () => {
+					if(json["response"] === "success") {
+						load_flujo_trabajo();
+					}
+				},
+			});
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
 			reportError(error);
 			hiddenLoading(cargando);
 		});
+
+	
 }
 
 inputFirstName.addEventListener("keypress", function () {

@@ -44,7 +44,7 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 						<td width="10%" align="center">Telefono</td>
 					</tr>
 					<tr>
-						<td width="45%" align="center"><?= $nombreAsesor ?></td>
+						<td width="45%" align="center"><?= $dataC->nombre_asesor ?></td>
 						<td width="45%" align="center"><?= $dataC->email_emp ?></td>
 						<td width="10%" align="center"><?= $dataC->telefono_emp ?></td>
 					</tr>

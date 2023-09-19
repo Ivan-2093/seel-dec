@@ -98,87 +98,97 @@
 <div class="modal fade" id="modal_productos" tabindex="-1" role="dialog" aria-labelledby="modal_productos" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-12">
-              <button type="button" class="btn btn-info p-2" id="btnActivePersianaT" name="btnActivePersianaT">CORTINAS</button>
-              <button type="button" class="btn btn-info p-2" id="btnActivePuertaT" name="btnActivePuertaT">PUERTAS</button>
-              <button type="button" class="btn btn-info p-2" id="btnActiveCerraduraT" name="btnActiveCerraduraT">CERRADURAS</button>
+      <div class="modal-header">
+        <h5 class="modal-title">Productos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-12">
+                <button type="button" class="btn btn-info p-2" id="btnActivePersianaT" name="btnActivePersianaT">CORTINAS</button>
+                <button type="button" class="btn btn-info p-2" id="btnActivePuertaT" name="btnActivePuertaT">PUERTAS</button>
+                <button type="button" class="btn btn-info p-2" id="btnActiveCerraduraT" name="btnActiveCerraduraT">CERRADURAS</button>
+
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive" id="tablaPersianas">
-            <table id="tableProductosC1" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th class="text-center">ID</th>
-                  <th class="text-center">REFERENCIA</th>
-                  <th class="text-center">DESCRIPCIÓN</th>
-                  <!--  <th>UNIDAD DE MEDIDA</th>
+          <div class="card-body">
+            <div class="table-responsive" id="tablaPersianas">
+              <table id="tableProductosC1" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">REFERENCIA</th>
+                    <th class="text-center">DESCRIPCIÓN</th>
+                    <!--  <th>UNIDAD DE MEDIDA</th>
                   <th>ANCHO TELA</th> 
                   <th>FACTOR APERTURA</th>-->
-                  <th class="text-center">VALOR ELITE</th>
-                  <th class="text-center">VALOR PREMIUM</th>
-                  <th class="text-center">TIPO PRODUCTO</th>
-                  <th class="text-center">OPCIÓN</th>
-                </tr>
-              </thead>
-              <tbody>
+                    <th class="text-center">VALOR ELITE</th>
+                    <th class="text-center">VALOR PREMIUM</th>
+                    <th class="text-center">TIPO PRODUCTO</th>
+                    <th class="text-center">OPCIÓN</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive" id="tablaPuertas" hidden>
+              <table id="tableProductosC2" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>REFERENCIA</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>PASADORES</th>
+                    <th>CERRADURA</th>
+                    <th>LLAVES</th>
+                    <th>TIPO SEGURIDAD</th>
+                    <th>VALOR ELITE</th>
+                    <th>VALOR PREMIUM</th>
+                    <th>TIPO PRODUCTO</th>
+                    <th>OPCIÓN</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive" id="tablaCerraduras" hidden>
+              <table id="tableProductosC3" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>REFERENCIA</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>PASADORES</th>
+                    <th>CERRADURA</th>
+                    <th>LLAVES</th>
+                    <th>TIPO SEGURIDAD</th>
+                    <th>VALOR ELITE</th>
+                    <th>VALOR PREMIUM</th>
+                    <th>TIPO PRODUCTO</th>
+                    <th>OPCIÓN</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
           </div>
-
-          <div class="table-responsive" id="tablaPuertas" hidden>
-            <table id="tableProductosC2" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>REFERENCIA</th>
-                  <th>DESCRIPCIÓN</th>
-                  <th>PASADORES</th>
-                  <th>CERRADURA</th>
-                  <th>LLAVES</th>
-                  <th>TIPO SEGURIDAD</th>
-                  <th>VALOR ELITE</th>
-                  <th>VALOR PREMIUM</th>
-                  <th>TIPO PRODUCTO</th>
-                  <th>OPCIÓN</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-
-          <div class="table-responsive" id="tablaCerraduras" hidden>
-            <table id="tableProductosC3" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>REFERENCIA</th>
-                  <th>DESCRIPCIÓN</th>
-                  <th>PASADORES</th>
-                  <th>CERRADURA</th>
-                  <th>LLAVES</th>
-                  <th>TIPO SEGURIDAD</th>
-                  <th>VALOR ELITE</th>
-                  <th>VALOR PREMIUM</th>
-                  <th>TIPO PRODUCTO</th>
-                  <th>OPCIÓN</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-
         </div>
       </div>
+
     </div>
   </div>
 </div>
