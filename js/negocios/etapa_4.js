@@ -1,3 +1,41 @@
+function validate_etapa(id_neg, id_eta) {
+	showLoading(cargando);
+	const form_etapa = new FormData();
+	form_etapa.append("id_negocio", id_neg);
+	form_etapa.append("id_etapa", id_eta);
+
+	const check = fetch(`${base_url}NegociosController/check_validate_etapa`, {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: "no-cors",
+		method: "POST",
+		body: form_etapa,
+	}).then(function (response) {
+		// Transforma la respuesta. En este caso lo convierte a JSON
+		return response.json();
+	}).then(function (json) {
+
+		if (json['response'] == 'success') {
+			checkValidateCotizacion();
+		} else {
+			Swal.fire({
+				title: 'Advertencia',
+				icon: 'warning',
+				html: 'Debe completar las anteriores etapas del flujo de trabajo para continuar',
+			});
+			hiddenLoading(cargando);
+		}
+		
+	}).catch(function (error) {
+		reportError(error);
+		hiddenLoading(cargando);
+
+	});
+}
+
+
+
 function checkValidateCotizacion() {
 	showLoading(cargando);
 	const form_flujo_trabajo = new FormData();
@@ -15,15 +53,19 @@ function checkValidateCotizacion() {
 			return response.json();
 		})
 		.then(function (json) {
-			if (json['response'] == 'success') {
+			if (json['response'] == 'success' && json['body'] != "") {
+				Swal.fire({
+					title: 'Exito!',
+					icon: json['response'],
+					html: `<strong>Cargando agenda!</strong>`
+				});
 				location.href = `${base_url}AgendaController/agenda_citas?id_neg=${id_negocio.value}`;
 			} else {
 				Swal.fire({
 					title: 'Advertencia!',
-					icon: json['response'],
+					icon: 'warning',
 					html: `<strong>Para realizar el agendamiento debe tener una cotización enlazada con el negocio!</strong>`
 				});
-				
 			}
 			hiddenLoading(cargando);
 		})

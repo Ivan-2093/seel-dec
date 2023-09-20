@@ -1,4 +1,4 @@
-<?php 
+<?php
 class AgendaController extends CI_Controller
 {
     public $html_menus = NULL;
@@ -66,12 +66,14 @@ class AgendaController extends CI_Controller
             "data" => null
         );
         try {
-            $datos= file_get_contents('php://input');
+            $where_cita = array();
+
+            $datos = file_get_contents('php://input');
             $datos = json_decode($datos);
-            if(!isset($_POST["id_cita"]) || empty($_POST["id_cita"])){
+            if (!isset($_POST["id_cita"]) || empty($_POST["id_cita"])) {
                 throw new Exception("No hay datos el la peticion");
             }
-            $data = $this->AgendaModel->get_citas($_POST["id_cita"]);
+            $data = $this->AgendaModel->get_citas($_POST["id_cita"], $where_cita);
             if ($data["status"]) {
                 $response["status"] = true;
                 $response["data"] = $data["data"];
@@ -93,32 +95,35 @@ class AgendaController extends CI_Controller
             "data" => null
         );
         try {
-            $data = $this->AgendaModel->get_citas();
+            $where_cita = array();
+            $data = $this->AgendaModel->get_citas($cita = "", $where_cita);
             $arr_calendar[] = array();
             if ($data["status"]) {
                 foreach ($data["data"] as $key) {
                     $color = "";
                     switch ($key->estado) {
                         case '1':
-                            $color = "#7FA8FF";
+                            $color = "#3498DB";
                             break;
                         case '2':
-                            $color = "##FF7F7F";
+                            $color = "#F4D03F";
                             break;
                         case '3':
-                            $color = "##7FEFFF";
+                            $color = "#283747";
                             break;
                         case '4':
+                            $color = "#9B59B6";
+                            break;
+                        case '5':
                             $color = "#00CB47";
                             break;
-
                         default:
                             $color = "#CB00B9";
                             break;
                     }
                     $arr_calendar[] = array(
                         'id_cita' => $key->id_cita,
-                        'title' => $key->primer_nombre_cliente.' '.$key->primer_apellido_cliente,
+                        'title' => $key->primer_nombre_cliente . ' ' . $key->primer_apellido_cliente,
                         'start' => $key->fecha_cita,
                         'end' => $key->fecha_cita,
                         'descripcion' => $key->detalles_cita,
@@ -175,16 +180,17 @@ class AgendaController extends CI_Controller
             if ($this->AgendaModel->insert_cita($_POST)) {
                 $response["status"] = true;
                 $response["message"] = "Cita creada exitosamente";
-                
+
                 $data_array_negocio_historial_etapas = array(
                     'negocio_id' => $this->input->post('negocio_id'),
-                    'etapa_id' => 4,//Agendamiento de Cita! X:D
+                    'etapa_id' => 4, //Agendamiento de Cita! X:D
                     'user_id' => $this->user_id,
                     'fecha' => Date('Y-m-d') . 'T' . Date('H:i:s')
                 );
-    
-                $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
 
+                $this->SendEmailNotificacionAgenda($this->input->post('negocio_id'));
+
+                $this->NegociosModel->insertHistorialEtapa($data_array_negocio_historial_etapas);
             } else {
                 throw new Exception("Error al hacer el insert en la base de datos");
             }
@@ -194,6 +200,69 @@ class AgendaController extends CI_Controller
         echo json_encode($response);
     }
 
+
+    public function SendEmailNotificacionAgenda($id_negocio)
+    {
+        if (isset($id_negocio) && $id_negocio != "") {
+            $array_where_negocio = array('n.id_negocio' => $id_negocio);
+
+            /* $data_negocio = $this->NegociosModel->getNegociosAll($array_where_negocio); */
+            $data_cita = $this->AgendaModel->get_citas($id_cita = "", $array_where_negocio);
+            if ($data_cita->num_rows() > 0) {
+
+
+                $correo = $this->phpmailer_lib->load();
+                $correo->IsSMTP();
+                $correo->SMTPAuth = true;
+                $correo->SMTPSecure = 'tls';
+                $correo->Host = "mail.aftersalesassistance.com";
+                $correo->Port = 587;
+                $correo->IsHTML(true);
+                $correo->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+                $correo->Username = "no-reply@aftersalesassistance.com";
+                $correo->Password = 'N}mT=JzE,D$g';
+                // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+                $correo->SetFrom($data_cotizacion->row(0)->email_emp, "SEELDEC");
+                $correo->addAddress($data_cotizacion->row(0)->email_emp);
+                $correo->addAddress($correo_cliente);
+                /* $correo->addAddress('jjairo0813@gmail.com'); */
+                $correo->Subject = "Agendamiento de Servicio Instalación";
+                $correo->CharSet = 'UTF-8';
+
+                $data_usuario = array(
+                    'page' => 'Agendamiento',
+                    'nombre_cliente' => $data_cita->row(0)->primer_nombre_cliente . " " . $data_cita->row(0)->primer_apellido_cliente,
+                    'fecha_cita' => $data_cita->row(0)->fecha_cita,
+                    'nombre_tecnico' => $data_cita->row(0)->primer_nombre_tecnico . " " . $data_cita->row(0)->primer_apellido_tecnico,
+                    'nit_tecnico' => $data_cita->row(0)->nit_tecnico
+                );
+
+                $mensaje = $this->load->view('mails/cita_instalacion', $data_usuario, true);
+
+
+                $correo->MsgHTML($mensaje);
+
+
+                if ($correo->Send()) {
+                    $array_insert_correo = array(
+                        'cotizacion_id' => $id_cotizacion,
+                        'usuario_id' => $this->session->userdata('id_user'),
+                        'fecha_envio' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                    );
+
+                    $this->AgendaModel->insert_correo_noti_cotizacion($array_insert_correo);
+                }
+            }
+        }
+    }
+
+    /**************************************************************  <<AGENDA TECNICOS>>   ****************************************************************************/
 
     public function agenda()
     {
@@ -207,4 +276,69 @@ class AgendaController extends CI_Controller
     }
 
 
+    function get_citas_tecnicos()
+    {
+        $response = array(
+            "status" => false,
+            "message" => 'Error al ejecutar la consulta',
+            "data" => null
+        );
+        try {
+
+            $where_cita = array();
+            if ($this->perfil == 3) {
+                $where_cita['tecnico'] = $this->session->userdata('nit');
+            }
+
+
+            $data = $this->AgendaModel->get_citas($cita = "", $where_cita);
+            $arr_calendar[] = array();
+            if ($data["status"]) {
+                foreach ($data["data"] as $key) {
+                    $color = "";
+                    switch ($key->estado) {
+                        case '1':
+                            $color = "#3498DB";
+                            break;
+                        case '2':
+                            $color = "#F4D03F";
+                            break;
+                        case '3':
+                            $color = "#283747";
+                            break;
+                        case '4':
+                            $color = "#9B59B6";
+                            break;
+                        case '5':
+                            $color = "#00CB47";
+                            break;
+                        default:
+                            $color = "#CB00B9";
+                            break;
+                    }
+                    $arr_calendar[] = array(
+                        'id_cita' => $key->id_cita,
+                        'title' => $key->primer_nombre_cliente . ' ' . $key->primer_apellido_cliente,
+                        'start' => $key->fecha_cita,
+                        'end' => $key->fecha_cita,
+                        'descripcion' => $key->detalles_cita,
+                        'color' => $color
+                    );
+                }
+                $response["status"] = true;
+                $response["data"] = $arr_calendar;
+                $response["message"] = "Consulta ejecutada exitosamente";
+            } else {
+                throw new Exception("Error Processing Request");
+            }
+        } catch (Exception $th) {
+            $response["message"] = $th->getMessage();
+        }
+        echo json_encode($response);
+    }
+
+    public function check_estado_cita()
+    {
+        print_r($this->input->GET_POST());
+    }
 }

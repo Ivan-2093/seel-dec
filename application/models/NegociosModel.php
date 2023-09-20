@@ -48,7 +48,7 @@ class NegociosModel extends CI_Model
 
     public function getNegociosAll($data_where)
     {
-        $this->db->select('n.id_negocio,
+        $this->db->select('n.id_negocio,t.id as id_tercero_cli,
         cli.id_cliente,
         t.nit as nit_cliente,
         concat (t.primer_nombre," ",t.segundo_nombre," ", t.primer_apellido," ",t.segundo_apellido) as nombre_cliente,

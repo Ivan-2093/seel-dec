@@ -47,7 +47,7 @@ class AgendaModel extends CI_Model
         return $this->db->insert('agenda_citas', $data);
     }
 
-    function get_citas($id_cita = "")
+    function get_citas($id_cita = "",$where_cita)
     {
         $response = array(
             "status" => false,
@@ -80,8 +80,8 @@ class AgendaModel extends CI_Model
             INNER JOIN clientes c ON c.id_cliente = n.cliente_id
             INNER JOIN terceros t ON t.id = c.id_tercero
             INNER JOIN terceros tt ON tt.nit = ac.tecnico
-            WHERE ac.estado NOT IN (2,4) {$where}";
-
+            WHERE ac.estado IN (1,2,3,4,5) {$where}";
+            $this->db->where($where_cita);
             if ($query = $this->db->query($sql)) {
                 if ($query->num_rows() > 0) {
                     $response["data"] = $query->result();
