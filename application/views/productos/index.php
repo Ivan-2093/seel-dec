@@ -1,21 +1,5 @@
 <div class="row">
   <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?= base_url() ?>ProductosController">PRODUCTOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url() ?>ProductosController/create">CREAR PRODUCTO</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
     <table style="width:100% ;" id="tableProductos" class="table table-bordered">
       <thead>
         <!-- `id_producto`, `referencia`, `descripcion`, `anchos_tela_metro`, `unidad_medida`, `factor_apertura`, `costo_elite`, `costo_premium`, `id_tipo_p`, `proveedor_id`, `porce_precio`, `pasadores`, `cerradura`, `llaves`, `tipo_seguridad` -->

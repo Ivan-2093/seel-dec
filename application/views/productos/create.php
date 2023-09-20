@@ -1,22 +1,6 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>ProductosController">PRODUCTOS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url() ?>ProductosController/create">CREAR PRODUCTO</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
             <h5 class="card-header">FORMULARIO PARA CREAR PRODUCTO</h5>
             <form id="formCreateProducto" name="formCreateProducto">
                 <div class="card-body" style="background-color: #90ee9073 ;">

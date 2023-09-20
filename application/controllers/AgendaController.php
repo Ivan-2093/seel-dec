@@ -140,7 +140,7 @@ class AgendaController extends CI_Controller
     public function agenda_citas()
     {
         if (empty($_GET['id_neg']) || !isset($_GET['id_neg'])) {
-            header("Location: " . base_url() . "NegociosController/");
+            header("Location: " . base_url() . "NegociosController/all");
             exit();
         }
         $data_vista = array(
@@ -151,7 +151,6 @@ class AgendaController extends CI_Controller
         );
 
         $this->load->view('header', $data_vista);
-        /* $this->load->view('dashboard'); */
         $this->load->view('agenda/agenda');
     }
 
@@ -194,5 +193,18 @@ class AgendaController extends CI_Controller
         }
         echo json_encode($response);
     }
+
+
+    public function agenda()
+    {
+        $data_vista = array(
+            'data_menus' => $this->html_menus,
+            'name_page' => 'AGENDA',
+        );
+
+        $this->load->view('header', $data_vista);
+        $this->load->view('agenda/agenda_tecnicos');
+    }
+
 
 }

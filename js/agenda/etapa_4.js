@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 
 function load_calendar(data = null) {
-    //console.log(citas);
+    showLoading(cargando);
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -93,13 +93,14 @@ const get_citas = async () => {
                 load_calendar(resp.data);
             } else {
                 console.log(resp);
-                hiddenLoading(cargando);
             }
-            
+            hiddenLoading(cargando);
+
         });
 }
 
 const get_info_citas = async (id_cita) => {
+    showLoading(cargando);
     const url = `${base_url}AgendaController/get_info_cita`;
     const form_data = new FormData();
     form_data.append('id_cita', id_cita);
@@ -155,11 +156,13 @@ const get_info_citas = async (id_cita) => {
                     </div>
                     `;
 
-                    insert_html(html_select,'info_agenda');
+                    insert_html(html_select, 'info_agenda');
                     open_modal('modal_info_agenda');
+                    hiddenLoading(cargando);
                 })
             } else {
                 console.log(resp);
+                hiddenLoading(cargando);
             }
         });
 }
@@ -172,6 +175,7 @@ function crear_cita() {
     const { form_data, empty_field } = get_values_form_elements('form_agenda', exclude);
 
     if (!empty_field) {
+        showLoading(cargando);
         const url = `${base_url}AgendaController/crear_cita`;
         const resp_controller = execute_fetch(url, form_data)
             .then(resp => {
@@ -194,13 +198,15 @@ function crear_cita() {
                         confirmButtonColor: '#3085d6',
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            
                             get_citas();
                         }
                     })
                 }
+                hiddenLoading(cargando);
             })
     } else {
-        
+
     }
 }
 

@@ -88,7 +88,7 @@ class ProductosController extends CI_Controller
             'data_proveedores' => $data_proveedores,
             'data_categoria' => $data_categoria,
             'data_medidas' => $data_medidas,
-            'name_page' => 'CREAR CLIENTE'
+            'name_page' => 'CREAR PRODUCTO'
         );
         $this->load->view('header', $data_vista);
         $this->load->view('productos/create');

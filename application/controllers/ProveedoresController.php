@@ -64,7 +64,7 @@ class ProveedoresController extends CI_Controller
 
     public function create()
     {
-        $data_terceros = $this->TercerosModel->getTerceros()->result();
+        $data_terceros = $this->TercerosModel->getTercerosNotProveedores()->result();
 
         $data_vista = array(
             'data_menus' => $this->html_menus,

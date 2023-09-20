@@ -108,15 +108,15 @@ class SolicitudController extends CI_Controller
         $where = array();
         if (count($this->input->POST()) > 0) {
             if ($this->input->POST('date_start')) {
-                $where['s.fecha_creado >='] = $this->input->POST('date_start');
+                $where['s.fecha_creado >='] = $this->input->POST('date_start') . 'T' .DATE('00:00:00');
             }
 
             if ($this->input->POST('date_end')) {
-                $where['s.fecha_creado <='] = $this->input->POST('date_end');
+                $where['s.fecha_creado <='] = $this->input->POST('date_end') . 'T' .DATE('23:59:59');
             }
 
             if (($this->input->POST('inputNames'))) {
-                $where['s.prospecto like'] = $this->input->POST('inputNames');
+                $where['s.prospecto like'] = '%'.$this->input->POST('inputNames').'%';
             }
 
             if ($this->input->POST('inputPhone')) {

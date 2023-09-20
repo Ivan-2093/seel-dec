@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Util\Json;
+
 class NegociosController extends CI_Controller
 {
 
@@ -24,6 +27,7 @@ class NegociosController extends CI_Controller
         $this->load->model('AgendaModel');
         $this->load->model('ProspectosModel');
         $this->load->model('TercerosModel');
+        $this->load->model('UsuariosModel');
         $this->load->model('ClientesModel');
         $this->load->model('PaisesModel');
         $this->load->model('CotizacionModel');
@@ -210,7 +214,7 @@ class NegociosController extends CI_Controller
         $inputBarrio = $this->input->POST('inputBarrio');
         $inputDireccion = $this->input->POST('inputDireccion');
 
-/* 
+        /* 
         $id_tercero_check = 0;
         $data_tercero_check = $this->TercerosModel->getTerceroByNumeroDoc($inputNumeroDoc);
         if ($data_tercero_check->num_rows() > 0) {
@@ -593,5 +597,87 @@ class NegociosController extends CI_Controller
 
         echo json_encode($array_response);
         exit();
+    }
+
+
+    public function all()
+    {
+
+        $data_asesores = $this->UsuariosModel->getAsesoresActivos();
+
+        $data_vista = array(
+            'data_menus' => $this->html_menus,
+            'name_page' => 'NEGOCIOS',
+            'asesores' => $data_asesores
+        );
+
+        $this->load->view('header', $data_vista);
+        $this->load->view('negocios/all_negocios');
+    }
+
+    public function load_negocios_all()
+    {
+        $where = array();
+
+        if ($this->perfil != 4 && $this->perfil != 1) { // Si el perfil es diferente al administrado que cargue los negocios creados por el usuario!
+            $where['user_crea'] = $this->user_id;
+        }
+        //Filtros
+        if (count($this->input->POST()) > 0) {
+            if ($this->input->POST('date_start')) {
+                $where['n.fecha_registro >='] = $this->input->POST('date_start') . 'T' . DATE('00:00:00');
+            }
+
+            if ($this->input->POST('date_end')) {
+                $where['n.fecha_registro <='] = $this->input->POST('date_end') . 'T' . DATE('23:59:59');
+            }
+
+            if (($this->input->POST('inputNit'))) {
+                $where['t.nit'] = $this->input->POST('inputNit');
+            }
+
+            if ($this->input->POST('inputNames_1')) {
+                $where['t.primer_nombre like'] = '%' . trim($this->input->POST('inputNames_1')) . '%';
+            }
+
+            if ($this->input->POST('inputNames_2')) {
+                $where['t.primer_apellido like'] = '%' . trim($this->input->POST('inputNames_2')) . '%';
+            }
+            if ($this->input->POST('input_asesor')) {
+                $where['n.user_crea'] = $this->input->POST('input_asesor');
+            }
+        }
+
+        $data_negocios = $this->NegociosModel->getNegociosAll($where);
+        /* print_r($this->db->last_query()); */
+        $tbody = '';
+        if ($data_negocios->num_rows() > 0) {
+            foreach ($data_negocios->result() as $row) {
+
+                $nombre = ($row->id_cliente != "") ? $row->nombre_cliente :  $row->prospecto;
+                $nit = ($row->nit_cliente != "") ? $row->nit_cliente :  'No se ha asignado cliente';
+
+                $tbody .=
+                    '<tr>
+                    <td class="text-center">' . $row->id_negocio . '</td>
+                    <td class="text-center">' . $nit . '</td>
+                    <td class="text-center">' . $nombre . '</td>
+                    <td class="text-center">' . $row->nombre_asesor . '</td>
+                    <td class="text-center">' . $row->fecha_registro . '</td>
+                    <td class="text-center">
+                        <form action="' . base_url() . 'NegociosController" method="post" target="_blank">
+                            <input type="hidden" name="id_solicitud" value="' . $row->solicitud_id . '" />
+                            <button type="submit" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="VER NEGOCIO">
+                                <i class="ik ik-eye"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>';
+            }
+        }
+
+        $array_response = array('tbody' => $tbody);
+
+        echo json_encode($array_response);
     }
 }

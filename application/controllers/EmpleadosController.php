@@ -78,7 +78,7 @@ class EmpleadosController extends CI_Controller
 
     public function create()
     {
-        $data_terceros = $this->TercerosModel->getTerceros()->result();
+        $data_terceros = $this->TercerosModel->getTercerosNotEmpleados()->result();
         $data_cargos = $this->EmpleadosModel->getCargoEmpleados()->result();
         $data_sedes = $this->SedesModel->getSedes()->result();
         $data_vista = array(

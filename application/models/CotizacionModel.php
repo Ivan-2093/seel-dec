@@ -19,14 +19,25 @@ class CotizacionModel extends CI_Model
     public function get_cotizacion_by_where($array_where)
     {
         $this->db->select('*');
-        $this->db->select('e.email as email_emp, e.telefono as telefono_emp, t_cli.telefono_1 as telefono_cli, t_cli.email as correo_cli, CONCAT(t_cli.primer_nombre," ",t_cli.segundo_nombre," ",t_cli.primer_apellido," ",t_cli.segundo_apellido) as nombre_cliente, CONCAT(t.primer_nombre," ",t.segundo_nombre," ",t.primer_apellido," ",t.segundo_apellido) as nombre_asesor, c.observacion');
+        $this->db->select('e.email as email_emp,
+        e.telefono as telefono_emp, 
+        t_cli.telefono_1 as telefono_cli, 
+        t_cli.email as correo_cli, 
+        CONCAT(t_cli.primer_nombre," ",t_cli.segundo_nombre," ",t_cli.primer_apellido," ",t_cli.segundo_apellido) as nombre_cliente, 
+        CONCAT(t.primer_nombre," ",t.segundo_nombre," ",t.primer_apellido," ",t.segundo_apellido) as nombre_asesor, 
+        c.observacion,
+        sp.prospecto,
+        sp.correo as correo_pros,
+        sp.telefono as tele_cli_sp
+        ');
         $this->db->from('cotizacion as c');
         $this->db->join('negocios as n', 'c.negocio_id = n.id_negocio');
+        $this->db->join('solicitudes_prospecto as sp', 'n.solicitud_id = sp.id_solicitud');
         $this->db->join('usuarios as u', 'c.usuario_id = u.id_user');
         $this->db->join('empleados as e', 'u.empleado_id = e.id');
         $this->db->join('terceros as t', 'e.id_tercero = t.id');
-        $this->db->join('clientes as cli', 'n.cliente_id = cli.id_cliente');
-        $this->db->join('terceros as t_cli', 'cli.id_tercero = t_cli.id');
+        $this->db->join('clientes as cli', 'n.cliente_id = cli.id_cliente','left');
+        $this->db->join('terceros as t_cli', 'cli.id_tercero = t_cli.id','left');
         $this->db->where($array_where);
         return $this->db->get();
     }

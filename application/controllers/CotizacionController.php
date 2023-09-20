@@ -51,15 +51,15 @@ class CotizacionController extends CI_Controller
         $id_negocio = $this->input->post('id_negocio');
         //Validar si el negocio existe! :XD
         $id_negocio = $this->input->POST('id_negocio');
-        if (!isset($id_negocio) && $id_negocio == "" || $id_negocio == NULL) {
-            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+        if (!isset($id_negocio) || $id_negocio == "" || $id_negocio == NULL) {
+            header("Location: " . base_url() . "NegociosController/all");
             exit();
         }
         //Validar si el negocio existe! :XD
         $where_negocio = array('id_negocio' => $id_negocio);
         $data_negocio = $this->NegociosModel->getNegocio($where_negocio);
         if ($data_negocio->num_rows() == 0) {
-            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            header("Location: " . base_url() . "NegociosController/all");
             exit();
         }
 
@@ -79,6 +79,20 @@ class CotizacionController extends CI_Controller
             );
 
             $data_vista['data_solicitudes'] = $data_solicitud;
+        } else {
+            $where_solicitud = array('id_solicitud' => $data_negocio->row(0)->solicitud_id);
+            $data_solicitud_n = $this->ProspectosModel->getSolcitudByWhere($where_solicitud);
+
+            if ($data_solicitud_n->num_rows() > 0) {
+                $data_solicitud = array(
+                    'nombres' => $data_solicitud_n->row(0)->prospecto,
+                    'correo' => $data_solicitud_n->row(0)->correo,
+                    'observacion' => $data_solicitud_n->row(0)->observacion,
+                    'negocio_id' => $id_negocio
+
+                );
+                $data_vista['data_solicitudes'] = $data_solicitud;
+            }
         }
 
         $this->load->view('header', $data_vista);
@@ -192,7 +206,7 @@ class CotizacionController extends CI_Controller
         $where_negocio = array('id_negocio' => $id_negocio);
         $data_negocio = $this->NegociosModel->getNegocio($where_negocio);
         if ($data_negocio->num_rows() == 0) {
-            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+            header("Location: " . base_url() . "NegociosController/all");
             exit();
         }
 
@@ -204,9 +218,7 @@ class CotizacionController extends CI_Controller
         );
 
         if ($this->CotizacionModel->insert_cotizacion($array_insert_cotizacion)) {
-
             $id_cotizacion = $this->db->insert_id();
-
             $dataFilas = [];
             $insert_detalle = 0;
             for ($i = 0; $i < $cantidadFilas; $i++) {
@@ -258,7 +270,7 @@ class CotizacionController extends CI_Controller
         }
     }
 
-    public function sendEmailCotizacion($id_cotizacion = null, $id_negocio = null)
+    public function sendEmailCotizacion($id_cotizacion = "", $id_negocio = "")
     {
 
         if (isset($id_cotizacion) && $id_cotizacion != "") {
@@ -269,7 +281,7 @@ class CotizacionController extends CI_Controller
             $solicitud_cliente = $this->NegociosModel->get_negocios_solicitud_cliente($array_solicitud);
 
             $data_cotizacion = $this->CotizacionModel->get_cotizacion_by_where($array_where);
-            
+
             if ($data_cotizacion->num_rows() == 0) {
                 echo 'No se ha encontrado información con la identificación de la cotización';
                 exit();
@@ -278,6 +290,10 @@ class CotizacionController extends CI_Controller
             $data_cotizacion_detalle = $this->CotizacionModel->get_cotizacion_detalle_by_where($array_where_detalle);
 
             $pdfEmail = $this->createPdfCotizacion($data_cotizacion, $data_cotizacion_detalle, $solicitud_cliente);
+
+            //Validar correo del cliente
+            $correo_cliente = ($data_cotizacion->row(0)->correo_cli != "") ? $data_cotizacion->row(0)->correo_cli : $data_cotizacion->row(0)->correo_pros ;
+            $nombre_cliente = ($data_cotizacion->row(0)->nombre_cliente != "" ) ? $data_cotizacion->row(0)->nombre_cliente : $data_cotizacion->row(0)->prospecto ;
 
 
             $correo = $this->phpmailer_lib->load();
@@ -296,12 +312,12 @@ class CotizacionController extends CI_Controller
                     'allow_self_signed' => true
                 )
             );
-            $correo->Username = "developer@aftersalesassistance.com";
-            $correo->Password = "kA0&!7cQ(ws(";
+            $correo->Username = "no-reply@aftersalesassistance.com";
+            $correo->Password = 'N}mT=JzE,D$g';
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
             $correo->SetFrom($data_cotizacion->row(0)->email_emp, "SEELDEC");
             $correo->addAddress($data_cotizacion->row(0)->email_emp);
-            $correo->addAddress($data_cotizacion->row(0)->correo_cli);
+            $correo->addAddress($correo_cliente);
             /* $correo->addAddress('jjairo0813@gmail.com'); */
             $correo->Subject = "Cotización";
             $correo->CharSet = 'UTF-8';
@@ -309,8 +325,9 @@ class CotizacionController extends CI_Controller
             $correo->AddStringAttachment($pdfEmail, 'Cotizacion.pdf', 'base64', 'pdf');
 
             $data_usuario = array(
-                'name_user' => $data_cotizacion->row(0)->nombre_cliente,
-                'page' => 'Cotización'
+                'name_user' => $nombre_cliente,
+                'page' => 'Cotización',
+                'observacion' => $solicitud_cliente->row(0)->observacion
             );
 
             $mensaje = $this->load->view('mails/cotizacion', $data_usuario, true);

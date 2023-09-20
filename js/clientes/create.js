@@ -1,50 +1,17 @@
 const formCliente = document.getElementById("formCreateCliente");
 const inputIdTercero = document.getElementById("inputIdTercero");
-
+const btnGenerarFiltro = document.getElementById("btnGenerarFiltro");
+const tableTerceros = document.getElementById("tableTerceros");
 /* ARRAY DE INPUTS */
-const arrayInputs = [inputIdTercero];
-
-const btnSubmitCreateEmpleado = document.getElementById(
-	"btnSubmitCreateCliente"
-);
-
 document.addEventListener("DOMContentLoaded", () => {
 	// codigo para ejecutar
-	$(".js-select2-tercero").select2({
-		placeholder: "Seleccione un tercero",
-		width: "resolve",
-	});
-});
-btnSubmitCreateEmpleado.addEventListener("click", function () {
-	const inputsVoid = arrayInputs.filter(function (input) {
-		if (input.tagName != "TEXTAREA") {
-			return input.value == "";
-		}
-	});
-	if (inputsVoid.length == 0) {
-		const data_form_cliente = new FormData(formCliente);
-		createCliente(data_form_cliente);
-	} else {
-		const nameInput = inputsVoid
-			.map(function (input) {
-				return input.previousElementSibling.innerText;
-			})
-			.join(", ");
-
-		Swal.fire({
-			title: "Advertencia",
-			html: `Para cargar la información, debe completar todos los campos del formulario: <strong>${nameInput}</strong>`,
-			icon: "warning",
-			confirmButtonText: "Ok",
-			willClose: () => {
-				alertFieldsVoidsSelect(inputsVoid);
-			},
-		});
-	}
+	loadClienteByFiltro();
 });
 
-function createCliente(data_form_cliente) {
+function createCliente(id_tercero) {
 	showLoading(cargando);
+	const data_form_cliente = new FormData();
+	data_form_cliente.append('inputIdTercero', id_tercero);
 	fetch(`${base_url}ClientesController/createCliente`, {
 		headers: {
 			"Content-type": "application/json",
@@ -66,7 +33,40 @@ function createCliente(data_form_cliente) {
 				allowOutsideClick: false,
 				showCloseButton: true,
 			});
+			loadClienteByFiltro();
+			hiddenLoading(cargando);
+		})
+		.catch(function (error) {
+			reportError(error);
+			hiddenLoading(cargando);
+		});
+}
 
+btnGenerarFiltro.addEventListener('click', () => {
+	loadClienteByFiltro();
+});
+
+
+function loadClienteByFiltro() {
+	showLoading(cargando);
+	const formulario = new FormData(formFiltroSolicitudes);
+	fetch(`${base_url}ClientesController/loadTerceros`, {
+		headers: {
+			"Content-type": "application/json",
+		},
+		mode: "no-cors",
+		method: "POST",
+		body: formulario,
+	})
+		.then(function (response) {
+			// Transforma la respuesta. En este caso lo convierte a JSON
+			return response.json();
+		})
+		.then(function (json) {
+			$(`#${tableTerceros.id}`).dataTable().fnDestroy();
+			tableTerceros.tBodies[0].innerHTML = json["tbody"];
+			$('[data-toggle="tooltip"]').tooltip(); //
+			loadDatatable(tableTerceros.id);
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {

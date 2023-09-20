@@ -127,7 +127,7 @@
 <script type="text/javascript">
   const base_url = "<?php echo base_url() ?>";
 </script>
-<script type="text/javascript" src="<?= base_url() ?>js/empleados/list.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/empleados/list.js?v1"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/funciones_img.js"></script>
 
 <?php $this->load->view('footer');
