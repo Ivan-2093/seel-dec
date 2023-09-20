@@ -122,7 +122,7 @@ function editEmpleado(data_formEmpleado) {
 			if (json["response"] === "success") {
 				Swal.fire({
 					title: "Exito",
-					html: `Se ha registrado el empleado exitosamente!`,
+					html: `Se ha actualizado el empleado exitosamente!`,
 					icon: "success",
 					confirmButtonText: "Ok",
 					allowOutsideClick: false,

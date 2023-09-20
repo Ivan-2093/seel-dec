@@ -40,4 +40,17 @@ class UsuariosModel extends CI_Model
     {
         return $this->db->get('estados');
     }
+
+    public function getAsesoresActivos()
+    {
+        $sql = "SELECT 
+            CONCAT (t.primer_nombre,' ',t.segundo_nombre,' ',t.primer_apellido,' ',t.segundo_apellido) as nombres,
+            u.id_user
+            FROM terceros t 
+            INNER JOIN empleados e ON e.id_tercero = t.id
+            INNER JOIN perfiles p ON p.id_perfil = e.id_cargo
+            INNER JOIN usuarios u ON u.empleado_id = e.id
+            WHERE u.perfil_id = 2 AND u.estado_id = 1";
+        return $this->db->query($sql);
+    }
 }
