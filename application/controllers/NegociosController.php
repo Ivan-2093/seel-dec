@@ -619,7 +619,7 @@ class NegociosController extends CI_Controller
     {
         $where = array();
 
-        if ($this->perfil != 4 || $this->perfil != 2) { // Si el perfil es diferente al administrado que cargue los negocios creados por el usuario!
+        if ($this->perfil != 4 && $this->perfil != 1) { // Si el perfil es diferente al administrado que cargue los negocios creados por el usuario!
             $where['user_crea'] = $this->user_id;
         }
         //Filtros
