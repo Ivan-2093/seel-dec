@@ -13,7 +13,7 @@ btnGenerarFiltro.addEventListener("click", () => {
 });
 
 btnResetFiltro.addEventListener("click", () => {
-    formFiltroNegocios.reset();
+	formFiltroNegocios.reset();
 });
 
 function load_negocios_all() {
@@ -32,8 +32,11 @@ function load_negocios_all() {
 			return response.json();
 		})
 		.then(function (json) {
+
+			$(`#${table_negocios.id}`).dataTable().fnDestroy();
 			table_negocios.tBodies[0].innerHTML = json["tbody"];
 			$('[data-toggle="tooltip"]').tooltip(); //
+			loadDatatable(table_negocios.id);
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {

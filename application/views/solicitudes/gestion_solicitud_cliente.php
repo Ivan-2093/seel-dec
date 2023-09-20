@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body bg-secondary">
                 <form id="formFiltroSolicitudes" class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12">

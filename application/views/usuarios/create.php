@@ -22,7 +22,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-              <label class="d-block" for="inputIdEmpleado">TERCERO:</label>
+              <label class="d-block" for="inputIdEmpleado">EMPLEADOS:</label>
               <select class="form-control js-select2-tercero" id="inputIdEmpleado" name="inputIdEmpleado">
                 <option value=""></option>
                 <?php

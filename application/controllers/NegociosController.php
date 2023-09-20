@@ -637,11 +637,11 @@ class NegociosController extends CI_Controller
             }
 
             if ($this->input->POST('inputNames_1')) {
-                $where['t.primer_nombre like'] = '%'.trim($this->input->POST('inputNames_1')).'%';
+                $where['t.primer_nombre like'] = '%' . trim($this->input->POST('inputNames_1')) . '%';
             }
 
             if ($this->input->POST('inputNames_2')) {
-                $where['t.primer_apellido like'] = '%'.trim($this->input->POST('inputNames_2')).'%';
+                $where['t.primer_apellido like'] = '%' . trim($this->input->POST('inputNames_2')) . '%';
             }
             if ($this->input->POST('input_asesor')) {
                 $where['n.user_crea'] = $this->input->POST('input_asesor');
@@ -662,7 +662,7 @@ class NegociosController extends CI_Controller
                     <td class="text-center">' . $row->id_negocio . '</td>
                     <td class="text-center">' . $nit . '</td>
                     <td class="text-center">' . $nombre . '</td>
-                    <td class="text-center">' . $row->nombre_asesor. '</td>
+                    <td class="text-center">' . $row->nombre_asesor . '</td>
                     <td class="text-center">' . $row->fecha_registro . '</td>
                     <td class="text-center">
                         <form action="' . base_url() . 'NegociosController" method="post" target="_blank">

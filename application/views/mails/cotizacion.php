@@ -11,7 +11,7 @@
 														" valign="top" align="left">
 						Hola <?php echo $name_user ?>,<br /><br />
 
-						Recientemente ha solicitado: <br /><br />
+						Recientemente ha solicitado: <strong><?= $observacion ?> </strong> <br/><br />
 
 					</td>
 				</tr>

@@ -66,9 +66,9 @@ $nombreAsesor = $dataC->primer_nombre . ' ' . $dataC->segundo_nombre . ' ' . $da
 						<td width="10%" align="center">Telefono</td>
 					</tr>
 					<tr>
-						<td width="45%" align="center"><?= $dataC->nombre_cliente ?></td>
-						<td width="45%" align="center"><?= $dataC->correo_cli ?></td>
-						<td width="10%" align="center"><?= $dataC->telefono_cli ?></td>
+						<td width="45%" align="center"><?= ($dataC->nombre_cliente != "" ) ? $dataC->nombre_cliente : $dataC->prospecto; ?></td>
+						<td width="45%" align="center"><?= ($dataC->correo_cli != "") ? $dataC->correo_cli : $dataC->correo_pros ; ?></td>
+						<td width="10%" align="center"><?= ($dataC->telefono_cli != "") ? $dataC->telefono_cli : $dataC->tele_cli_sp ; ?></td>
 					</tr>
 				</table>
 			</td>
