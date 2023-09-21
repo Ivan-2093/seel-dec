@@ -1767,3 +1767,11 @@ create table encuesta_satisfacion(
     fecha_registro datetime not null,
     FOREIGN KEY (id_negocio) REFERENCES negocios(id_negocio)
 );
+
+
+ALTER TABLE agenda_citas
+ADD user_update bigint;
+
+
+ALTER TABLE agenda_citas
+ADD FOREIGN KEY (user_update) REFERENCES usuarios(id_user);

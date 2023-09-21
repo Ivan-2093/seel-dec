@@ -105,9 +105,13 @@ const get_info_citas = async (id_cita) => {
 			let html_select = "";
 			resp.data.forEach((element) => {
 				let estado = "";
+				let btnReprogramar = "";
+				let btnCancelar = "";
 				switch (element.estado) {
 					case "1":
 						estado = "AGENDADA";
+						btnReprogramar = `<button onclick="reprogramarInstalacion(${element.id_cita});" type="button" class="btn btn-warning">REPROGRAMAR</button>`;
+						btnCancelar = `<button onclick="cancelarInstalacion(${element.id_cita});" type="button" class="btn btn-danger">CANCELAR</button>`;
 						break;
 					case "2":
 						estado = "EN PROCESO";
@@ -158,8 +162,10 @@ const get_info_citas = async (id_cita) => {
                         <input type="hidden" id="estado_cita_t" name="estado_cita_t" value="${element.estado}"/>
                     </div>
                     `;
+				html_footer = `${btnReprogramar}${btnCancelar}`;
 
 				insert_html(html_select, "info_agenda");
+				insert_html(html_footer, "info_agenda_footer");
 				open_modal("modal_info_agenda");
 				hiddenLoading(cargando);
 			});
@@ -169,3 +175,58 @@ const get_info_citas = async (id_cita) => {
 		}
 	});
 };
+
+
+const reprogramarInstalacion = async (id_cita) => {
+
+}
+
+const cancelarInstalacion = async (id_cita) => {
+
+	Swal.fire({
+		icon: 'info',
+		title: `¿Está seguro de cancelar la cita #${id_cita}?`,
+		showDenyButton: true,
+		showCancelButton: false,
+		confirmButtonText: 'SI',
+		denyButtonText: `NO`,
+		allowOutsideClick: false,
+		allowOutsideClick: false,
+	}).then((result) => {
+
+		if (result.isConfirmed) {
+
+			cancelarInstalacionSave(id_cita);
+
+		} else if (result.isDenied) {
+			close_modal("modal_info_agenda");
+		}
+	})
+}
+
+
+const cancelarInstalacionSave = async (id_cita) => {
+	showLoading(cargando);
+	const url = `${base_url}AgendaController/cancel_cita_agendada`;
+	const cancel_cita = new FormData();
+	cancel_cita.append("id_cita", id_cita_iniciar);
+	await execute_fetch(url, cancel_cita).then((resp) => {
+		if (resp.response) {
+			Swal.fire({
+				title: resp.title,
+				html: resp.html,
+				icon: resp.response,
+			});
+
+			if (resp.response == 'success') {
+				close_modal("modal_info_agenda");
+				get_citas();
+			}
+
+			hiddenLoading(cargando);
+		} else {
+			console.log(resp);
+			hiddenLoading(cargando);
+		}
+	});
+}

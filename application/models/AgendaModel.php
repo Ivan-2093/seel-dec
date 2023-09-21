@@ -123,4 +123,10 @@ class AgendaModel extends CI_Model
     {
         return $this->db->insert('correo_notificacion_agendamiento',$data);
     }
+
+    public function updateCita($data,$where)
+    {
+        $this->db->update('agenda_citas', $data,$where);
+        return $this->db->affected_rows();
+    }
 }
