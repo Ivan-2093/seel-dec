@@ -114,7 +114,11 @@
 
 
 <script type="text/javascript">
-    const change_password = <?php echo $this->session->userdata('change_password'); ?>;
+    const change_password = <?php if($this->session->userdata('change_password') != "" && $this->session->userdata('change_password') != NULL){
+        echo $this->session->userdata('change_password');
+    }else{
+        echo 100;
+    } ?>;
 </script>
 <script src="<?php echo base_url() ?>js/funciones_generales.js"></script>
 <script src="<?php echo base_url() ?>js/check_inputs.js"></script>
