@@ -24,8 +24,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary" onclick="crear_cita()">Crear Cita</button> -->
+                <?php if ($this->perfil == 1) { ?>
+                    <button id="btnFinalizarInstall" type="button" class="btn btn-danger">FINALIZAR</button>
+                    <button id="btnIniciarInstall" type="button" class="btn btn-success">INICIAR</button>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -35,5 +37,8 @@
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/agenda/etapa_4.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda.js"></script>
+<?php if ($this->perfil == 1) { ?>
+    <script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda_tecnicos.js"></script>
+<?php } ?>
 <?php $this->load->view('footer');

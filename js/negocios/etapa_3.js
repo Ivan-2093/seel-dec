@@ -20,15 +20,29 @@ function load_data_cotizacion()
 			if (json["response"] == "success") {
                 $('#htmlCotizaciones').html(json["body"]);
 				$("#cotizaciones_negocio").modal("show");
+				btnSubmitCreateCotizacion.hidden = true;
             }
 			return json;
 		})
 		.then(function (json) {
 			if (json["response"] == "warning") {
+				$("#cotizaciones_negocio").modal("show");
+				btnSubmitCreateCotizacion.hidden = false;
+
 				Swal.fire({
 					title: json["title"],
 					html: json["html"],
-					icon: json["response"],
+					icon: 'warning',
+				});
+			}
+			return json;
+		})
+		.then(function (json) {
+			if (json["response"] == "error") {
+				Swal.fire({
+					title: json["title"],
+					html: json["html"],
+					icon: 'error',
 				});
 			}
 			hiddenLoading(cargando);

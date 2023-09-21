@@ -57,14 +57,9 @@ function open_modal_crear() {
 	let day = `${date.getDate()}`.padStart(2, "0");
 	let month = `${date.getMonth() + 1}`.padStart(2, "0");
 	let year = date.getFullYear();
-	let hour = date.getHours();
-	let minutes = date.getMinutes();
-	let seconds = date.getSeconds();
 
 	open_modal("modal_agenda");
-	get_element(
-		"fecha_registro"
-	).value = `${year}-${month}-${day}T${hour}:${minutes}:${seconds}`;
+	get_element("fecha_registro").value = `${year}-${month}-${day}`;
 	get_element("estado").value = "1";
 	get_element("negocio_id").value = get_element("id_neg").value;
 	get_element("user_crea").value = get_element("user_id").value;
@@ -89,7 +84,7 @@ const get_tecnicos = async () => {
 
 const get_citas = async () => {
 	showLoading(cargando);
-	const url = `${base_url}AgendaController/get_citas`;
+	const url = `${base_url}AgendaController/get_citas_tecnicos`;
 	await execute_fetch(url, null).then((resp) => {
 		if (resp.status) {
 			load_calendar(resp.data);
@@ -133,7 +128,7 @@ const get_info_citas = async (id_cita) => {
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <tbody>
-                                <tr>
+                            	<tr>
                                     <th>ID Negocio</th>
                                     <td>${element.id_negocio}</td>
                                 </tr>
@@ -159,6 +154,8 @@ const get_info_citas = async (id_cita) => {
                                 </tr>
                             </tbody>
                         </table>
+                        <input type="hidden" id="id_cita_t" name="id_cita_t" value="${element.id_cita}"/>
+                        <input type="hidden" id="estado_cita_t" name="estado_cita_t" value="${element.estado}"/>
                     </div>
                     `;
 
@@ -172,48 +169,3 @@ const get_info_citas = async (id_cita) => {
 		}
 	});
 };
-
-function crear_cita() {
-	const id_neg = get_element("id_neg").value;
-
-	const exclude = [];
-
-	const { form_data, empty_field } = get_values_form_elements(
-		"form_agenda",
-		exclude
-	);
-
-	if (!empty_field) {
-		showLoading(cargando);
-		const url = `${base_url}AgendaController/crear_cita`;
-		const resp_controller = execute_fetch(url, form_data).then((resp) => {
-			if (resp.status) {
-				Swal.fire({
-					title: "Exito!",
-					text: resp.message,
-					icon: "success",
-					confirmButtonColor: "#3085d6",
-					allowEscapeKey: false,
-					allowOutsideClick: false,
-				}).then((result) => {
-					if (result.isConfirmed) {
-						location.href = `${base_url}NegociosController/index/${id_neg}`;
-					}
-				});
-			} else {
-				Swal.fire({
-					title: "Error!",
-					text: resp.message,
-					icon: "error",
-					confirmButtonColor: "#3085d6",
-				}).then((result) => {
-					if (result.isConfirmed) {
-						get_citas();
-					}
-				});
-			}
-			hiddenLoading(cargando);
-		});
-	} else {
-	}
-}

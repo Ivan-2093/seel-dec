@@ -48,14 +48,15 @@ class NegociosModel extends CI_Model
 
     public function getNegociosAll($data_where)
     {
-        $this->db->select('n.id_negocio,
+        $this->db->select('n.id_negocio,t.id as id_tercero_cli,
         cli.id_cliente,
         t.nit as nit_cliente,
         concat (t.primer_nombre," ",t.segundo_nombre," ", t.primer_apellido," ",t.segundo_apellido) as nombre_cliente,
         concat (t_emp.primer_nombre," ",t_emp.segundo_nombre," ", t_emp.primer_apellido," ",t_emp.segundo_apellido) as nombre_asesor,
         n.fecha_registro,
         s.prospecto,
-        n.solicitud_id
+        n.solicitud_id,
+        t.email as email_cliente
         ');
         $this->db->from('negocios as n');
         $this->db->join('solicitudes_prospecto as s', 's.id_solicitud = n.solicitud_id');

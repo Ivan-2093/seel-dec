@@ -57,7 +57,7 @@ function obtenerData(etapa_id, opc) {
 			break;
 		case 4:
 			if (opc == 0) {
-				checkValidateCotizacion();
+				validate_etapa(id_negocio.value, 1);
 			} else {
 				load_data_cita_agendada();
 			}
@@ -104,3 +104,4 @@ function verCotizacionPdf(id) {
 		mapFormD.submit();
 	}
 }
+

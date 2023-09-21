@@ -42,7 +42,7 @@ class NegociosController extends CI_Controller
         $this->html_menus = createMenuByPerfil($data_menus);
     }
 
-    public function index()
+    public function index($negocio_id = "")
     {
 
         $data_tipo_doc = $this->TercerosModel->getTipoDocumentos()->result();
@@ -57,55 +57,75 @@ class NegociosController extends CI_Controller
             'data_generos' => $data_generos,
         );
 
-        $id_solicitud = $this->input->POST('id_solicitud');
-
-
-        if (!isset($id_solicitud) && $id_solicitud == "") {
-            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
-            exit();
-        }
-        //Consultamos id_solicitud que existe en la base de datos
-        $where_solicitud = array('s.id_solicitud' => $id_solicitud);
-        $data_solicitud = $this->ProspectosModel->getSolicitudesByWhere($where_solicitud);
-        //Consultamos si el id_solicitud ya existe como negocio que existe en la base de datos
-        if ($data_solicitud->num_rows() > 0) {
-            if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {
-                $cliente = $data_solicitud->row(0)->prospecto;
-                $id_tercero = "";
-                if ($data_solicitud->row(0)->cliente_id != NULL && $data_solicitud->row(0)->cliente_id != "") {
-                    $where_cliente = array('id_cliente' => $data_solicitud->row(0)->cliente_id);
-                    $data_cliente = $this->ClientesModel->getClientes($where_cliente)->row(0);
-                    $cliente = $data_cliente->primer_nombre . ' ' . $data_cliente->segundo_nombre . ' ' . $data_cliente->primer_apellido . ' ' . $data_cliente->segundo_apellido;
-                    $id_tercero = $data_cliente->id_tercero;
-                }
-
+        if ($negocio_id != "") {
+            $where_n = array('n.id_negocio' => $negocio_id);
+            $data_negocio_ = $this->NegociosModel->getNegociosAll($where_n);
+            /* print_r($data_negocio_->result());die; */
+            if ($data_negocio_->num_rows() > 0) {
                 $data_negocio = array(
-                    'id_negocio' => $data_solicitud->row(0)->id_negocio,
-                    'id_tercero' => $id_tercero,
-                    'cliente' => $cliente,
-                    'fecha_registro' => $data_solicitud->row(0)->fecha_registro
+                    'id_negocio' => $data_negocio_->row(0)->id_negocio,
+                    'id_tercero' => $data_negocio_->row(0)->id_tercero_cli,
+                    'cliente' => $data_negocio_->row(0)->nombre_cliente != "" ? $data_negocio_->row(0)->nombre_cliente : $data_negocio_->row(0)->prospecto,
+                    'fecha_registro' => $data_negocio_->row(0)->fecha_registro
                 );
             } else {
-                $data_insert = array(
-                    'solicitud_id' => $id_solicitud,
-                    'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
-                    'user_crea' => $this->user_id,
-                    'estado' => 0
-                );
-
-                $id_negocio = $this->NegociosModel->create_negocios($data_insert);
-
-                $data_negocio = array(
-                    'id_negocio' => $id_negocio,
-                    'id_tercero' => "",
-                    'cliente' => $data_solicitud->row()->prospecto,
-                    'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s')
-                );
+                header("Location: " . base_url() . "NegociosController/all");
+                exit();
             }
         } else {
-            header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
-            exit();
+            $id_solicitud = $this->input->POST('id_solicitud');
+
+
+            if (!isset($id_solicitud) && $id_solicitud == "") {
+                header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+                exit();
+            }
+            //Consultamos id_solicitud que existe en la base de datos
+            $where_solicitud = array('s.id_solicitud' => $id_solicitud);
+            $data_solicitud = $this->ProspectosModel->getSolicitudesByWhere($where_solicitud);
+            //Consultamos si el id_solicitud ya existe como negocio que existe en la base de datos
+            if ($data_solicitud->num_rows() > 0) {
+                if ($data_solicitud->row(0)->id_negocio != "" && $data_solicitud->row(0)->id_negocio != NULL) {
+                    $cliente = $data_solicitud->row(0)->prospecto;
+                    $id_tercero = "";
+                    if ($data_solicitud->row(0)->cliente_id != NULL && $data_solicitud->row(0)->cliente_id != "") {
+                        $where_cliente = array('id_cliente' => $data_solicitud->row(0)->cliente_id);
+                        $data_cliente = $this->ClientesModel->getClientes($where_cliente)->row(0);
+                        $cliente = $data_cliente->primer_nombre . ' ' . $data_cliente->segundo_nombre . ' ' . $data_cliente->primer_apellido . ' ' . $data_cliente->segundo_apellido;
+                        $id_tercero = $data_cliente->id_tercero;
+                    }
+
+                    $data_negocio = array(
+                        'id_negocio' => $data_solicitud->row(0)->id_negocio,
+                        'id_tercero' => $id_tercero,
+                        'cliente' => $cliente,
+                        'fecha_registro' => $data_solicitud->row(0)->fecha_registro
+                    );
+                } else {
+                    $data_insert = array(
+                        'solicitud_id' => $id_solicitud,
+                        'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s'),
+                        'user_crea' => $this->user_id,
+                        'estado' => 0
+                    );
+
+                    $id_negocio = $this->NegociosModel->create_negocios($data_insert);
+
+                    $data_negocio = array(
+                        'id_negocio' => $id_negocio,
+                        'id_tercero' => "",
+                        'cliente' => $data_solicitud->row()->prospecto,
+                        'fecha_registro' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                    );
+                }
+            } else {
+                header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
+                exit();
+            }
         }
+
+
+
 
         $data_vista['data_negocio'] = $data_negocio;
 
@@ -146,6 +166,32 @@ class NegociosController extends CI_Controller
         echo json_encode(array('html_flujo' => $html_flujo));
     }
     /******************************************************************************   HISTORIAL ETAPAS :::: ETAPA 1 AGREGAR CLIENTE  **********************************************************************/
+
+    public function check_validate_etapa()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+        $id_etapa = $this->input->POST('id_etapa');
+
+        $array_response = array(
+            'response' => 'error',
+        );
+
+
+        if ($id_negocio != "" && $id_etapa != "") {
+            $data_where = array('negocio_id' => $id_negocio, 'etapa_id' => $id_etapa);
+
+            if ($this->NegociosModel->checkEtapa($data_where)->num_rows() > 0) {
+                $array_response['response'] = 'success';
+            } else {
+                $array_response['response'] = 'warning';
+            }
+        }
+
+        echo json_encode($array_response);
+    }
+
+
+
     public function addCliente()
     {
         //Validar si el negocio existe! :XD
@@ -434,20 +480,29 @@ class NegociosController extends CI_Controller
             header("Location: " . base_url() . "SolicitudController/gestionSolicitud");
             exit();
         }
-
         $array_where = array('negocio_id' => $id_negocio);
         $data_solicitud = $this->NegociosModel->get_negocios_solicitud_cliente($array_where);
         if ($data_solicitud->num_rows() > 0) {
             $data = $this->draw_cotizaciones_negocio($id_negocio);
-            $array_response = array(
-                'response' => 'success',
-                'body' => $data,
-            );
+            if ($data == "") {
+                $array_response = array(
+                    'response' => 'warning',
+                    'title' => 'Advertencia!',
+                    'html' => '<strong>No se ha encontrado la cotización</strong>',
+                    'body' => $data,
+                );
+            } else {
+                $array_response = array(
+                    'response' => 'success',
+                    'body' => $data,
+                );
+            }
         } else {
             $array_response = array(
-                'response' => 'warning',
+                'response' => 'error',
                 'title' => 'Advertencia!',
                 'html' => '<strong>Para realizar la cotización debe compleatar la solicitud del cliente!</strong>',
+                'body' => '',
             );
         }
 
@@ -465,8 +520,6 @@ class NegociosController extends CI_Controller
                 foreach ($data_cotizaciones->result() as $row) {
                     $html_cotizaciones .= '<button class="btn btn-lg btn-primary m-2 ik ik-eye" onclick="verCotizacionPdf(' . $row->id_cotizacion . ')">' . $row->id_cotizacion . '</button>';
                 }
-            } else {
-                $html_cotizaciones .= 'No se han encontrado cotizaciones!';
             }
         }
 
@@ -679,5 +732,92 @@ class NegociosController extends CI_Controller
         $array_response = array('tbody' => $tbody);
 
         echo json_encode($array_response);
+    }
+
+
+    public function sendEncuestaSatisfacion()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+        $response_array = array(
+
+        );
+        if ($id_negocio != "" && $id_negocio != NULL) {
+            $where_negocio = array('n.id_negocio' => $id_negocio);
+            $data_negocio = $this->NegociosModel->getNegociosAll($where_negocio);
+
+            if($data_negocio->num_rows() == 0){
+                $response_array['title'] = 'Error';
+                $response_array['html'] = '<strong>No se ha encontrado información relacionada al id de negocio #' . $id_negocio . '</strong>';
+                $response_array['icon'] = 'error';
+                echo json_encode($response_array);
+                exit();
+            }
+
+            print_r($data_negocio->row(0));
+
+          /*   [id_negocio] => 30
+            [id_tercero_cli] => 1
+            [id_cliente] => 1
+            [nit_cliente] => 1097304901
+            [nombre_cliente] => SERGIO IVAN GALVIS ESTEBAN
+            [nombre_asesor] => SERGIO IVAN GALVIS ESTEBAN
+            [fecha_registro] => 2023-09-19 21:42:16
+            [prospecto] => ANDRES SERRANO
+            [solicitud_id] => 10 */
+
+            die;
+
+            $correo = $this->phpmailer_lib->load();
+            $correo->IsSMTP();
+            $correo->SMTPAuth = true;
+            $correo->SMTPSecure = 'tls';
+            $correo->Host = "mail.aftersalesassistance.com";
+            $correo->Port = 587;
+            $correo->IsHTML(true);
+            $correo->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $correo->Username = "no-reply@aftersalesassistance.com";
+            $correo->Password = 'N}mT=JzE,D$g';
+            // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+            /* $correo->SetFrom('', "SEELDEC"); */
+            $correo->addAddress($data_negocio->row(0)->email_cliente);
+            $correo->addBCC('no-reply@aftersalesassistance.com');//Correo tecnico
+            $correo->Subject = "Encuesta de satisfación";
+            $correo->CharSet = 'UTF-8';
+
+            $data_usuario = array(
+                'name_user' => $nombre_cliente,
+                'page' => 'Cotización',
+                'observacion' => $solicitud_cliente->row(0)->observacion
+            );
+
+            $mensaje = $this->load->view('mails/cotizacion', $data_usuario, true);
+
+
+            $correo->MsgHTML($mensaje);
+
+
+            if (!$correo->Send()) {
+                echo 'Hubo un error: ' . $correo->ErrorInfo;
+            } else {
+
+            }
+
+
+
+        } else {
+            $response_array['title'] = 'Error';
+            $response_array['html'] = '<strong>No se ha encontrado información relacionada al id de negocio #' . $id_negocio . '</strong>';
+            $response_array['icon'] = 'error';
+        }
+
+
+        echo json_encode($response_array);
+        exit();
     }
 }

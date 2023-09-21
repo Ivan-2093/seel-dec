@@ -8,7 +8,7 @@
                             <tbody>
                                 <tr>
                                     <td valign="top" align="center">
-                                        <a href="#" target="_blank" style="text-decoration: none"><img src="https://w7.pngwing.com/pngs/637/497/png-transparent-facebook-fb-social-media-logo-social-media-logo-socialmedia-3d-icon.png" alt="fb" style="
+                                        <a href="https://www.facebook.com/ZULYJOHANA" target="_blank" style="text-decoration: none"><img src="https://img.freepik.com/fotos-premium/representacion-3d-logotipo-aplicacion-facebook-sobre-fondo-blanco_41204-6939.jpg?w=740" alt="fb" style="
 																					display: block;
 																					font-family: Arial, sans-serif;
 																					font-size: 14px;
@@ -20,7 +20,7 @@
                                     </td>
                                     <td style="width: 6px" width="6">&nbsp;</td>
                                     <td valign="top" align="center">
-                                        <a href="#" target="_blank" style="text-decoration: none"><img src="https://w7.pngwing.com/pngs/421/879/png-transparent-twitter-logo-social-media-iphone-organization-logo-twitter-computer-network-leaf-media.png" alt="tw" style="
+                                        <a href="https://www.instagram.com/persianas_y_puertade_seguridad/" target="_blank" style="text-decoration: none"><img src="https://img.freepik.com/vector-gratis/instagram-nuevo-icono_1057-2227.jpg?w=740&t=st=1695265013~exp=1695265613~hmac=7ccd40beb7b6d126fab62fb059ce6e15367c3b657e0ff1cf8da0813dc7420ea7" alt="tw" style="
 																					display: block;
 																					font-family: Arial, sans-serif;
 																					font-size: 14px;
@@ -30,16 +30,6 @@
 																				" width="27" border="0" height="26" /></a>
                                     </td>
                                     <td style="width: 6px" width="6">&nbsp;</td>
-                                    <td valign="top" align="center">
-                                        <a href="#" target="_blank" style="text-decoration: none"><img src="https://w7.pngwing.com/pngs/1009/93/png-transparent-youtube-computer-icons-logo-youtube-angle-social-media-share-icon.png" alt="yt" style="
-																					display: block;
-																					font-family: Arial, sans-serif;
-																					font-size: 14px;
-																					line-height: 14px;
-																					color: #ffffff;
-																					max-width: 26px;
-																				" width="26" border="0" height="26" /></a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -52,15 +42,9 @@
 															line-height: 18px;
 															color: #999999;
 														" valign="top" align="center">
-                        <a href="#" target="_blank" style="color: #999999; text-decoration: underline">POLITICAS DE PRIVACIDAD</a>
-                        |
-                        <a href="#" target="_blank" style="color: #999999; text-decoration: underline">TERMINOS Y CONDICIONES</a>
-                        |
-                        <a href="#" target="_blank" style="color: #999999; text-decoration: underline">SEELDEC</a><br />
+                        
                         © 2023 SEELDEC. Todos los derechos reservados.<br />
-                        Si no desea recibir más correos electrónicos
-                        de nosotros, por favor
-                        <a href="#" target="_blank" style="text-decoration: none; color: #999999">cancelar la suscripción</a>
+                        
                     </td>
                 </tr>
             </tbody>

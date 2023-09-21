@@ -205,7 +205,7 @@ class LoginController extends CI_Controller
             )
         );
         $correo->Username = "no-reply@aftersalesassistance.com";
-        $correo->Password = "N}mT=JzE,D$g";
+        $correo->Password = 'N}mT=JzE,D$g';
         $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
         $correo->addAddress($mail_address);
         /* $correo->addAddress('jjairo0813@gmail.com'); */

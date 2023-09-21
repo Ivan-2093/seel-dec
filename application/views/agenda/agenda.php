@@ -80,7 +80,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary" onclick="crear_cita()">Crear Cita</button> -->
             </div>
         </div>
     </div>

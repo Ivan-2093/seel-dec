@@ -94,7 +94,7 @@ function createTercero(data_insert) {
 				html: json["html"],
 				willClose: () => {
 					if(json["response"] === "success") {
-						load_flujo_trabajo();
+						location.reload();
 					}
 				},
 			});
