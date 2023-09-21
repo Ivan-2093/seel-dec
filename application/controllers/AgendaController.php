@@ -363,7 +363,8 @@ class AgendaController extends CI_Controller
                 if ($data_agenda_by_cita->row(0)->estado == 1) {
                     $data_update = array(
                         'estado' => 2,
-                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s')
+                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'user_update' => $this->user_id
                     );
                     if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
                         $array_response['response'] = 'success';
@@ -409,7 +410,8 @@ class AgendaController extends CI_Controller
                     $data_update = array(
                         'estado' => 5,
                         'fecha_final' => Date('Y-m-d') . 'T' . Date('H.i:s'),
-                        'observacion' => trim($obs)
+                        'observacion' => trim($obs),
+                        'user_update' => $this->user_id
                     );
                     if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
                         $array_response['response'] = 'success';
@@ -454,7 +456,8 @@ class AgendaController extends CI_Controller
                 if ($data_agenda_by_cita->row(0)->estado == 1) {
                     $data_update = array(
                         'estado' => 3, // CANCELAR
-                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s')
+                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'user_update' => $this->user_id
                     );
                     if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
                         $array_response['response'] = 'success';
