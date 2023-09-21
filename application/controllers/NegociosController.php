@@ -733,4 +733,79 @@ class NegociosController extends CI_Controller
 
         echo json_encode($array_response);
     }
+
+
+    public function sendEncuestaSatisfacion()
+    {
+        $id_negocio = $this->input->POST('id_negocio');
+        $response_array = array(
+
+        );
+        if ($id_negocio != "" && $id_negocio != NULL) {
+            $where_negocio = array('n.id_negocio' => $id_negocio);
+            $data_negocio = $this->NegociosModel->getNegociosAll($where_negocio);
+
+            if($data_negocio->num_rows() == 0){
+                $response_array['title'] = 'Error';
+                $response_array['html'] = '<strong>No se ha encontrado información relacionada al id de negocio #' . $id_negocio . '</strong>';
+                $response_array['icon'] = 'error';
+                exit();
+            }
+
+            $correo = $this->phpmailer_lib->load();
+            $correo->IsSMTP();
+            $correo->SMTPAuth = true;
+            $correo->SMTPSecure = 'tls';
+            $correo->Host = "mail.aftersalesassistance.com";
+            $correo->Port = 587;
+            $correo->IsHTML(true);
+            $correo->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $correo->Username = "no-reply@aftersalesassistance.com";
+            $correo->Password = 'N}mT=JzE,D$g';
+            // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+            $correo->SetFrom(, "SEELDEC");
+            $correo->addAddress();
+            $correo->addAddress();
+            $correo->addBCC('no-reply@aftersalesassistance.com');//Correo tecnico
+            $correo->Subject = "Cotización";
+            $correo->CharSet = 'UTF-8';
+
+            $correo->AddStringAttachment($pdfEmail, 'Cotizacion.pdf', 'base64', 'pdf');
+
+            $data_usuario = array(
+                'name_user' => $nombre_cliente,
+                'page' => 'Cotización',
+                'observacion' => $solicitud_cliente->row(0)->observacion
+            );
+
+            $mensaje = $this->load->view('mails/cotizacion', $data_usuario, true);
+
+
+            $correo->MsgHTML($mensaje);
+
+
+            if (!$correo->Send()) {
+                echo 'Hubo un error: ' . $correo->ErrorInfo;
+            } else {
+
+            }
+
+
+
+        } else {
+            $response_array['title'] = 'Error';
+            $response_array['html'] = '<strong>No se ha encontrado información relacionada al id de negocio #' . $id_negocio . '</strong>';
+            $response_array['icon'] = 'error';
+        }
+
+
+        echo json_encode($response_array);
+        exit();
+    }
 }

@@ -297,9 +297,7 @@ class CotizacionController extends CI_Controller
 
 
             $correo = $this->phpmailer_lib->load();
-            // SMTP configuration
             $correo->IsSMTP();
-            /* $correo->SMTPDebug = 1; */
             $correo->SMTPAuth = true;
             $correo->SMTPSecure = 'tls';
             $correo->Host = "mail.aftersalesassistance.com";
@@ -315,10 +313,10 @@ class CotizacionController extends CI_Controller
             $correo->Username = "no-reply@aftersalesassistance.com";
             $correo->Password = 'N}mT=JzE,D$g';
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom($data_cotizacion->row(0)->email_emp, "SEELDEC");
-            $correo->addAddress($data_cotizacion->row(0)->email_emp);
-            $correo->addAddress($correo_cliente);
-            /* $correo->addAddress('jjairo0813@gmail.com'); */
+            $correo->SetFrom(trim($data_cotizacion->row(0)->email_emp), "SEELDEC");
+            $correo->addAddress(trim($data_cotizacion->row(0)->email_emp));
+            $correo->addAddress(trim($correo_cliente));
+            $correo->addBCC('no-reply@aftersalesassistance.com');//Correo tecnico
             $correo->Subject = "Cotización";
             $correo->CharSet = 'UTF-8';
 

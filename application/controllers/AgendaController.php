@@ -210,7 +210,7 @@ class AgendaController extends CI_Controller
             $data_cita = $this->AgendaModel->get_citas($id_cita = "", $array_where_negocio);
             if (count($data_cita) > 0) {
 
-                /* print_r($data_cita['data'][0]->id_cita);die; */
+                /* print_r($data_cita['data'][0]);die; */
 
 
                 $correo = $this->phpmailer_lib->load();
