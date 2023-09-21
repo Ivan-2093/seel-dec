@@ -749,8 +749,23 @@ class NegociosController extends CI_Controller
                 $response_array['title'] = 'Error';
                 $response_array['html'] = '<strong>No se ha encontrado información relacionada al id de negocio #' . $id_negocio . '</strong>';
                 $response_array['icon'] = 'error';
+                echo json_encode($response_array);
                 exit();
             }
+
+            print_r($data_negocio->row(0));
+
+          /*   [id_negocio] => 30
+            [id_tercero_cli] => 1
+            [id_cliente] => 1
+            [nit_cliente] => 1097304901
+            [nombre_cliente] => SERGIO IVAN GALVIS ESTEBAN
+            [nombre_asesor] => SERGIO IVAN GALVIS ESTEBAN
+            [fecha_registro] => 2023-09-19 21:42:16
+            [prospecto] => ANDRES SERRANO
+            [solicitud_id] => 10 */
+
+            die;
 
             $correo = $this->phpmailer_lib->load();
             $correo->IsSMTP();
@@ -769,14 +784,11 @@ class NegociosController extends CI_Controller
             $correo->Username = "no-reply@aftersalesassistance.com";
             $correo->Password = 'N}mT=JzE,D$g';
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom(, "SEELDEC");
-            $correo->addAddress();
-            $correo->addAddress();
+            /* $correo->SetFrom('', "SEELDEC"); */
+            $correo->addAddress($data_negocio->row(0)->email_cliente);
             $correo->addBCC('no-reply@aftersalesassistance.com');//Correo tecnico
-            $correo->Subject = "Cotización";
+            $correo->Subject = "Encuesta de satisfación";
             $correo->CharSet = 'UTF-8';
-
-            $correo->AddStringAttachment($pdfEmail, 'Cotizacion.pdf', 'base64', 'pdf');
 
             $data_usuario = array(
                 'name_user' => $nombre_cliente,

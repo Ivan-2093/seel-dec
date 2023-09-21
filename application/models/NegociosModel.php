@@ -55,7 +55,8 @@ class NegociosModel extends CI_Model
         concat (t_emp.primer_nombre," ",t_emp.segundo_nombre," ", t_emp.primer_apellido," ",t_emp.segundo_apellido) as nombre_asesor,
         n.fecha_registro,
         s.prospecto,
-        n.solicitud_id
+        n.solicitud_id,
+        t.email as email_cliente
         ');
         $this->db->from('negocios as n');
         $this->db->join('solicitudes_prospecto as s', 's.id_solicitud = n.solicitud_id');

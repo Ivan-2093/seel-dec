@@ -128,7 +128,7 @@ const get_info_citas = async (id_cita) => {
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <tbody>
-                            <tr>
+                            	<tr>
                                     <th>ID Negocio</th>
                                     <td>${element.id_negocio}</td>
                                 </tr>
