@@ -208,7 +208,9 @@ class AgendaController extends CI_Controller
 
             /* $data_negocio = $this->NegociosModel->getNegociosAll($array_where_negocio); */
             $data_cita = $this->AgendaModel->get_citas($id_cita = "", $array_where_negocio);
-            if ($data_cita->num_rows() > 0) {
+            if (count($data_cita) > 0) {
+
+                /* print_r($data_cita['data'][0]->id_cita);die; */
 
 
                 $correo = $this->phpmailer_lib->load();
@@ -228,19 +230,20 @@ class AgendaController extends CI_Controller
                 $correo->Username = "no-reply@aftersalesassistance.com";
                 $correo->Password = 'N}mT=JzE,D$g';
                 // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-                $correo->SetFrom($data_cotizacion->row(0)->email_emp, "SEELDEC");
-                $correo->addAddress($data_cotizacion->row(0)->email_emp);
-                $correo->addAddress($correo_cliente);
-                /* $correo->addAddress('jjairo0813@gmail.com'); */
+                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC");//Correo asesor
+                $correo->addAddress($data_cita['data'][0]->email_cliente);
+                $correo->addAddress($data_cita['data'][0]->email_asesor); //Correo Asesor
+                $correo->addBCC($data_cita['data'][0]->email_tecnico);//Correo tecnico
+                
                 $correo->Subject = "Agendamiento de Servicio Instalación";
                 $correo->CharSet = 'UTF-8';
 
                 $data_usuario = array(
                     'page' => 'Agendamiento',
-                    'nombre_cliente' => $data_cita->row(0)->primer_nombre_cliente . " " . $data_cita->row(0)->primer_apellido_cliente,
-                    'fecha_cita' => $data_cita->row(0)->fecha_cita,
-                    'nombre_tecnico' => $data_cita->row(0)->primer_nombre_tecnico . " " . $data_cita->row(0)->primer_apellido_tecnico,
-                    'nit_tecnico' => $data_cita->row(0)->nit_tecnico
+                    'nombre_cliente' => $data_cita['data'][0]->primer_nombre_cliente . " " . $data_cita['data'][0]->primer_apellido_cliente,
+                    'fecha_cita' => $data_cita['data'][0]->fecha_cita,
+                    'nombre_tecnico' => $data_cita['data'][0]->primer_nombre_tecnico . " " . $data_cita['data'][0]->primer_apellido_tecnico,
+                    'nit_tecnico' => $data_cita['data'][0]->nit_tecnico
                 );
 
                 $mensaje = $this->load->view('mails/cita_instalacion', $data_usuario, true);
@@ -250,13 +253,14 @@ class AgendaController extends CI_Controller
 
 
                 if ($correo->Send()) {
+
                     $array_insert_correo = array(
-                        'cotizacion_id' => $id_cotizacion,
+                        'cita_id' => $data_cita['data'][0]->id_cita,
                         'usuario_id' => $this->session->userdata('id_user'),
                         'fecha_envio' => Date('Y-m-d') . 'T' . Date('H:i:s')
                     );
 
-                    $this->AgendaModel->insert_correo_noti_cotizacion($array_insert_correo);
+                    $this->AgendaModel->insert_correo_noti_agenda($array_insert_correo);
                 }
             }
         }

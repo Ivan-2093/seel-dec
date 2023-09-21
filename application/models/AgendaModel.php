@@ -47,7 +47,7 @@ class AgendaModel extends CI_Model
         return $this->db->insert('agenda_citas', $data);
     }
 
-    function get_citas($id_cita = "",$where_cita)
+    function get_citas($id_cita = "",$where_cita="")
     {
         $response = array(
             "status" => false,
@@ -66,20 +66,29 @@ class AgendaModel extends CI_Model
             t.primer_apellido as 'primer_apellido_cliente', 
             t.segundo_apellido as 'segundo_apellido_cliente',
             t.nit as 'nit_cliente',
+            t.email as 'email_cliente',
             tt.primer_nombre as 'primer_nombre_tecnico', 
             tt.segundo_nombre as 'segundo_nombre_tecnico', 
             tt.primer_apellido as 'primer_apellido_tecnico', 
             tt.segundo_apellido as 'segundo_apellido_tecnico',
             tt.nit as 'nit_tecnico',
+            ee.email as 'email_tecnico',
             ac.fecha_cita,
             ac.tecnico,
             ac.estado,
-            ac.detalles_cita
+            ac.detalles_cita,
+            n.id_negocio,
+            e.email as email_asesor,
+            concat(t_a.primer_nombre,' ', t_a.primer_apellido) as nombre_asesor
             FROM agenda_citas ac
             INNER JOIN negocios n ON n.id_negocio = ac.negocio_id
             INNER JOIN clientes c ON c.id_cliente = n.cliente_id
             INNER JOIN terceros t ON t.id = c.id_tercero
             INNER JOIN terceros tt ON tt.nit = ac.tecnico
+            INNER JOIN empleados ee ON tt.id = ee.id_tercero
+            INNER JOIN usuarios u ON ac.user_crea = u.id_user
+            INNER JOIN empleados e ON u.empleado_id = e.id
+            INNER JOIN terceros t_a ON  e.id_tercero=t_a.id
             WHERE ac.estado IN (1,2,3,4,5) {$where}";
             $this->db->where($where_cita);
             if ($query = $this->db->query($sql)) {
@@ -110,4 +119,8 @@ class AgendaModel extends CI_Model
         return $this->db->get('agenda_citas');
     }
 
+    public function insert_correo_noti_agenda($data)
+    {
+        return $this->db->insert('correo_notificacion_agendamiento',$data);
+    }
 }

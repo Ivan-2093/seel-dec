@@ -1738,3 +1738,12 @@ CREATE TABLE negocios_solicitud_cliente (
     FOREIGN KEY (negocio_id) REFERENCES negocios(id_negocio),
 	FOREIGN KEY (user_crea) REFERENCES usuarios(id_user)
 );
+
+create table correo_notificacion_agendamiento(
+	id_notificacion bigint AUTO_INCREMENT PRIMARY KEY,
+    cita_id bigint not null,
+    usuario_id bigint not null,
+    fecha_envio datetime not null,
+    FOREIGN KEY (cita_id) REFERENCES agenda_citas(id_cita),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
+);
