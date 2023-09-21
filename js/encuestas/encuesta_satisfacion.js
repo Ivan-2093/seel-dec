@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	sidebar_header[0].children[1].children[0].classList.add('ik-toggle-left');
 });
 
-{/* <i data-toggle="collapsed" class="ik toggle-icon ik-toggle-left"></i> */}
-
 const btn_env_encuesta = document.getElementById("btn_env_encuesta");
 const form_encuesta = document.getElementById("form_encuesta");
 btn_env_encuesta.addEventListener("click", function () {
@@ -41,26 +39,20 @@ function saveEncuesta() {
 			return response.json();
 		})
 		.then(function (json) {
-			if (json["response"] === "success") {
-				Swal.fire({
-					icon: "success",
-					title: "Exito",
-					html: `Gracias por contestar la encuesta, ya puedes retirar el vehículo`,
-					confirmButtonText: '<i class="fa fa-thumbs-up"> OK</i>',
-					willClose: () => {
-						location.href = `${base_url}`;
-					},
-				});
-			}
+
+			Swal.fire({
+				icon: json['response'],
+				title: json['title'],
+				html: json['Html'],
+				confirmButtonText: '<i class="fa fa-thumbs-up"> OK</i>',
+				willClose: () => {
+					location.href = `https://www.instagram.com/persianas_y_puertade_seguridad/`;
+				},
+			});
 			hiddenLoading(cargando);
 		})
 		.catch(function (error) {
-			swal.fire({
-				icon: "error",
-				title: "Error",
-				html: `Ha ocurrido un error en la api de la intranet de postventa, intente nuevamente.`,
-				confirmButtonText: "OK",
-			});
+			reportError(error);
 			hiddenLoading(cargando);
 		});
 }

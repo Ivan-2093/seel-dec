@@ -1,4 +1,4 @@
-const sidebar_header = document.getElementsByClassName("sidebar-header");
+/* const sidebar_header = document.getElementsByClassName("sidebar-header"); */
 const cargando = document.getElementById("cargando");
 const btnChangePass = document.getElementById("btnChangePass");
 const form_change_pass = document.getElementById("form_change_pass");

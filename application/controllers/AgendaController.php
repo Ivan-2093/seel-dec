@@ -230,11 +230,11 @@ class AgendaController extends CI_Controller
                 $correo->Username = "no-reply@aftersalesassistance.com";
                 $correo->Password = 'N}mT=JzE,D$g';
                 // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC");//Correo asesor
+                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC"); //Correo asesor
                 $correo->addAddress($data_cita['data'][0]->email_cliente);
                 $correo->addAddress($data_cita['data'][0]->email_asesor); //Correo Asesor
-                $correo->addBCC($data_cita['data'][0]->email_tecnico);//Correo tecnico
-                
+                $correo->addBCC($data_cita['data'][0]->email_tecnico); //Correo tecnico
+
                 $correo->Subject = "Agendamiento de Servicio Instalación";
                 $correo->CharSet = 'UTF-8';
 
@@ -341,8 +341,143 @@ class AgendaController extends CI_Controller
         echo json_encode($response);
     }
 
-    public function check_estado_cita()
+    public function start_cita_agendada()
     {
-        print_r($this->input->GET_POST());
+
+        $array_response = array(
+            'response' => 'error',
+            'title' => 'Error',
+            'html' => 'Ha ocurrido un error, intente nuevamente!'
+        );
+
+
+        $id_cita = $this->input->POST('id_cita');
+
+        if ($id_cita != "" && $id_cita != NULL) {
+
+            $array_where_agenda = array('id_cita' => $id_cita);
+            $data_agenda_by_cita = $this->AgendaModel->getCitaByWhere($array_where_agenda);
+
+            if ($data_agenda_by_cita->num_rows() > 0) {
+
+                if ($data_agenda_by_cita->row(0)->estado == 1) {
+                    $data_update = array(
+                        'estado' => 2,
+                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'user_update' => $this->user_id
+                    );
+                    if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+                        $array_response['response'] = 'success';
+                        $array_response['title'] = 'Exito';
+                        $array_response['html'] = 'Se ha realizado con exito la actualización del estado de la cita: #' . $id_cita;
+                    } else {
+                        $array_response['response'] = 'warning';
+                        $array_response['title'] = 'Advertencia';
+                        $array_response['html'] = 'No se ha realizado la actualización del estado de la cita: #' . $id_cita;
+                    }
+                } else {
+                    $array_response['response'] = 'warning';
+                    $array_response['title'] = 'Advertencia';
+                    $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
+                }
+            } else {
+                $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
+            }
+        }
+        echo json_encode($array_response);
     }
+
+    public function end_cita_agendada()
+    {
+        $array_response = array(
+            'response' => 'error',
+            'title' => 'Error',
+            'html' => 'Ha ocurrido un error, intente nuevamente!'
+        );
+
+
+        $id_cita = $this->input->POST('id_cita');
+        $obs = $this->input->POST('observacion');
+
+        if ($id_cita != "" && $id_cita != NULL && $obs != "" && $obs != NULL) {
+
+            $array_where_agenda = array('id_cita' => $id_cita);
+            $data_agenda_by_cita = $this->AgendaModel->getCitaByWhere($array_where_agenda);
+
+            if ($data_agenda_by_cita->num_rows() > 0) {
+
+                if ($data_agenda_by_cita->row(0)->estado == 2) {
+                    $data_update = array(
+                        'estado' => 5,
+                        'fecha_final' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'observacion' => trim($obs),
+                        'user_update' => $this->user_id
+                    );
+                    if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+                        $array_response['response'] = 'success';
+                        $array_response['title'] = 'Exito';
+                        $array_response['html'] = 'Se ha realizado con exito la actualización del estado de la cita: #' . $id_cita;
+                    } else {
+                        $array_response['response'] = 'warning';
+                        $array_response['title'] = 'Advertencia';
+                        $array_response['html'] = 'No se ha realizado la actualización del estado de la cita: #' . $id_cita;
+                    }
+                } else {
+                    $array_response['response'] = 'warning';
+                    $array_response['title'] = 'Advertencia';
+                    $array_response['html'] = 'La cita no se encuentra en proceso, para finalizar la instalación debe haberla inicializado!';
+                }
+            } else {
+                $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
+            }
+        }
+        echo json_encode($array_response);
+    }
+
+    public function cancel_cita_agendada()
+    {
+
+        $array_response = array(
+            'response' => 'error',
+            'title' => 'Error',
+            'html' => 'Ha ocurrido un error, intente nuevamente!'
+        );
+
+
+        $id_cita = $this->input->POST('id_cita');
+
+        if ($id_cita != "" && $id_cita != NULL) {
+
+            $array_where_agenda = array('id_cita' => $id_cita);
+            $data_agenda_by_cita = $this->AgendaModel->getCitaByWhere($array_where_agenda);
+
+            if ($data_agenda_by_cita->num_rows() > 0) {
+
+                if ($data_agenda_by_cita->row(0)->estado == 1) {
+                    $data_update = array(
+                        'estado' => 3, // CANCELAR
+                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'user_update' => $this->user_id
+                    );
+                    if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+                        $array_response['response'] = 'success';
+                        $array_response['title'] = 'Exito';
+                        $array_response['html'] = 'Se ha realizado con exito la cancelación de la cita: #' . $id_cita;
+                    } else {
+                        $array_response['response'] = 'warning';
+                        $array_response['title'] = 'Advertencia';
+                        $array_response['html'] = 'No se ha realizado la cancelación de la cita: #' . $id_cita;
+                    }
+                } else {
+                    $array_response['response'] = 'warning';
+                    $array_response['title'] = 'Advertencia';
+                    $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
+                }
+            } else {
+                $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
+            }
+        }
+        echo json_encode($array_response);
+    }
+
 }

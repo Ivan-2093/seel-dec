@@ -73,4 +73,8 @@ class NegociosModel extends CI_Model
     }
 
 
+  
+
+
+
 }

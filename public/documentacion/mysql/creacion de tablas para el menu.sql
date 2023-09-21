@@ -1747,3 +1747,31 @@ create table correo_notificacion_agendamiento(
     FOREIGN KEY (cita_id) REFERENCES agenda_citas(id_cita),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
 );
+
+create table correo_notificacion_encuesta(
+	id_notificacion bigint AUTO_INCREMENT PRIMARY KEY,
+    id_negocio bigint not null,
+    usuario_id bigint not null,
+    fecha_envio datetime not null,
+    FOREIGN KEY (id_negocio) REFERENCES negocios(id_negocio),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_user)
+);
+
+create table encuesta_satisfacion(
+	id_encuesta bigint AUTO_INCREMENT PRIMARY KEY,
+    id_negocio bigint not null,
+	pregunta_1 tinyint not null,
+    pregunta_2 varchar(5) not null,
+    pregunta_3 varchar(5) not null,
+	opinion varchar(2000) not null,
+    fecha_registro datetime not null,
+    FOREIGN KEY (id_negocio) REFERENCES negocios(id_negocio)
+);
+
+
+ALTER TABLE agenda_citas
+ADD user_update bigint;
+
+
+ALTER TABLE agenda_citas
+ADD FOREIGN KEY (user_update) REFERENCES usuarios(id_user);

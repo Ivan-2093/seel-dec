@@ -60,6 +60,20 @@
             color: inherit;
         }
 
+        button {
+            background-color: #2dce89;
+            border: 1px solid #2dce89;
+            padding: 6px 14px;
+            height: 60px;
+            font-size: 13px;
+            font-weight: 600;
+            -moz-transition: 0.3s ease-in-out;
+            -o-transition: 0.3s ease-in-out;
+            -webkit-transition: 0.3s ease-in-out;
+            transition: 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
         @media only screen and (min-width: 481px) and (max-width: 699px) {
             .em_main_table {
                 width: 100% !important;
