@@ -216,9 +216,9 @@ class AgendaController extends CI_Controller
                 $correo = $this->phpmailer_lib->load();
                 $correo->IsSMTP();
                 $correo->SMTPAuth = true;
-                $correo->SMTPSecure = 'tls';
+                $correo->SMTPSecure = 'ssl';
                 $correo->Host = "mail.aftersalesassistance.com";
-                $correo->Port = 587;
+                $correo->Port = 465;
                 $correo->IsHTML(true);
                 $correo->SMTPOptions = array(
                     'ssl' => array(
@@ -230,7 +230,7 @@ class AgendaController extends CI_Controller
                 $correo->Username = "no-reply@aftersalesassistance.com";
                 $correo->Password = 'N}mT=JzE,D$g';
                 // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC"); //Correo asesor
+                $correo->SetFrom('no-reply@aftersalesassistance.com',"SEELDEC"); //Correo asesor
                 $correo->addAddress($data_cita['data'][0]->email_cliente);
                 $correo->addAddress($data_cita['data'][0]->email_asesor); //Correo Asesor
                 $correo->addBCC($data_cita['data'][0]->email_tecnico); //Correo tecnico
@@ -459,7 +459,7 @@ class AgendaController extends CI_Controller
 
             if ($data_agenda_by_cita->num_rows() > 0) {
 
-                if ($data_agenda_by_cita->row(0)->estado == 1) {
+                if ($data_agenda_by_cita->row(0)->estado == 1 || $data_agenda_by_cita->row(0)->estado == 4) {
                     $data_update = array(
                         'estado' => 3, // CANCELAR
                         'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
@@ -477,7 +477,7 @@ class AgendaController extends CI_Controller
                 } else {
                     $array_response['response'] = 'warning';
                     $array_response['title'] = 'Advertencia';
-                    $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
+                    $array_response['html'] = 'La cita no se encuentra en estado Agendada o Reprogramada!';
                 }
             } else {
                 $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
@@ -551,9 +551,9 @@ class AgendaController extends CI_Controller
                 $correo = $this->phpmailer_lib->load();
                 $correo->IsSMTP();
                 $correo->SMTPAuth = true;
-                $correo->SMTPSecure = 'tls';
+                $correo->SMTPSecure = 'ssl';
                 $correo->Host = "mail.aftersalesassistance.com";
-                $correo->Port = 587;
+                $correo->Port = 465;
                 $correo->IsHTML(true);
                 $correo->SMTPOptions = array(
                     'ssl' => array(
@@ -565,10 +565,10 @@ class AgendaController extends CI_Controller
                 $correo->Username = "no-reply@aftersalesassistance.com";
                 $correo->Password = 'N}mT=JzE,D$g';
                 // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-                $correo->SetFrom( strtolower($data_cita['data'][0]->email_asesor), "SEELDEC"); //Correo asesor
-                $correo->addAddress( strtolower($data_cita['data'][0]->email_cliente));
-                $correo->addAddress( strtolower($data_cita['data'][0]->email_asesor)); //Correo Asesor
-                $correo->addBCC( strtolower($data_cita['data'][0]->email_tecnico)); //Correo tecnico
+                $correo->SetFrom('no-reply@aftersalesassistance.com',"SEELDEC"); //Correo asesor
+                $correo->addAddress(strtolower($data_cita['data'][0]->email_cliente));
+                $correo->addAddress(strtolower($data_cita['data'][0]->email_asesor)); //Correo Asesor
+                $correo->addBCC(strtolower($data_cita['data'][0]->email_tecnico)); //Correo tecnico
                 $correo->addBCC('developer@aftersalesassistance.com'); //Correo tecnico
 
                 $correo->Subject = "Agendamiento de Servicio Instalación";

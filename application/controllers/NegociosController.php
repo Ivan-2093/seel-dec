@@ -755,9 +755,9 @@ class NegociosController extends CI_Controller
             $correo = $this->phpmailer_lib->load();
             $correo->IsSMTP();
             $correo->SMTPAuth = true;
-            $correo->SMTPSecure = 'tls';
+            $correo->SMTPSecure = 'ssl';
             $correo->Host = "mail.aftersalesassistance.com";
-            $correo->Port = 587;
+            $correo->Port = 465;
             $correo->IsHTML(true);
             $correo->SMTPOptions = array(
                 'ssl' => array(
@@ -769,7 +769,7 @@ class NegociosController extends CI_Controller
             $correo->Username = "no-reply@aftersalesassistance.com";
             $correo->Password = 'N}mT=JzE,D$g';
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom('no-reply@aftersalesassistance.com', "SEELDEC");
+            $correo->SetFrom('no-reply@aftersalesassistance.com',"SEELDEC");
             $correo->addAddress($data_negocio->row(0)->email_cliente);//correo Cliente
             $correo->addBCC('no-reply@aftersalesassistance.com'); //Correo tecnico
             $correo->Subject = "¿Cómo ha sido tu experiencia con nosotros?";
