@@ -17,8 +17,8 @@ class AgendaModel extends CI_Model
             t.nit 
             FROM terceros t 
             INNER JOIN empleados e ON e.id_tercero = t.id
-            INNER JOIN perfiles p ON p.id_perfil = e.id_cargo
             INNER JOIN usuarios u ON u.empleado_id = e.id
+            INNER JOIN perfiles p ON u.perfil_id = p.id_perfil
             WHERE p.id_perfil = 3 AND u.estado_id = 1";
 
             if ($query = $this->db->query($sql)) {
@@ -47,7 +47,7 @@ class AgendaModel extends CI_Model
         return $this->db->insert('agenda_citas', $data);
     }
 
-    function get_citas($id_cita = "",$where_cita="")
+    function get_citas($id_cita = "",$where_citas="")
     {
         $response = array(
             "status" => false,
@@ -56,8 +56,12 @@ class AgendaModel extends CI_Model
         );
         try {
             $where = "";
+            $where_2 = "";
             if(!empty($id_cita)){
                 $where = "AND ac.id_cita = {$id_cita}";
+            }
+            if(!empty($where_citas)){
+                $where_2 = $where_citas;
             }
             $sql = "SELECT 
             ac.id_cita,
@@ -89,8 +93,7 @@ class AgendaModel extends CI_Model
             INNER JOIN usuarios u ON ac.user_crea = u.id_user
             INNER JOIN empleados e ON u.empleado_id = e.id
             INNER JOIN terceros t_a ON  e.id_tercero=t_a.id
-            WHERE ac.estado IN (1,2,3,4,5) {$where}";
-            $this->db->where($where_cita);
+            WHERE ac.estado IN (1,2,3,4,5) {$where}  {$where_2}";
             if ($query = $this->db->query($sql)) {
                 if ($query->num_rows() > 0) {
                     $response["data"] = $query->result();

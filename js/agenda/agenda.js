@@ -110,7 +110,7 @@ const get_info_citas = async (id_cita) => {
 				switch (element.estado) {
 					case "1":
 						estado = "AGENDADA";
-						btnReprogramar = `<button onclick="reprogramarInstalacion(${element.id_cita});" type="button" class="btn btn-warning">REPROGRAMAR</button>`;
+						btnReprogramar = `<button onclick="reprogramarInstalacion(${element.id_cita},'${element.fecha_cita}');" type="button" class="btn btn-warning">REPROGRAMAR</button>`;
 						btnCancelar = `<button onclick="cancelarInstalacion(${element.id_cita});" type="button" class="btn btn-danger">CANCELAR</button>`;
 						break;
 					case "2":
@@ -120,6 +120,8 @@ const get_info_citas = async (id_cita) => {
 						estado = "CANCELADA";
 						break;
 					case "4":
+						btnReprogramar = `<button onclick="reprogramarInstalacion(${element.id_cita},'${element.fecha_cita}');" type="button" class="btn btn-warning">REPROGRAMAR</button>`;
+						btnCancelar = `<button onclick="cancelarInstalacion(${element.id_cita});" type="button" class="btn btn-danger">CANCELAR</button>`;
 						estado = "REPROGRAMADA";
 						break;
 					case "5":
@@ -176,40 +178,41 @@ const get_info_citas = async (id_cita) => {
 	});
 };
 
+const id_cita_re = document.getElementById("id_cita_repro");
+const new_date = document.getElementById("new_date_cita");
+const fec_cita_repro = document.getElementById("fec_cita_repro");
 
-const reprogramarInstalacion = async (id_cita) => {
-
-}
+const reprogramarInstalacion = async (id_cita,fec) => {
+	id_cita_re.value = id_cita;
+	fec_cita_repro.value = fec;
+	close_modal("modal_info_agenda");
+	open_modal("modal_reprogamar_agenda");
+};
 
 const cancelarInstalacion = async (id_cita) => {
-
 	Swal.fire({
-		icon: 'info',
+		icon: "info",
 		title: `¿Está seguro de cancelar la cita #${id_cita}?`,
 		showDenyButton: true,
 		showCancelButton: false,
-		confirmButtonText: 'SI',
+		confirmButtonText: "SI",
 		denyButtonText: `NO`,
 		allowOutsideClick: false,
 		allowOutsideClick: false,
 	}).then((result) => {
-
 		if (result.isConfirmed) {
-
 			cancelarInstalacionSave(id_cita);
-
 		} else if (result.isDenied) {
 			close_modal("modal_info_agenda");
 		}
-	})
-}
-
+	});
+};
 
 const cancelarInstalacionSave = async (id_cita) => {
 	showLoading(cargando);
 	const url = `${base_url}AgendaController/cancel_cita_agendada`;
 	const cancel_cita = new FormData();
-	cancel_cita.append("id_cita", id_cita_iniciar);
+	cancel_cita.append("id_cita", id_cita);
 	await execute_fetch(url, cancel_cita).then((resp) => {
 		if (resp.response) {
 			Swal.fire({
@@ -218,7 +221,7 @@ const cancelarInstalacionSave = async (id_cita) => {
 				icon: resp.response,
 			});
 
-			if (resp.response == 'success') {
+			if (resp.response == "success") {
 				close_modal("modal_info_agenda");
 				get_citas();
 			}
@@ -229,4 +232,40 @@ const cancelarInstalacionSave = async (id_cita) => {
 			hiddenLoading(cargando);
 		}
 	});
-}
+};
+
+
+const reprogamarCita = async () => {
+	if (id_cita_re.value != "" && new_date.value != "" && new_date.value > fec_cita_repro.value) {
+		showLoading(cargando);
+		const url = `${base_url}AgendaController/reprogramar_cita_agendada`;
+		const repro_cita = new FormData();
+		repro_cita.append("id_cita", id_cita_re.value);
+		repro_cita.append("fecha_cita", new_date.value);
+		await execute_fetch(url, repro_cita).then((resp) => {
+			if (resp.response) {
+				Swal.fire({
+					title: resp.title,
+					html: resp.html,
+					icon: resp.response,
+				});
+
+				if (resp.response == "success") {
+					close_modal("modal_info_agenda");
+					get_citas();
+				}
+
+				hiddenLoading(cargando);
+			} else {
+				console.log(resp);
+				hiddenLoading(cargando);
+			}
+		});
+	} else {
+		Swal.fire({
+            title: 'Advertencia!',
+            html: `<strong>Debe agregar una nueva fecha para reprogramar la instalación!<br>Nota: La nueva fecha debe ser mayor a la antigua.</strong>`,
+            icon: 'warning',
+        });
+	}
+};

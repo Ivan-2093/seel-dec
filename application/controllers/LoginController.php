@@ -193,9 +193,9 @@ class LoginController extends CI_Controller
         $correo->IsSMTP();
         /* $correo->SMTPDebug = 1; */
         $correo->SMTPAuth = true;
-        $correo->SMTPSecure = 'tls';
+        $correo->SMTPSecure = 'ssl';
         $correo->Host = "mail.aftersalesassistance.com";
-        $correo->Port = 587;
+        $correo->Port = 465;
         $correo->IsHTML(true);
         $correo->SMTPOptions = array(
             'ssl' => array(
@@ -206,7 +206,7 @@ class LoginController extends CI_Controller
         );
         $correo->Username = "no-reply@aftersalesassistance.com";
         $correo->Password = 'N}mT=JzE,D$g';
-        $correo->SetFrom("developer@aftersalesassistance.com", "SEELDEC"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+        $correo->SetFrom("developer@aftersalesassistance.com"); // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
         $correo->addAddress($mail_address);
         /* $correo->addAddress('jjairo0813@gmail.com'); */
         $correo->Subject = "Restablecer contraseña";
