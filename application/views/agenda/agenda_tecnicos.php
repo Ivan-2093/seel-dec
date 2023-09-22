@@ -89,7 +89,7 @@
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<?php if ($this->perfil == 1) { ?>
+<?php if ($this->perfil == 3) { ?>
     <script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda_tecnicos.js"></script>
 <?php } else { ?>
     <script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda.js"></script>

@@ -505,8 +505,7 @@ class AgendaController extends CI_Controller
             $data_agenda_by_cita = $this->AgendaModel->getCitaByWhere($array_where_agenda);
 
             if ($data_agenda_by_cita->num_rows() > 0) {
-
-                if ($data_agenda_by_cita->row(0)->estado == 1) {
+                if ($data_agenda_by_cita->row(0)->estado == 1 || $data_agenda_by_cita->row(0)->estado == 4) {
                     $data_update = array(
                         'estado' => 4, // REPROGRAMADA
                         'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
@@ -515,7 +514,7 @@ class AgendaController extends CI_Controller
                     );
                     if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
 
-                        $this->SendEmailNotificacionReprogramacionAgenda($id_cita)
+                        $this->SendEmailNotificacionReprogramacionAgenda($id_cita);
 
                         $array_response['response'] = 'success';
                         $array_response['title'] = 'Exito';
@@ -599,6 +598,8 @@ class AgendaController extends CI_Controller
                     $this->AgendaModel->insert_correo_noti_agenda($array_insert_correo);
                 }
             }
+
+            print_r($correo);die;
         }
     }
 }

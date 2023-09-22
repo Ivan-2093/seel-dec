@@ -120,6 +120,7 @@ const get_info_citas = async (id_cita) => {
 						estado = "CANCELADA";
 						break;
 					case "4":
+						btnReprogramar = `<button onclick="reprogramarInstalacion(${element.id_cita},'${element.fecha_cita}');" type="button" class="btn btn-warning">REPROGRAMAR</button>`;
 						estado = "REPROGRAMADA";
 						break;
 					case "5":
