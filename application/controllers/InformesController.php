@@ -37,7 +37,7 @@ class InformesController extends CI_Controller
             'name_page' => 'INFORME SOLICITUDES',
         );
         $this->load->view('header', $data_vista);
-        $this->load->view('pages/ui/icons');
+        $this->load->view('informes/solicitudes');
     }
     public function informe_negocios()
     {
@@ -47,7 +47,7 @@ class InformesController extends CI_Controller
             'name_page' => 'INFORME NEGOCIOS',
         );
         $this->load->view('header', $data_vista);
-        $this->load->view('pages/ui/icons');
+        $this->load->view('informes/negocios');
     }
     public function informe_agenda()
     {
@@ -57,7 +57,7 @@ class InformesController extends CI_Controller
             'name_page' => 'INFORME AGENDA',
         );
         $this->load->view('header', $data_vista);
-        $this->load->view('pages/ui/icons');
+        $this->load->view('informes/agenda');
     }
     public function informe_productos()
     {
@@ -67,6 +67,6 @@ class InformesController extends CI_Controller
             'name_page' => 'INFORME PRODUCTOS',
         );
         $this->load->view('header', $data_vista);
-        $this->load->view('pages/ui/icons');
+        $this->load->view('informes/productos');
     }
 }
