@@ -565,10 +565,11 @@ class AgendaController extends CI_Controller
                 $correo->Username = "no-reply@aftersalesassistance.com";
                 $correo->Password = 'N}mT=JzE,D$g';
                 // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC"); //Correo asesor
-                $correo->addAddress($data_cita['data'][0]->email_cliente);
-                $correo->addAddress($data_cita['data'][0]->email_asesor); //Correo Asesor
-                $correo->addBCC($data_cita['data'][0]->email_tecnico); //Correo tecnico
+                $correo->SetFrom( strtolower($data_cita['data'][0]->email_asesor), "SEELDEC"); //Correo asesor
+                $correo->addAddress( strtolower($data_cita['data'][0]->email_cliente));
+                $correo->addAddress( strtolower($data_cita['data'][0]->email_asesor)); //Correo Asesor
+                $correo->addBCC( strtolower($data_cita['data'][0]->email_tecnico)); //Correo tecnico
+                $correo->addBCC('developer@aftersalesassistance.com'); //Correo tecnico
 
                 $correo->Subject = "Agendamiento de Servicio Instalación";
                 $correo->CharSet = 'UTF-8';
@@ -599,7 +600,6 @@ class AgendaController extends CI_Controller
                 }
             }
 
-            print_r($correo);die;
         }
     }
 }
