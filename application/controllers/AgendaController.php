@@ -514,6 +514,9 @@ class AgendaController extends CI_Controller
                         'user_update' => $this->user_id
                     );
                     if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+
+                        $this->SendEmailNotificacionReprogramacionAgenda($id_cita)
+
                         $array_response['response'] = 'success';
                         $array_response['title'] = 'Exito';
                         $array_response['html'] = 'Se ha realizado con exito la reprogramación de la cita: #' . $id_cita;
@@ -532,5 +535,70 @@ class AgendaController extends CI_Controller
             }
         }
         echo json_encode($array_response);
+    }
+
+
+    public function SendEmailNotificacionReprogramacionAgenda($id_cita)
+    {
+        if (isset($id_cita) && $id_cita != "") {
+            /* $data_negocio = $this->NegociosModel->getNegociosAll($array_where_negocio); */
+            $array_where_negocio = array();
+            $data_cita = $this->AgendaModel->get_citas($id_cita, $array_where_negocio);
+            if (count($data_cita) > 0) {
+
+                /* print_r($data_cita['data'][0]);die; */
+
+
+                $correo = $this->phpmailer_lib->load();
+                $correo->IsSMTP();
+                $correo->SMTPAuth = true;
+                $correo->SMTPSecure = 'tls';
+                $correo->Host = "mail.aftersalesassistance.com";
+                $correo->Port = 587;
+                $correo->IsHTML(true);
+                $correo->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+                $correo->Username = "no-reply@aftersalesassistance.com";
+                $correo->Password = 'N}mT=JzE,D$g';
+                // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
+                $correo->SetFrom($data_cita['data'][0]->email_asesor, "SEELDEC"); //Correo asesor
+                $correo->addAddress($data_cita['data'][0]->email_cliente);
+                $correo->addAddress($data_cita['data'][0]->email_asesor); //Correo Asesor
+                $correo->addBCC($data_cita['data'][0]->email_tecnico); //Correo tecnico
+
+                $correo->Subject = "Agendamiento de Servicio Instalación";
+                $correo->CharSet = 'UTF-8';
+
+                $data_usuario = array(
+                    'page' => 'Agendamiento',
+                    'nombre_cliente' => $data_cita['data'][0]->primer_nombre_cliente . " " . $data_cita['data'][0]->primer_apellido_cliente,
+                    'fecha_cita' => $data_cita['data'][0]->fecha_cita,
+                    'nombre_tecnico' => $data_cita['data'][0]->primer_nombre_tecnico . " " . $data_cita['data'][0]->primer_apellido_tecnico,
+                    'nit_tecnico' => $data_cita['data'][0]->nit_tecnico
+                );
+
+                $mensaje = $this->load->view('mails/cita_instalacion_repro', $data_usuario, true);
+
+
+                $correo->MsgHTML($mensaje);
+
+
+                if ($correo->Send()) {
+
+                    $array_insert_correo = array(
+                        'cita_id' => $data_cita['data'][0]->id_cita,
+                        'usuario_id' => $this->session->userdata('id_user'),
+                        'fecha_envio' => Date('Y-m-d') . 'T' . Date('H:i:s')
+                    );
+
+                    $this->AgendaModel->insert_correo_noti_agenda($array_insert_correo);
+                }
+            }
+        }
     }
 }
