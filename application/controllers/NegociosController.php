@@ -711,6 +711,18 @@ class NegociosController extends CI_Controller
                 $nombre = ($row->id_cliente != "") ? $row->nombre_cliente :  $row->prospecto;
                 $nit = ($row->nit_cliente != "") ? $row->nit_cliente :  'No se ha asignado cliente';
 
+                switch ($row->fecha_registro) {
+                    case 0:
+                        $estado_negocio = 'EN PROCESO';
+                        break;
+                    case 1:
+                        $estado_negocio = 'FINALIZADO NO EFECTIVO';
+                        break;
+                    default:
+                        $estado_negocio = 'FINALIZADO EFECTIVO';
+                        break;
+                }
+
                 $tbody .=
                     '<tr>
                     <td class="text-center">' . $row->id_negocio . '</td>
@@ -726,6 +738,7 @@ class NegociosController extends CI_Controller
                             </button>
                         </form>
                     </td>
+                    <td>'.$estado_negocio.'</td>
                 </tr>';
             }
         }
@@ -769,8 +782,8 @@ class NegociosController extends CI_Controller
             $correo->Username = "no-reply@aftersalesassistance.com";
             $correo->Password = 'N}mT=JzE,D$g';
             // CONFIGURAR CORREO PARA ENVIAR MENSAJES DE NO RESPUESTA! :XD
-            $correo->SetFrom('no-reply@aftersalesassistance.com',"SEELDEC");
-            $correo->addAddress($data_negocio->row(0)->email_cliente);//correo Cliente
+            $correo->SetFrom('no-reply@aftersalesassistance.com', "SEELDEC");
+            $correo->addAddress($data_negocio->row(0)->email_cliente); //correo Cliente
             $correo->addBCC('no-reply@aftersalesassistance.com'); //Correo tecnico
             $correo->Subject = "¿Cómo ha sido tu experiencia con nosotros?";
             $correo->CharSet = 'UTF-8';
@@ -800,7 +813,7 @@ class NegociosController extends CI_Controller
                     'fecha_envio' => Date('Y-m-d') . 'T' . Date('H:i:s')
                 );
                 $this->EncuestasModel->correo_notificacion_encuesta($data_correo_noti_encuesta);
-                
+
                 $data_array_negocio_historial_etapas = array(
                     'negocio_id' => $id_negocio,
                     'etapa_id' => 6,

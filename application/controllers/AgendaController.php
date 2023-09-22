@@ -66,14 +66,14 @@ class AgendaController extends CI_Controller
             "data" => null
         );
         try {
-            $where_cita = array();
+            
 
             $datos = file_get_contents('php://input');
             $datos = json_decode($datos);
             if (!isset($_POST["id_cita"]) || empty($_POST["id_cita"])) {
                 throw new Exception("No hay datos el la peticion");
             }
-            $data = $this->AgendaModel->get_citas($_POST["id_cita"], $where_cita);
+            $data = $this->AgendaModel->get_citas($_POST["id_cita"], $where_cita="");
             if ($data["status"]) {
                 $response["status"] = true;
                 $response["data"] = $data["data"];
@@ -95,8 +95,7 @@ class AgendaController extends CI_Controller
             "data" => null
         );
         try {
-            $where_cita = array();
-            $data = $this->AgendaModel->get_citas($cita = "", $where_cita);
+            $data = $this->AgendaModel->get_citas($cita = "", $where_cita="");
             $arr_calendar[] = array();
             if ($data["status"]) {
                 foreach ($data["data"] as $key) {
@@ -204,14 +203,13 @@ class AgendaController extends CI_Controller
     public function SendEmailNotificacionAgenda($id_negocio)
     {
         if (isset($id_negocio) && $id_negocio != "") {
-            $array_where_negocio = array('n.id_negocio' => $id_negocio);
+            
 
             /* $data_negocio = $this->NegociosModel->getNegociosAll($array_where_negocio); */
-            $data_cita = $this->AgendaModel->get_citas($id_cita = "", $array_where_negocio);
+            $where_id_negocio = 'and n.id_negocio ='.$id_negocio;
+
+            $data_cita = $this->AgendaModel->get_citas($id_cita = "", $where_id_negocio);
             if (count($data_cita) > 0) {
-
-                /* print_r($data_cita['data'][0]);die; */
-
 
                 $correo = $this->phpmailer_lib->load();
                 $correo->IsSMTP();
@@ -291,7 +289,7 @@ class AgendaController extends CI_Controller
 
             $where_cita = array();
             if ($this->perfil == 3) {
-                $where_cita['tecnico'] = $this->session->userdata('nit');
+                $where_cita = 'and tecnico = '.$this->session->userdata('nit');
             }
 
 
@@ -541,8 +539,7 @@ class AgendaController extends CI_Controller
     {
         if (isset($id_cita) && $id_cita != "") {
             /* $data_negocio = $this->NegociosModel->getNegociosAll($array_where_negocio); */
-            $array_where_negocio = array();
-            $data_cita = $this->AgendaModel->get_citas($id_cita, $array_where_negocio);
+            $data_cita = $this->AgendaModel->get_citas($id_cita, $array_where_negocio="");
             if (count($data_cita) > 0) {
 
                 /* print_r($data_cita['data'][0]);die; */

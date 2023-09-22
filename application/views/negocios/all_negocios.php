@@ -56,6 +56,7 @@
                                     <th class="text-center">ASESOR</th>
                                     <th class="text-center">FECHA REGISTRO</th>
                                     <th class="text-center">FLUJO DE TRABAJO</th>
+                                    <th class="text-center">ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
