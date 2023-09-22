@@ -29,7 +29,7 @@
         </div>
     </div>
 </div>
-<!-- Modal Info agenda-->
+<!-- Modal Finalizar agenda-->
 <div class="modal fade" id="modal_finalizar_agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
             <input type="hidden" id="id_cita_finalizar" name="id_cita_finalizar" value="">
@@ -54,11 +54,42 @@
             </div>
     </div>
 </div>
+<!-- Modal Reporgramar agenda-->
+<div class="modal fade" id="modal_reprogamar_agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+            <input type="hidden" id="id_cita_repro" name="id_cita_repro" value="">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Instalación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <div clas="row">
+                        <div class="col-12">
+                            <label>Antigua fecha:</label>
+                            <input class="form-control" disabled type="date" id="fec_cita_repro" name="fec_cita_repro" value="">
+                        </div>
+                    </div>
+                    <div clas="row">
+                        <div class="col-12">
+                            <label>Nueva fecha:</label>
+                            <input type="date" name="new_date_cita" id="new_date_cita" class="form-control" min="<?=Date('Y-m-d')?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="reprogamarCita();" type="button" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     const base_url = "<?php echo base_url() ?>";
 </script>
-<?php if ($this->perfil == 3) { ?>
+<?php if ($this->perfil == 1) { ?>
     <script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda_tecnicos.js"></script>
 <?php } else { ?>
     <script type="text/javascript" src="<?php echo base_url() ?>js/agenda/agenda.js"></script>

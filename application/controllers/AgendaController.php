@@ -350,7 +350,7 @@ class AgendaController extends CI_Controller
             'html' => 'Ha ocurrido un error, intente nuevamente!'
         );
 
-
+        $fecha_actual = Date('Y-m-d');
         $id_cita = $this->input->POST('id_cita');
 
         if ($id_cita != "" && $id_cita != NULL) {
@@ -360,25 +360,31 @@ class AgendaController extends CI_Controller
 
             if ($data_agenda_by_cita->num_rows() > 0) {
 
-                if ($data_agenda_by_cita->row(0)->estado == 1) {
-                    $data_update = array(
-                        'estado' => 2,
-                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
-                        'user_update' => $this->user_id
-                    );
-                    if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
-                        $array_response['response'] = 'success';
-                        $array_response['title'] = 'Exito';
-                        $array_response['html'] = 'Se ha realizado con exito la actualización del estado de la cita: #' . $id_cita;
+                if ($data_agenda_by_cita->row(0)->fecha_cita == $fecha_actual) {
+                    if ($data_agenda_by_cita->row(0)->estado == 1 || $data_agenda_by_cita->row(0)->estado == 4) {
+                        $data_update = array(
+                            'estado' => 2,
+                            'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                            'user_update' => $this->user_id
+                        );
+                        if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+                            $array_response['response'] = 'success';
+                            $array_response['title'] = 'Exito';
+                            $array_response['html'] = 'Se ha realizado con exito la actualización del estado de la cita: #' . $id_cita;
+                        } else {
+                            $array_response['response'] = 'warning';
+                            $array_response['title'] = 'Advertencia';
+                            $array_response['html'] = 'No se ha realizado la actualización del estado de la cita: #' . $id_cita;
+                        }
                     } else {
                         $array_response['response'] = 'warning';
                         $array_response['title'] = 'Advertencia';
-                        $array_response['html'] = 'No se ha realizado la actualización del estado de la cita: #' . $id_cita;
+                        $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
                     }
                 } else {
                     $array_response['response'] = 'warning';
                     $array_response['title'] = 'Advertencia';
-                    $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
+                    $array_response['html'] = 'No puede iniciar con la cita, ya que la fecha actual no coincide con la fecha de la programación<br><br><strong>Nota: </strong>La cita debe ser reprogramada por el asesor!';
                 }
             } else {
                 $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
@@ -480,4 +486,51 @@ class AgendaController extends CI_Controller
         echo json_encode($array_response);
     }
 
+    public function reprogramar_cita_agendada()
+    {
+
+        $array_response = array(
+            'response' => 'error',
+            'title' => 'Error',
+            'html' => 'Ha ocurrido un error, intente nuevamente!'
+        );
+
+
+        $id_cita = $this->input->POST('id_cita');
+        $fecha_cita = $this->input->POST('fecha_cita');
+
+        if ($id_cita != "" && $id_cita != NULL && $fecha_cita != NULL && $fecha_cita != "") {
+
+            $array_where_agenda = array('id_cita' => $id_cita);
+            $data_agenda_by_cita = $this->AgendaModel->getCitaByWhere($array_where_agenda);
+
+            if ($data_agenda_by_cita->num_rows() > 0) {
+
+                if ($data_agenda_by_cita->row(0)->estado == 1) {
+                    $data_update = array(
+                        'estado' => 4, // REPROGRAMADA
+                        'fecha_ejecucion' => Date('Y-m-d') . 'T' . Date('H.i:s'),
+                        'fecha_cita' => $fecha_cita . 'T' . Date('H.i:s'),
+                        'user_update' => $this->user_id
+                    );
+                    if ($this->AgendaModel->updateCita($data_update, $array_where_agenda) > 0) {
+                        $array_response['response'] = 'success';
+                        $array_response['title'] = 'Exito';
+                        $array_response['html'] = 'Se ha realizado con exito la reprogramación de la cita: #' . $id_cita;
+                    } else {
+                        $array_response['response'] = 'warning';
+                        $array_response['title'] = 'Advertencia';
+                        $array_response['html'] = 'No se ha realizado la reprogramación de la cita: #' . $id_cita;
+                    }
+                } else {
+                    $array_response['response'] = 'warning';
+                    $array_response['title'] = 'Advertencia';
+                    $array_response['html'] = 'La cita no se encuentra en estado Agendada!';
+                }
+            } else {
+                $array_response['html'] = 'No se ha encontrado información relacionada con el ID de la Cita: #' . $id_cita;
+            }
+        }
+        echo json_encode($array_response);
+    }
 }
