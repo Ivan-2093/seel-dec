@@ -711,7 +711,7 @@ class NegociosController extends CI_Controller
                 $nombre = ($row->id_cliente != "") ? $row->nombre_cliente :  $row->prospecto;
                 $nit = ($row->nit_cliente != "") ? $row->nit_cliente :  'No se ha asignado cliente';
 
-                switch ($row->fecha_registro) {
+                switch ($row->estado_negocio) {
                     case 0:
                         $estado_negocio = 'EN PROCESO';
                         break;

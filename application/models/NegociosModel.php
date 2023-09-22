@@ -56,7 +56,8 @@ class NegociosModel extends CI_Model
         n.fecha_registro,
         s.prospecto,
         n.solicitud_id,
-        t.email as email_cliente
+        t.email as email_cliente,
+        n.estado as estado_negocio
         ');
         $this->db->from('negocios as n');
         $this->db->join('solicitudes_prospecto as s', 's.id_solicitud = n.solicitud_id');
