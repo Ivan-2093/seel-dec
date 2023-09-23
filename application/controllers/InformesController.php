@@ -19,6 +19,8 @@ class InformesController extends CI_Controller
         validate_url_permiso_perfil($this->perfil);
         $this->load->model('MenusModel');
         $this->load->model('InformesModel');
+        $this->load->model('NegociosModel');
+        $this->load->model('ProspectosModel');
         $this->load->helper('menu_helper');
         $this->load->library('phpmailer_lib');
 
@@ -55,10 +57,12 @@ class InformesController extends CI_Controller
     }
     public function informe_negocios()
     {
+        $data_asesores = $this->InformesModel->get_asesores();
 
         $data_vista = array(
             'data_menus' => $this->html_menus,
             'name_page' => 'INFORME NEGOCIOS',
+            'asesores' => $data_asesores
         );
         $this->load->view('header', $data_vista);
         $this->load->view('informes/negocios');
@@ -141,7 +145,138 @@ class InformesController extends CI_Controller
         $array_response = array('tbody' => $tbody);
 
         echo json_encode($array_response);
-    
 
     }
+
+    public function load_informe_negocios()
+    {
+        $where = array();
+        if ($this->perfil != 4 && $this->perfil != 1) { // Si el perfil es diferente al administrado que cargue los negocios creados por el usuario!
+            $where['user_crea'] = $this->user_id;
+        }
+        //Filtros
+        if (count($this->input->POST()) > 0) {
+            if ($this->input->POST('date_start')) {
+                $where['n.fecha_registro >='] = $this->input->POST('date_start') . 'T' . DATE('00:00:00');
+            }
+
+            if ($this->input->POST('date_end')) {
+                $where['n.fecha_registro <='] = $this->input->POST('date_end') . 'T' . DATE('23:59:59');
+            }
+
+            if (($this->input->POST('inputNit'))) {
+                $where['t.nit'] = $this->input->POST('inputNit');
+            }
+
+            if ($this->input->POST('inputNames_1')) {
+                $where['t.primer_nombre like'] = '%' . trim($this->input->POST('inputNames_1')) . '%';
+            }
+
+            if ($this->input->POST('inputNames_2')) {
+                $where['t.primer_apellido like'] = '%' . trim($this->input->POST('inputNames_2')) . '%';
+            }
+            if ($this->input->POST('input_asesor')) {
+                $where['n.user_crea'] = $this->input->POST('input_asesor');
+            }
+            if ($this->input->POST('input_estado') != "") {
+                $where['n.estado'] = $this->input->POST('input_estado');
+            }
+        }
+
+        $data_negocios = $this->NegociosModel->getNegociosAll($where);
+        
+        $tbody = '';
+        if ($data_negocios->num_rows() > 0) {
+            foreach ($data_negocios->result() as $row) {
+
+                $nombre = ($row->id_cliente != "") ? $row->nombre_cliente :  $row->prospecto;
+                $nit = ($row->nit_cliente != "") ? $row->nit_cliente :  'No se ha asignado cliente';
+
+                switch ($row->estado_negocio) {
+                    case 0:
+                        $estado_negocio = 'EN PROCESO';
+                        break;
+                    case 1:
+                        $estado_negocio = 'FINALIZADO NO EFECTIVO';
+                        break;
+                    default:
+                        $estado_negocio = 'FINALIZADO EFECTIVO';
+                        break;
+                }
+
+                $tbody .=
+                    '<tr>
+                    <td class="text-center">' . $row->id_negocio . '</td>
+                    <td class="text-center">' . $nit . '</td>
+                    <td class="text-center">' . $nombre . '</td>
+                    <td class="text-center">' . $row->nombre_asesor . '</td>
+                    <td class="text-center">' . $row->fecha_registro . '</td>
+                    <td>'.$estado_negocio.'</td>
+                </tr>';
+            }
+        }
+
+        $array_response = array('tbody' => $tbody);
+
+        echo json_encode($array_response);
+    }
+
+    public function load_informe_solicitudes()
+    {
+        $where = array();
+        if (count($this->input->POST()) > 0) {
+            if ($this->input->POST('date_start')) {
+                $where['s.fecha_creado >='] = $this->input->POST('date_start') . 'T' .DATE('00:00:00');
+            }
+
+            if ($this->input->POST('date_end')) {
+                $where['s.fecha_creado <='] = $this->input->POST('date_end') . 'T' .DATE('23:59:59');
+            }
+
+            if (($this->input->POST('input_tipo'))) {
+                $where['s.id_tipo_solicitud'] = $this->input->POST('input_tipo');
+            }
+
+            if ($this->input->POST('input_negocio') == "SI") {
+                $where['n.id_negocio <>'] = '';
+            }
+            if ($this->input->POST('input_negocio') == "NO") {
+                $where['n.id_negocio'] = NULL;
+            }
+
+        }
+
+        $tbody = '';
+
+        $data_solicitudes = $this->ProspectosModel->getSolicitudesByWhere($where);
+
+        
+        if ($data_solicitudes->num_rows() > 0) {
+            foreach ($data_solicitudes->result() as $row) {
+                $column_negocio = "NO";
+                if($row->id_negocio != ""){
+                    $column_negocio = "SI";
+                }
+
+                $tbody .=
+                '<tr>
+                    <td>' . $row->id_solicitud . '</td>
+                    <td>' . $row->prospecto . '</td>
+                    <td>' . $row->telefono . '</td>
+                    <td>' . $row->correo . '</td>
+                    <td>' . $row->municipio . '</td>
+                    <td>' . $row->tipo_solicitud . '</td>
+                    <td>' . $row->usuario . '</td>
+                    <td>' . $row->fecha_creado . '</td>
+                    <td>' . $column_negocio . '</td>
+                </tr>';
+            }
+        }
+        $array_response = array(
+            'tbody' => $tbody,
+        );
+
+        echo json_encode($array_response);
+    }
+
 }

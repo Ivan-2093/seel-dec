@@ -12,6 +12,15 @@
                             <label for="date_end">HASTA:</label>
                             <input max="<?php echo date('Y-m-d') ?>" class="form-control" type="date" name="date_end" id="date_end" value="<?php echo date('Y-m-d') ?>">
                         </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                            <label for="input_estado">ESTADO</label>
+                            <select class="form-control" name="input_estado" id="input_estado">
+                                <option value="">Seleccione un estado</option>                                
+                                <option value="0">EN PROCESO</option>                                
+                                <option value="1">FINALIZADO NO EFECTIVO</option>                                
+                                <option value="2">FINALIZADO EFECTIVO</option>                                
+                            </select>
+                        </div>
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                             <label for="inputNit">N° DOCUMENTO:</label>
                             <input class="form-control" type="number" name="inputNit" id="inputNit">
@@ -24,10 +33,13 @@
                             <label for="inputNames_2">PRIMER APELLIDO:</label>
                             <input class="form-control" type="text" name="inputNames_2" id="inputNames_2">
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <label for="input_asesor">ASESOR</label>
                             <select class="form-control" name="input_asesor" id="input_asesor">
-
+                                <option value="">Seleccione un asesor</option>
+                                <?php foreach ($asesores->result() as $row) { ?>
+                                    <option value="<?= $row->id_user ?>"><?= $row->nombre_asesor ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12 p-2">
@@ -52,7 +64,6 @@
                                     <th class="text-center">CLIENTE</th>
                                     <th class="text-center">ASESOR</th>
                                     <th class="text-center">FECHA REGISTRO</th>
-                                    <th class="text-center">FLUJO DE TRABAJO</th>
                                     <th class="text-center">ESTADO</th>
                                 </tr>
                             </thead>
@@ -64,8 +75,8 @@
         </div>
     </div>
 </div>
-        <script type="text/javascript">
-            const base_url = "<?php echo base_url() ?>";
-        </script>
-        <script type="text/javascript" src="<?php echo base_url() ?>js/negocios/all_negocios.js"></script>
-        <?php $this->load->view('footer'); ?>
+<script type="text/javascript">
+    const base_url = "<?php echo base_url() ?>";
+</script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/informes/negocios.js"></script>
+<?php $this->load->view('footer'); ?>
