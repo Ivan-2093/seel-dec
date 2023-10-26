@@ -28,6 +28,7 @@ class NegociosController extends CI_Controller
         $this->load->model('ProspectosModel');
         $this->load->model('TercerosModel');
         $this->load->model('UsuariosModel');
+        $this->load->model('AgendaModel');
         $this->load->model('ClientesModel');
         $this->load->model('PaisesModel');
         $this->load->model('CotizacionModel');
@@ -598,6 +599,17 @@ class NegociosController extends CI_Controller
             );
 
             $data_where = array('id_negocio' => $id_negocio);
+            $data_where_citas = array('negocio_id' => $id_negocio);
+
+            $data_cita = $this->AgendaModel->getCitaByWhere($data_where_citas);
+            if ($data_cita->num_rows() > 0) {
+                if ($data_cita->row(0)->estado == 1 ||  $data_cita->row(0)->estado == 2 || $data_cita->row(0)->estado == 4) {
+                    $array_response['response'] = 'warning';
+                    $array_response['title'] = 'Error!';
+                    $array_response['html'] = 'No puede finalizar el negocio, ya que cuenta con una cita programada o en proceso';
+                    exit();
+                }
+            }
 
             if ($this->NegociosModel->updateNegocio($data_update, $data_where) > 0) {
                 $data_array_negocio_historial_etapas = array(
@@ -738,7 +750,7 @@ class NegociosController extends CI_Controller
                             </button>
                         </form>
                     </td>
-                    <td>'.$estado_negocio.'</td>
+                    <td>' . $estado_negocio . '</td>
                 </tr>';
             }
         }
