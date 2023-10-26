@@ -70,6 +70,7 @@ class NegociosModel extends CI_Model
         $this->db->join('empleados as e', 'u.empleado_id = e.id');
         $this->db->join('terceros as t_emp', 'e.id_tercero = t_emp.id','left');
         $this->db->where($data_where);
+        $this->db->order_by("n.estado", "asc");
         return $this->db->get();
     }
 
