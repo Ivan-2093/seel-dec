@@ -6,7 +6,7 @@
                     <div class="row align-self-end">
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                             <label for="date_start">DESDE:</label>
-                            <input max="<?php echo date('Y-m-d') ?>" class="form-control" type="date" name="date_start" id="date_start" value="<?php echo date('Y-m-01') ?>">
+                            <input max="<?php echo date('Y-m-d') ?>" class="form-control" type="date" name="date_start" id="date_start" value="">
                         </div>
                         <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                             <label for="date_end">HASTA:</label>
